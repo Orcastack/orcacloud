@@ -423,7 +423,7 @@ const CloudPlatformHeader: React.FC = () => {
                     '&:hover span': { color: '#7abcff' },
                   }}
                 >
-                  Orcacompute
+                  OrcaCloud
                 </Typography>
                 <Typography
                   component="span"

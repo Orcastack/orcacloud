@@ -266,7 +266,7 @@ const Homepage: React.FC = () => {
                   color: COLORS.white,
                 }}
               >
-                OrcaCloud Cloud Infrastructure for Enterprise-Grade Scale
+                OrcaCloud Infrastructure for Enterprise-Grade Scale
               </Typography>
               <Typography
                 sx={{
