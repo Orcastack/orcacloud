@@ -166,11 +166,11 @@ const getDocTheme = (isDark: boolean) => ({
 
 // Sample data (replace with API calls)
 const SAMPLE_SPACES: DocSpace[] = [
-  { id: 'org-1', name: 'Organization', type: 'organization', icon: '🏢', visibility: 'public', pageCount: 45 },
-  { id: 'team-eng', name: 'Engineering', type: 'team', icon: '⚙️', teamId: 't1', visibility: 'team', pageCount: 128 },
-  { id: 'team-marketing', name: 'Marketing', type: 'team', icon: '📢', teamId: 't2', visibility: 'team', pageCount: 67 },
-  { id: 'team-sales', name: 'Sales', type: 'team', icon: '💼', teamId: 't3', visibility: 'team', pageCount: 34 },
-  { id: 'private-1', name: 'My Private Docs', type: 'private', icon: '🔒', visibility: 'private', pageCount: 12 },
+  { id: 'org-1', name: 'Organization', type: 'organization', icon: 'ORG', visibility: 'public', pageCount: 45 },
+  { id: 'team-eng', name: 'Engineering', type: 'team', icon: 'ENG', teamId: 't1', visibility: 'team', pageCount: 128 },
+  { id: 'team-marketing', name: 'Marketing', type: 'team', icon: 'MKT', teamId: 't2', visibility: 'team', pageCount: 67 },
+  { id: 'team-sales', name: 'Sales', type: 'team', icon: 'SAL', teamId: 't3', visibility: 'team', pageCount: 34 },
+  { id: 'private-1', name: 'My Private Docs', type: 'private', icon: 'DOC', visibility: 'private', pageCount: 12 },
 ];
 
 const SAMPLE_TEMPLATES: DocTemplate[] = [
@@ -179,7 +179,7 @@ const SAMPLE_TEMPLATES: DocTemplate[] = [
     name: 'Standard Operating Procedure',
     description: 'Template for creating detailed operational procedures',
     type: 'sop',
-    icon: '📋',
+    icon: 'SOP',
     blocks: [
       { id: 'b1', type: 'heading1', content: 'SOP Title', order: 0 },
       { id: 'b2', type: 'heading2', content: 'Purpose', order: 1 },
@@ -195,10 +195,10 @@ const SAMPLE_TEMPLATES: DocTemplate[] = [
     name: 'Runbook',
     description: 'Step-by-step operational guide for systems',
     type: 'runbook',
-    icon: '📘',
+    icon: 'RUN',
     blocks: [
       { id: 'b1', type: 'heading1', content: 'Runbook: [System Name]', order: 0 },
-      { id: 'b2', type: 'callout', content: '⚠️ Critical: Review prerequisites before executing', order: 1 },
+      { id: 'b2', type: 'callout', content: 'Critical: Review prerequisites before executing', order: 1 },
       { id: 'b3', type: 'heading2', content: 'Prerequisites', order: 2 },
       { id: 'b4', type: 'checklist', content: 'Verify system access\nCheck environment status\nNotify team', order: 3 },
       { id: 'b5', type: 'heading2', content: 'Execution Steps', order: 4 },
@@ -212,7 +212,7 @@ const SAMPLE_TEMPLATES: DocTemplate[] = [
     name: 'API Documentation',
     description: 'Technical reference for API endpoints',
     type: 'api_reference',
-    icon: '🔌',
+    icon: 'API',
     blocks: [
       { id: 'b1', type: 'heading1', content: 'API: [Endpoint Name]', order: 0 },
       { id: 'b2', type: 'paragraph', content: 'Overview of API functionality...', order: 1 },
@@ -229,7 +229,7 @@ const SAMPLE_TEMPLATES: DocTemplate[] = [
     name: 'Meeting Notes',
     description: 'Capture meeting discussions and action items',
     type: 'meeting_notes',
-    icon: '📝',
+    icon: 'NOTE',
     blocks: [
       { id: 'b1', type: 'heading1', content: 'Meeting: [Title] - [Date]', order: 0 },
       { id: 'b2', type: 'heading2', content: 'Attendees', order: 1 },
@@ -245,7 +245,7 @@ const SAMPLE_TEMPLATES: DocTemplate[] = [
 const SAMPLE_PAGE: DocPage = {
   id: 'page-1',
   title: 'Getting Started with OrcaCloud Platform',
-  icon: '🚀',
+  icon: 'START',
   spaceId: 'org-1',
   blocks: [
     { id: 'b1', type: 'paragraph', content: 'Welcome to the OrcaCloud enterprise cloud platform. This guide will help you understand the core concepts and get started with your first deployment.', order: 0 },
@@ -254,7 +254,7 @@ const SAMPLE_PAGE: DocPage = {
     { id: 'b4', type: 'bulletList', content: 'Organizations - Top-level entities\nTeams - Collaborative groups\nProjects - Application containers\nEnvironments - Deployment targets', order: 3 },
     { id: 'b5', type: 'heading2', content: 'Quick Start', order: 4 },
     { id: 'b6', type: 'numberedList', content: 'Create an organization\nInvite team members\nCreate your first project\nDeploy your application', order: 5 },
-    { id: 'b7', type: 'callout', content: '💡 Tip: Start with a small pilot project to familiarize yourself with the platform', order: 6 },
+    { id: 'b7', type: 'callout', content: 'Tip: Start with a small pilot project to familiarize yourself with the platform', order: 6 },
     { id: 'b8', type: 'heading2', content: 'Code Example', order: 7 },
     { id: 'b9', type: 'code', content: '# Deploy your application\norcacloud deploy --project my-app --env production', order: 8 },
   ],
@@ -269,7 +269,7 @@ const SAMPLE_PAGE: DocPage = {
     {
       id: 'page-1-1',
       title: 'Organizations & Teams',
-      icon: '👥',
+      icon: 'TEAM',
       spaceId: 'org-1',
       parentPageId: 'page-1',
       blocks: [],
@@ -284,7 +284,7 @@ const SAMPLE_PAGE: DocPage = {
     {
       id: 'page-1-2',
       title: 'Projects & Deployments',
-      icon: '📦',
+      icon: 'APP',
       spaceId: 'org-1',
       parentPageId: 'page-1',
       blocks: [],
@@ -477,7 +477,7 @@ const EnterpriseDocsModule: React.FC<EnterpriseDocsModuleProps> = ({
           <TextField {...commonProps} sx={{ '& textarea': { fontSize: 16, color: T.text.primary, pl: 2 } }} placeholder="1. List item" />
         )}
         {block.type === 'checklist' && (
-          <TextField {...commonProps} sx={{ '& textarea': { fontSize: 16, color: T.text.primary, pl: 2 } }} placeholder="☐ Checklist item" />
+          <TextField {...commonProps} sx={{ '& textarea': { fontSize: 16, color: T.text.primary, pl: 2 } }} placeholder="Checklist item" />
         )}
         {block.type === 'quote' && (
           <Paper sx={{ p: 2, bgcolor: T.bg.tertiary, borderLeft: `4px solid ${T.accent.blue}` }}>
@@ -497,7 +497,7 @@ const EnterpriseDocsModule: React.FC<EnterpriseDocsModuleProps> = ({
           <Paper sx={{ p: 2, bgcolor: isDark ? 'rgba(251, 191, 36, 0.1)' : '#FEF3C7', border: `1px solid ${T.accent.yellow}`, borderRadius: 1 }}>
             <Stack direction="row" spacing={1} alignItems="flex-start">
               <InfoIcon sx={{ color: T.accent.yellow, mt: 0.5 }} />
-              <TextField {...commonProps} sx={{ '& textarea': { fontSize: 16, color: T.text.primary } }} placeholder="💡 Callout text..." />
+              <TextField {...commonProps} sx={{ '& textarea': { fontSize: 16, color: T.text.primary } }} placeholder="Callout text..." />
             </Stack>
           </Paper>
         )}
@@ -924,7 +924,7 @@ const EnterpriseDocsModule: React.FC<EnterpriseDocsModuleProps> = ({
               }}
             >
               <CardContent>
-                <Typography fontSize={32} mb={1}>📄</Typography>
+                <DescriptionIcon sx={{ fontSize: 32, mb: 1, color: T.accent.blue }} />
                 <Typography fontWeight={600} mb={1}>Blank Page</Typography>
                 <Typography fontSize={13} color={T.text.secondary}>
                   Start from scratch with an empty page
