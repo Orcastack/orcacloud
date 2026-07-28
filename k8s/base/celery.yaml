@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: celery-worker
-  namespace: orcacompute
+  namespace: orcacloud
   labels:
     app: celery-worker
     component: worker
@@ -19,8 +19,8 @@ spec:
     spec:
       containers:
       - name: celery-worker
-        image: atonixdev/orcacompute-backend:1.0.1
-        command: ["celery", "-A", "orcacompute", "worker", "--loglevel=info", "--concurrency=4"]
+        image: atonixdev/orcacloud-backend:1.0.1
+        command: ["celery", "-A", "orcacloud", "worker", "--loglevel=info", "--concurrency=4"]
         envFrom:
         - configMapRef:
             name: django-config
@@ -38,7 +38,7 @@ spec:
             command:
             - /bin/sh
             - -c
-            - "celery -A orcacompute inspect ping"
+            - "celery -A orcacloud inspect ping"
           initialDelaySeconds: 30
           periodSeconds: 30
 ---
@@ -46,7 +46,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: celery-beat
-  namespace: orcacompute
+  namespace: orcacloud
   labels:
     app: celery-beat
     component: scheduler
@@ -63,10 +63,10 @@ spec:
     spec:
       containers:
       - name: celery-beat
-        image: atonixdev/orcacompute-backend:1.0.1
+        image: atonixdev/orcacloud-backend:1.0.1
         # Avoid importing django_celery_beat at process startup until migrations
         # are applied; run plain beat here and enable scheduler after migrations.
-        command: ["celery", "-A", "orcacompute", "beat", "--loglevel=info"]
+        command: ["celery", "-A", "orcacloud", "beat", "--loglevel=info"]
         envFrom:
         - configMapRef:
             name: django-config
@@ -84,7 +84,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: flower
-  namespace: orcacompute
+  namespace: orcacloud
   labels:
     app: flower
     component: monitor
@@ -101,8 +101,8 @@ spec:
     spec:
       containers:
       - name: flower
-        image: atonixdev/orcacompute-backend:1.0.1
-        command: ["celery", "-A", "orcacompute", "flower", "--port=5555"]
+        image: atonixdev/orcacloud-backend:1.0.1
+        command: ["celery", "-A", "orcacloud", "flower", "--port=5555"]
         env:
         - name: FLOWER_PORT
           value: "5555"
@@ -125,7 +125,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: flower
-  namespace: orcacompute
+  namespace: orcacloud
   labels:
     app: flower
     component: monitor

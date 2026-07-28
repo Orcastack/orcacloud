@@ -1,4 +1,4 @@
-# OrcaCompute – OpenStack Compute Service
+# OrcaCloud – OpenStack Compute Service
 #
 # Wraps openstack.compute (Nova) operations: servers, flavors, images, keypairs.
 #

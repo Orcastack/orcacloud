@@ -1,0 +1,64 @@
+{
+  "name": "devopsapp",
+  "version": "0.1.0",
+  "private": true,
+  "homepage": "https://orcastack.github.io/OrcaCloud",
+  "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@mui/icons-material": "^5.15.14",
+    "@mui/lab": "^5.0.0-alpha.155",
+    "@mui/material": "^5.15.14",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/jest-dom": "^6.8.0",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^27.5.2",
+    "@types/node": "^16.18.126",
+    "@types/react": "^18.2.66",
+    "@types/react-dom": "^18.2.22",
+    "@xterm/addon-fit": "^0.11.0",
+    "@xterm/addon-web-links": "^0.12.0",
+    "@xterm/xterm": "^6.0.0",
+    "axios": "^1.12.2",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-router-dom": "^7.9.1",
+    "react-scripts": "^5.0.1",
+    "recharts": "^3.2.1",
+    "typescript": "5.1.6",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "prestart": "mkdir -p node_modules/.cache/default-development && touch node_modules/.cache/default-development/0.pack",
+    "codemod:rename-unused": "node ./tools/codemods/rename-unused.js",
+    "start": "PORT=3003 REACT_APP_PORTAL_VARIANT=devops node_modules/.bin/react-scripts start",
+    "build": "REACT_APP_PORTAL_VARIANT=devops node_modules/.bin/react-scripts build",
+    "test": "node_modules/.bin/react-scripts test --passWithNoTests",
+    "test:coverage": "node_modules/.bin/react-scripts test --coverage --watchAll=false --passWithNoTests",
+    "test:ci": "node_modules/.bin/react-scripts test --watchAll=false --passWithNoTests",
+    "eject": "node_modules/.bin/react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "proxy": "http://localhost:8000",
+  "devDependencies": {
+    "ts-morph": "^16.0.0"
+  }
+}

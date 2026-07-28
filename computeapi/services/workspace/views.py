@@ -106,7 +106,7 @@ class DevWorkspaceViewSet(viewsets.ModelViewSet):
         workspace.status = 'running'
         workspace.started_at = django_tz.now()
         workspace.editor_url = (
-            f'https://editor.orcacompute.dev/{workspace.workspace_id}'
+            f'https://editor.orcacloud.dev/{workspace.workspace_id}'
         )
         workspace.cpu_percent = 5
         workspace.ram_percent = 20
@@ -144,7 +144,7 @@ class DevWorkspaceViewSet(viewsets.ModelViewSet):
         workspace = self.get_object()
         workspace.status = 'running'
         workspace.started_at = django_tz.now()
-        workspace.editor_url = f'https://editor.orcacompute.dev/{workspace.workspace_id}'
+        workspace.editor_url = f'https://editor.orcacloud.dev/{workspace.workspace_id}'
         workspace.cpu_percent = 5
         workspace.ram_percent = 20
         workspace.containers = 1

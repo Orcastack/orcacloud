@@ -1,4 +1,4 @@
-# OrcaCompute Storage Service - Models
+# OrcaCloud Storage Service - Models
 
 from django.db import models
 from django.contrib.auth.models import User

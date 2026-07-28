@@ -1,4 +1,4 @@
-# OrcaCompute Cloud – OpenStack Swift Service
+# OrcaCloud – OpenStack Swift Service
 # Wraps the openstacksdk / swiftclient for bucket & object operations.
 # Falls back to mock responses when no OpenStack cluster is reachable so that
 # the dashboard works in local dev without a full cluster.
@@ -19,12 +19,12 @@ logger = logging.getLogger(__name__)
 
 # ── Config from environment ───────────────────────────────────────────────────
 OS_AUTH_URL    = os.environ.get('OS_AUTH_URL',    'http://localhost:5000/v3')
-OS_USERNAME    = os.environ.get('OS_USERNAME',    'orcacompute')
+OS_USERNAME    = os.environ.get('OS_USERNAME',    'orcacloud')
 OS_PASSWORD    = os.environ.get('OS_PASSWORD',    'changeme')
-OS_PROJECT     = os.environ.get('OS_PROJECT_NAME','orcacompute')
+OS_PROJECT     = os.environ.get('OS_PROJECT_NAME','orcacloud')
 OS_DOMAIN      = os.environ.get('OS_DOMAIN_NAME', 'Default')
 OS_REGION      = os.environ.get('OS_REGION_NAME', 'us-east-1')
-SWIFT_BASE_URL = os.environ.get('SWIFT_URL', 'https://storage.orcacompute.com/v1')
+SWIFT_BASE_URL = os.environ.get('SWIFT_URL', 'https://storage.orcacloud.com/v1')
 SWIFT_TEMP_KEY = os.environ.get('SWIFT_TEMP_KEY', 'atonix-temp-url-key')
 
 # Storage-class → Swift policy mapping
@@ -310,7 +310,7 @@ def _mock_container(name, region, storage_class, status):
         'region':        region,
         'storage_class': storage_class,
         'status':        status,
-        'endpoint':      f'https://storage.orcacompute.com/v1/{name}',
+        'endpoint':      f'https://storage.orcacloud.com/v1/{name}',
         'mock':          True,
     }
 

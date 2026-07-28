@@ -1,5 +1,5 @@
 #!/bin/bash
-# OrcaCompute Infrastructure Setup
+# OrcaCloud Infrastructure Setup
 # Puppet + Gerrit + CNI Configuration and Deployment
 
 set -euo pipefail
@@ -48,7 +48,7 @@ print_banner() {
     echo -e "${BLUE}"
     cat << 'EOF'
     ╔══════════════════════════════════════════════════════════════╗
-    ║              OrcaCompute Infrastructure              ║
+    ║              OrcaCloud Infrastructure              ║
     ║          Puppet + Gerrit + CNI Setup & Configuration        ║
     ║                                                              ║
     ║  [CONFIG] Puppet Configuration Management                   ║
@@ -184,7 +184,7 @@ setup_monitoring() {
     log "Setting up monitoring infrastructure..."
     
     # Apply Puppet monitoring module
-    /opt/puppetlabs/bin/puppet apply -e "include orcacompute::monitoring"
+    /opt/puppetlabs/bin/puppet apply -e "include orcacloud::monitoring"
     
     log "Monitoring setup completed"
 }
@@ -194,24 +194,24 @@ create_management_scripts() {
     log "Creating management scripts..."
     
     # Main management script
-    cat > /usr/local/bin/orcacompute-infra-manage << 'EOF'
+    cat > /usr/local/bin/orcacloud-infra-manage << 'EOF'
 #!/bin/bash
-# OrcaCompute Infrastructure Management Script
+# OrcaCloud Infrastructure Management Script
 
 case "$1" in
     status)
-        echo "OrcaCompute Infrastructure Status"
+        echo "OrcaCloud Infrastructure Status"
         echo "================================"
         echo
         echo "Puppet Status:"
         systemctl status puppet --no-pager -l
         echo
         echo "Gerrit Services:"
-        cd /opt/orcacompute/infrastructure/gerrit
+        cd /opt/orcacloud/infrastructure/gerrit
         docker-compose ps
         echo
         echo "CNI Status:"
-        /usr/local/bin/orcacompute-cni-manage status
+        /usr/local/bin/orcacloud-cni-manage status
         echo
         echo "Monitoring Status:"
         systemctl status prometheus --no-pager -l
@@ -223,12 +223,12 @@ case "$1" in
         ;;
     gerrit-restart)
         echo "Restarting Gerrit services..."
-        cd /opt/orcacompute/infrastructure/gerrit
+        cd /opt/orcacloud/infrastructure/gerrit
         docker-compose restart
         ;;
     cni-restart)
         echo "Restarting CNI networking..."
-        /usr/local/bin/orcacompute-cni-manage restart
+        /usr/local/bin/orcacloud-cni-manage restart
         ;;
     logs)
         echo "Viewing infrastructure logs..."
@@ -236,11 +236,11 @@ case "$1" in
         tail -20 /var/log/puppetlabs/puppet/puppet.log
         echo
         echo "Gerrit logs:"
-        cd /opt/orcacompute/infrastructure/gerrit
+        cd /opt/orcacloud/infrastructure/gerrit
         docker-compose logs --tail=20
         ;;
     *)
-        echo "OrcaCompute Infrastructure Management"
+        echo "OrcaCloud Infrastructure Management"
         echo "Usage: $0 {status|puppet-run|gerrit-restart|cni-restart|logs}"
         echo
         echo "Commands:"
@@ -254,7 +254,7 @@ case "$1" in
 esac
 EOF
 
-    chmod +x /usr/local/bin/orcacompute-infra-manage
+    chmod +x /usr/local/bin/orcacloud-infra-manage
     
     log "Management scripts created"
 }
@@ -269,7 +269,7 @@ run_tests() {
     
     # Test CNI
     info "Testing CNI networking..."
-    /usr/local/bin/orcacompute-cni-manage test
+    /usr/local/bin/orcacloud-cni-manage test
     
     # Test Gerrit
     info "Testing Gerrit connectivity..."
@@ -294,11 +294,11 @@ run_tests() {
 create_documentation() {
     log "Creating infrastructure documentation..."
     
-    cat > /opt/orcacompute/INFRASTRUCTURE_GUIDE.md << 'EOF'
-# OrcaCompute Infrastructure Guide
+    cat > /opt/orcacloud/INFRASTRUCTURE_GUIDE.md << 'EOF'
+# OrcaCloud Infrastructure Guide
 
 ## Overview
-This guide covers the infrastructure components of the OrcaCompute platform:
+This guide covers the infrastructure components of the OrcaCloud platform:
 - Puppet Configuration Management
 - Gerrit Code Review & CI/CD
 - CNI Container Networking
@@ -320,7 +320,7 @@ This guide covers the infrastructure components of the OrcaCompute platform:
 ### CNI Networking
 - **Configuration**: `/etc/cni/net.d/`
 - **Bridge**: `atonix-br0` (10.100.0.0/16)
-- **Management**: `orcacompute-cni-manage`
+- **Management**: `orcacloud-cni-manage`
 
 ### Monitoring
 - **Prometheus**: http://localhost:9090
@@ -332,23 +332,23 @@ This guide covers the infrastructure components of the OrcaCompute platform:
 
 ### Infrastructure Status
 ```bash
-orcacompute-infra-manage status
+orcacloud-infra-manage status
 ```
 
 ### Run Puppet
 ```bash
-orcacompute-infra-manage puppet-run
+orcacloud-infra-manage puppet-run
 ```
 
 ### Restart Services
 ```bash
-orcacompute-infra-manage gerrit-restart
-orcacompute-infra-manage cni-restart
+orcacloud-infra-manage gerrit-restart
+orcacloud-infra-manage cni-restart
 ```
 
 ### View Logs
 ```bash
-orcacompute-infra-manage logs
+orcacloud-infra-manage logs
 ```
 
 ## CI/CD Workflow
@@ -380,7 +380,7 @@ docker-compose -f infrastructure/gerrit/docker-compose.yml logs gerrit
 
 ### CNI Issues
 ```bash
-orcacompute-cni-manage status
+orcacloud-cni-manage status
 journalctl -u containerd -f
 ```
 
@@ -409,7 +409,7 @@ EOF
 main() {
     print_banner
     
-    log "Starting OrcaCompute Infrastructure setup..."
+    log "Starting OrcaCloud Infrastructure setup..."
     
     check_root
     install_prerequisites
@@ -421,7 +421,7 @@ main() {
     run_tests
     create_documentation
     
-    log "[COMPLETE] OrcaCompute Infrastructure setup completed successfully!"
+    log "[COMPLETE] OrcaCloud Infrastructure setup completed successfully!"
     
     echo
     info "Infrastructure Services:"
@@ -430,8 +430,8 @@ main() {
     info "├── CNI: Container networking configured"
     info "└── Monitoring: Prometheus + Grafana"
     echo
-    info "Management: Use 'orcacompute-infra-manage status' to check all services"
-    info "Documentation: See /opt/orcacompute/INFRASTRUCTURE_GUIDE.md"
+    info "Management: Use 'orcacloud-infra-manage status' to check all services"
+    info "Documentation: See /opt/orcacloud/INFRASTRUCTURE_GUIDE.md"
     echo
 }
 

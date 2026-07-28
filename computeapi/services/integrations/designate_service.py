@@ -1,4 +1,4 @@
-# OrcaCompute Cloud – OpenStack Designate DNS Service
+# OrcaCloud – OpenStack Designate DNS Service
 # Manages DNS zones and recordsets via the Designate API.
 # Falls back to a simulated response when no cluster is available.
 
@@ -12,12 +12,12 @@ logger = logging.getLogger(__name__)
 DESIGNATE_URL  = os.environ.get('DESIGNATE_URL',    'http://localhost:9001/v2')
 DESIGNATE_TOKEN= os.environ.get('DESIGNATE_TOKEN',  '')
 OS_AUTH_URL    = os.environ.get('OS_AUTH_URL',      'http://localhost:5000/v3')
-OS_USERNAME    = os.environ.get('OS_USERNAME',      'orcacompute')
+OS_USERNAME    = os.environ.get('OS_USERNAME',      'orcacloud')
 OS_PASSWORD    = os.environ.get('OS_PASSWORD',      'changeme')
-OS_PROJECT     = os.environ.get('OS_PROJECT_NAME',  'orcacompute')
+OS_PROJECT     = os.environ.get('OS_PROJECT_NAME',  'orcacloud')
 OS_DOMAIN      = os.environ.get('OS_DOMAIN_NAME',   'Default')
 DEFAULT_TTL    = 300
-DEFAULT_EMAIL  = 'hostmaster@orcacompute.com'
+DEFAULT_EMAIL  = 'hostmaster@orcacloud.com'
 
 
 def _live() -> bool:
@@ -237,7 +237,7 @@ def bootstrap_zone(zone_id: str, domain_name: str,
 
     results.append(create_record(
         zone_id, zone_name, 'TXT',
-        [f'"v=spf1 include:_spf.orcacompute.com ~all"'],
+        [f'"v=spf1 include:_spf.orcacloud.com ~all"'],
     ))
 
     return {

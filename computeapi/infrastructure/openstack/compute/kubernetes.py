@@ -1,4 +1,4 @@
-# OrcaCompute – OpenStack Kubernetes Service (Magnum)
+# OrcaCloud – OpenStack Kubernetes Service (Magnum)
 #
 # Wraps openstack.container_infra (Magnum) operations:
 # cluster templates, clusters, and node groups.
@@ -169,7 +169,7 @@ def provision_kubernetes_cluster(
     Provisions infrastructure backing a K8s cluster using OpenStack when available.
     Falls back to simulated provisioning when OpenStack is not configured.
     """
-    api_endpoint = f"https://{cluster_name}.k8s.{region}.orcacompute.cloud:6443"
+    api_endpoint = f"https://{cluster_name}.k8s.{region}.orcacloud.cloud:6443"
     kubeconfig = _build_kubeconfig(cluster_name, api_endpoint)
 
     if not is_openstack_configured():
@@ -255,7 +255,7 @@ def deploy_kubernetes_manifest(*, cluster_name: str, manifest_yaml: str) -> dict
 def deploy_serverless_function(
     *, function_name: str, runtime: str, code_uri: str
 ) -> dict[str, Any]:
-    endpoint = f"https://functions.orcacompute.cloud/{function_name}"
+    endpoint = f"https://functions.orcacloud.cloud/{function_name}"
     return {
         "provider": "knative-simulated",
         "endpoint": endpoint,

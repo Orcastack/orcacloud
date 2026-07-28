@@ -2,10 +2,10 @@ apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
   name: quantum-module-deployment
-  namespace: orcacompute-tekton
+  namespace: orcacloud-tekton
   labels:
     app.kubernetes.io/version: "0.1"
-  kas.orcacompute.com/managed: "true"
+  kas.orcacloud.com/managed: "true"
   annotations:
     tekton.dev/pipelines.minVersion: "0.29.0"
     tekton.dev/categories: CI/CD, Quantum
@@ -244,10 +244,10 @@ apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
   name: quantum-module-cleanup
-  namespace: orcacompute-tekton
+  namespace: orcacloud-tekton
   labels:
     app.kubernetes.io/version: "0.1"
-  kas.orcacompute.com/managed: "true"
+  kas.orcacloud.com/managed: "true"
   annotations:
     tekton.dev/pipelines.minVersion: "0.29.0"
     tekton.dev/categories: CI/CD, Quantum

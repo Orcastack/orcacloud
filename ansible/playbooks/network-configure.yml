@@ -1,5 +1,5 @@
 ---
-# OrcaCompute – Neutron Network Configuration
+# OrcaCloud – Neutron Network Configuration
 #
 # Configures:
 #   - OVS bridges (br-ex, br-int, br-tun) on network nodes
@@ -12,7 +12,7 @@
 # Usage:
 #   ansible-playbook -i inventory/production.ini playbooks/network-configure.yml
 
-- name: OrcaCompute Neutron Network Configuration
+- name: OrcaCloud Neutron Network Configuration
   hosts: openstack_network
   become: true
   gather_facts: true
@@ -121,9 +121,9 @@
     - name: Create Public Cloud DNS zone
       command: >
         openstack zone create
-        --email noc@orcacompute.com
-        --description "OrcaCompute Public Cloud DNS"
-        public.cloud.orcacompute.com.
+        --email noc@orcacloud.com
+        --description "OrcaCloud Public Cloud DNS"
+        public.cloud.orcacloud.com.
       environment:
         OS_CLOUD: "{{ openstack_admin_cloud }}"
       register: dns_public
@@ -138,9 +138,9 @@
     - name: Create Hybrid Cloud DNS zone
       command: >
         openstack zone create
-        --email noc@orcacompute.com
-        --description "OrcaCompute Hybrid Cloud DNS"
-        hybrid.cloud.orcacompute.com.
+        --email noc@orcacloud.com
+        --description "OrcaCloud Hybrid Cloud DNS"
+        hybrid.cloud.orcacloud.com.
       environment:
         OS_CLOUD: "{{ openstack_admin_cloud }}"
       register: dns_hybrid

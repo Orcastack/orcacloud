@@ -1,11 +1,11 @@
 # Strategic merge patch for backend deployment to ensure the app binds to IPv6
-# This patch assumes the Deployment `backend` exists in namespace `orcacompute`.
+# This patch assumes the Deployment `backend` exists in namespace `orcacloud`.
 # It changes the container command to use gunicorn binding to [::]:8000.
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: backend
-  namespace: orcacompute
+  namespace: orcacloud
 spec:
   template:
     spec:
@@ -16,6 +16,6 @@ spec:
         command: ["/bin/sh","-c"]
         args:
           - |
-            exec gunicorn --bind '[::]:8000' --workers 3 orcacompute.wsgi:application
+            exec gunicorn --bind '[::]:8000' --workers 3 orcacloud.wsgi:application
         # Preserve existing ports and env
   # If your image already starts the server, remove this patch or adapt it.

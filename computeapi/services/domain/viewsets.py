@@ -1,6 +1,4 @@
 import logging
-from datetime import date, timedelta
-from decimal import Decimal
 from django.contrib.auth.models import User
 from django.db.models import Count
 from rest_framework import status
@@ -26,57 +24,13 @@ from .serializers import (
 from ..integrations import reseller_club_service as rc
 from ..integrations import designate_service as dns_svc
 from ..core.tasks import enqueue_domain_switch_workflow
+from .service import create_domain_invoice
 
 logger = logging.getLogger(__name__)
 
 
 class DomainSearchAnonThrottle(AnonRateThrottle):
     scope = 'domain_search'
-
-
-def _resolve_domain_unit_price(tld: str, operation: str) -> Decimal:
-    try:
-        catalogue = rc.get_tld_catalogue() or []
-        match = next((item for item in catalogue if str(item.get('tld', '')).lower() == str(tld).lower()), None)
-        if match:
-            key = 'register_price' if operation == 'register' else 'renew_price'
-            return Decimal(str(match.get(key) or 0))
-    except Exception:
-        pass
-    return Decimal('12.00') if operation == 'register' else Decimal('10.00')
-
-
-def _create_domain_invoice(owner, domain: Domain, operation: str, years: int):
-    from ..billing.models import Invoice, InvoiceLineItem
-
-    unit_price = _resolve_domain_unit_price(domain.tld, operation)
-    qty = Decimal(str(max(1, years)))
-    subtotal = (unit_price * qty).quantize(Decimal('0.0001'))
-
-    invoice = Invoice.objects.create(
-        owner=owner,
-        status='open',
-        period_start=date.today(),
-        period_end=date.today(),
-        subtotal=subtotal,
-        tax_rate=Decimal('0'),
-        tax_amount=Decimal('0'),
-        total=subtotal,
-        due_date=date.today() + timedelta(days=7),
-        currency='USD',
-        notes=f'Domain {operation} charge for {domain.domain_name}',
-    )
-    InvoiceLineItem.objects.create(
-        invoice=invoice,
-        service='domains',
-        resource_id=domain.resource_id,
-        description=f'Domain {operation}: {domain.domain_name}',
-        quantity=qty,
-        unit='year',
-        unit_price=unit_price,
-        amount=subtotal,
-    )
-    return invoice
 
 
 # ── Domain ViewSet ────────────────────────────────────────────────────────────
@@ -172,7 +126,7 @@ class DomainViewSet(ModelViewSet):
             )
 
         try:
-            _create_domain_invoice(
+            create_domain_invoice(
                 owner=request.user,
                 domain=domain,
                 operation='register',
@@ -238,7 +192,7 @@ class DomainViewSet(ModelViewSet):
                             status=status.HTTP_400_BAD_REQUEST)
 
         try:
-            _create_domain_invoice(
+            create_domain_invoice(
                 owner=request.user,
                 domain=domain,
                 operation='renew',
@@ -446,21 +400,21 @@ class DomainViewSet(ModelViewSet):
 
     _DNS_TEMPLATES = [
         {
-            'name': 'orcacompute_app',
-            'label': 'Point to OrcaCompute App',
-            'description': 'Route traffic to an OrcaCompute compute instance or load balancer.',
+            'name': 'orcacloud_app',
+            'label': 'Point to OrcaCloud App',
+            'description': 'Route traffic to an OrcaCloud compute instance or load balancer.',
             'records': [
                 {'record_type': 'A',     'name': '@',   'records': ['<your-app-ip>'],         'ttl': 300},
                 {'record_type': 'CNAME', 'name': 'www', 'records': ['<your-domain.com>.'],     'ttl': 300},
             ],
         },
         {
-            'name': 'orcacompute_cdn',
-            'label': 'OrcaCompute CDN',
-            'description': 'Route traffic through OrcaCompute CDN edge.',
+            'name': 'orcacloud_cdn',
+            'label': 'OrcaCloud CDN',
+            'description': 'Route traffic through OrcaCloud CDN edge.',
             'records': [
-                {'record_type': 'CNAME', 'name': '@',   'records': ['cdn.orcacompute.com.'],   'ttl': 300},
-                {'record_type': 'CNAME', 'name': 'www', 'records': ['cdn.orcacompute.com.'],   'ttl': 300},
+                {'record_type': 'CNAME', 'name': '@',   'records': ['cdn.orcacloud.com.'],   'ttl': 300},
+                {'record_type': 'CNAME', 'name': 'www', 'records': ['cdn.orcacloud.com.'],   'ttl': 300},
             ],
         },
         {

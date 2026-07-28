@@ -3,20 +3,20 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: orcacompute-backend-config
-  namespace: orcacompute
+  name: orcacloud-backend-config
+  namespace: orcacloud
 data:
-  DJANGO_SETTINGS_MODULE: "orcacompute.settings"
-  ALLOWED_HOSTS: "orcacompute.com,api.orcacompute.com,orcacompute-backend"
+  DJANGO_SETTINGS_MODULE: "orcacloud.settings"
+  ALLOWED_HOSTS: "orcacloud.com,api.orcacloud.com,orcacloud-backend"
   DEBUG: "false"
-  DATABASE_URL: "postgresql://orcacompute:changeme@orcacompute-postgres:5432/orcacompute"
-  REDIS_URL: "redis://orcacompute-redis:6379/0"
-  RABBITMQ_URL: "amqp://admin:changeme@orcacompute-rabbitmq:5672/"
-  KAFKA_BOOTSTRAP_SERVERS: "orcacompute-kafka:9092"
+  DATABASE_URL: "postgresql://orcacloud:changeme@orcacloud-postgres:5432/orcacloud"
+  REDIS_URL: "redis://orcacloud-redis:6379/0"
+  RABBITMQ_URL: "amqp://admin:changeme@orcacloud-rabbitmq:5672/"
+  KAFKA_BOOTSTRAP_SERVERS: "orcacloud-kafka:9092"
   KAFKA_ENABLED: "true"
-  PROMETHEUS_PUSHGATEWAY_URL: "http://orcacompute-pushgateway:9091"
-  CORS_ALLOWED_ORIGINS: "https://orcacompute.com,https://app.orcacompute.com"
-  OS_CLOUD: "orcacompute"
+  PROMETHEUS_PUSHGATEWAY_URL: "http://orcacloud-pushgateway:9091"
+  CORS_ALLOWED_ORIGINS: "https://orcacloud.com,https://app.orcacloud.com"
+  OS_CLOUD: "orcacloud"
   OS_REGION_NAME: "RegionOne"
 
 ---
@@ -24,8 +24,8 @@ data:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: orcacompute-backend-secret
-  namespace: orcacompute
+  name: orcacloud-backend-secret
+  namespace: orcacloud
 type: Opaque
 stringData:
   SECRET_KEY: "change-me-in-production"
@@ -38,16 +38,16 @@ stringData:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: orcacompute-backend
-  namespace: orcacompute
+  name: orcacloud-backend
+  namespace: orcacloud
   labels:
-    app: orcacompute-backend
+    app: orcacloud-backend
     ax/component: api
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: orcacompute-backend
+      app: orcacloud-backend
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -56,7 +56,7 @@ spec:
   template:
     metadata:
       labels:
-        app: orcacompute-backend
+        app: orcacloud-backend
         ax/component: api
     spec:
       securityContext:
@@ -65,7 +65,7 @@ spec:
         fsGroup: 1000
       containers:
         - name: backend
-          image: ghcr.io/orcacompute/orcacompute-backend:latest
+          image: ghcr.io/orcacloud/orcacloud-backend:latest
           imagePullPolicy: Always
           ports:
             - name: http
@@ -74,90 +74,90 @@ spec:
             - name: DJANGO_SETTINGS_MODULE
               valueFrom:
                 configMapKeyRef:
-                  name: orcacompute-backend-config
+                  name: orcacloud-backend-config
                   key: DJANGO_SETTINGS_MODULE
             - name: ALLOWED_HOSTS
               valueFrom:
                 configMapKeyRef:
-                  name: orcacompute-backend-config
+                  name: orcacloud-backend-config
                   key: ALLOWED_HOSTS
             - name: DEBUG
               valueFrom:
                 configMapKeyRef:
-                  name: orcacompute-backend-config
+                  name: orcacloud-backend-config
                   key: DEBUG
             - name: DATABASE_URL
               valueFrom:
                 configMapKeyRef:
-                  name: orcacompute-backend-config
+                  name: orcacloud-backend-config
                   key: DATABASE_URL
             - name: REDIS_URL
               valueFrom:
                 configMapKeyRef:
-                  name: orcacompute-backend-config
+                  name: orcacloud-backend-config
                   key: REDIS_URL
             - name: RABBITMQ_URL
               valueFrom:
                 configMapKeyRef:
-                  name: orcacompute-backend-config
+                  name: orcacloud-backend-config
                   key: RABBITMQ_URL
             - name: KAFKA_BOOTSTRAP_SERVERS
               valueFrom:
                 configMapKeyRef:
-                  name: orcacompute-backend-config
+                  name: orcacloud-backend-config
                   key: KAFKA_BOOTSTRAP_SERVERS
             - name: KAFKA_ENABLED
               valueFrom:
                 configMapKeyRef:
-                  name: orcacompute-backend-config
+                  name: orcacloud-backend-config
                   key: KAFKA_ENABLED
             - name: PROMETHEUS_PUSHGATEWAY_URL
               valueFrom:
                 configMapKeyRef:
-                  name: orcacompute-backend-config
+                  name: orcacloud-backend-config
                   key: PROMETHEUS_PUSHGATEWAY_URL
             - name: CORS_ALLOWED_ORIGINS
               valueFrom:
                 configMapKeyRef:
-                  name: orcacompute-backend-config
+                  name: orcacloud-backend-config
                   key: CORS_ALLOWED_ORIGINS
             - name: OS_CLOUD
               valueFrom:
                 configMapKeyRef:
-                  name: orcacompute-backend-config
+                  name: orcacloud-backend-config
                   key: OS_CLOUD
             - name: OS_REGION_NAME
               valueFrom:
                 configMapKeyRef:
-                  name: orcacompute-backend-config
+                  name: orcacloud-backend-config
                   key: OS_REGION_NAME
             - name: SECRET_KEY
               valueFrom:
                 secretKeyRef:
-                  name: orcacompute-backend-secret
+                  name: orcacloud-backend-secret
                   key: SECRET_KEY
             - name: OS_AUTH_URL
               valueFrom:
                 secretKeyRef:
-                  name: orcacompute-backend-secret
+                  name: orcacloud-backend-secret
                   key: OS_AUTH_URL
                   optional: true
             - name: OS_USERNAME
               valueFrom:
                 secretKeyRef:
-                  name: orcacompute-backend-secret
+                  name: orcacloud-backend-secret
                   key: OS_USERNAME
                   optional: true
             - name: OS_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: orcacompute-backend-secret
+                  name: orcacloud-backend-secret
                   key: OS_PASSWORD
                   optional: true
             - name: OS_PROJECT_NAME
               valueFrom:
                 secretKeyRef:
-                  name: orcacompute-backend-secret
+                  name: orcacloud-backend-secret
                   key: OS_PROJECT_NAME
                   optional: true
           resources:
@@ -189,22 +189,22 @@ spec:
       volumes:
         - name: static-files
           persistentVolumeClaim:
-            claimName: orcacompute-static-pvc
+            claimName: orcacloud-static-pvc
         - name: media-files
           persistentVolumeClaim:
-            claimName: orcacompute-media-pvc
+            claimName: orcacloud-media-pvc
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: orcacompute-backend
-  namespace: orcacompute
+  name: orcacloud-backend
+  namespace: orcacloud
   labels:
-    app: orcacompute-backend
+    app: orcacloud-backend
 spec:
   selector:
-    app: orcacompute-backend
+    app: orcacloud-backend
   ports:
     - name: http
       port: 8000

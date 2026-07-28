@@ -1,8 +1,8 @@
-# OrcaCompute Cloud Enablement — Implementation Playbook
+# OrcaCloud Enablement — Implementation Playbook
 
 ## 1) Purpose and Scope
 
-This playbook operationalizes OrcaCompute’s target cloud model in this repository:
+This playbook operationalizes OrcaCloud’s target cloud model in this repository:
 
 - Public cloud (multi-tenant shared infrastructure)
 - Private cloud (isolated enterprise environments)

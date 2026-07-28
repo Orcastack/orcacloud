@@ -1,5 +1,5 @@
 ---
-# vm-base role — Base OS configuration applied to ALL OrcaCompute VMs
+# vm-base role — Base OS configuration applied to ALL OrcaCloud VMs
 
 - name: Update apt cache
   ansible.builtin.apt:

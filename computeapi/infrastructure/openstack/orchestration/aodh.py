@@ -1,4 +1,4 @@
-# OrcaCompute – OpenStack Alarming Service (Aodh)
+# OrcaCloud – OpenStack Alarming Service (Aodh)
 #
 # Wraps Aodh (aodh.alarm) operations:
 # alarms, alarm history, quota management.

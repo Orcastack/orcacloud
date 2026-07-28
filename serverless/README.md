@@ -1,6 +1,6 @@
 # Serverless – Knative + OpenFaaS
 
-The OrcaCompute serverless layer runs on top of **Kubernetes**, not directly on OpenStack. Equivalent to AWS Lambda / GCP Cloud Run.
+The OrcaCloud serverless layer runs on top of **Kubernetes**, not directly on OpenStack. Equivalent to AWS Lambda / GCP Cloud Run.
 
 ## Architecture
 

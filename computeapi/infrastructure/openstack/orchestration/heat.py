@@ -1,4 +1,4 @@
-# OrcaCompute – OpenStack Orchestration Service (Heat)
+# OrcaCloud – OpenStack Orchestration Service (Heat)
 #
 # Wraps openstack.orchestration (Heat) operations:
 # stacks, resources, events, and template management.

@@ -1,6 +1,6 @@
 # Identity – Keystone, RBAC, Vault, IAM
 
-**Keystone** is the central identity provider for all OrcaCompute services. Every API call, automation, and developer interaction must authenticate through Keystone.
+**Keystone** is the central identity provider for all OrcaCloud services. Every API call, automation, and developer interaction must authenticate through Keystone.
 
 ## Identity Architecture
 
@@ -50,4 +50,4 @@ Developer / Service
 
 - `k8s/rbac/` — existing Kubernetes RBAC manifests
 - `k8s/secrets/` — existing Kubernetes Secret definitions
-- `backend/orcacompute/` — Django authentication integration
+- `backend/orcacloud/` — Django authentication integration

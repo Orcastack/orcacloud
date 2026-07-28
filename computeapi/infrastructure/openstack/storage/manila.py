@@ -1,4 +1,4 @@
-# OrcaCompute – OpenStack Shared Filesystem Service (Manila)
+# OrcaCloud – OpenStack Shared Filesystem Service (Manila)
 #
 # Wraps openstack.shared_file_system (Manila) operations:
 # shares, share networks, access rules, and snapshots.

@@ -1,4 +1,4 @@
-# OrcaCompute – OpenStack CDN Service
+# OrcaCloud – OpenStack CDN Service
 #
 # OpenStack does not provide a native managed global CDN in most deployments,
 # so this module uses a provider abstraction with safe simulated defaults.
@@ -44,7 +44,7 @@ def provision_cdn_distribution(
     """
     custom_domains = domain_names or []
     distribution_id = f"cdn-{uuid.uuid4().hex[:12]}"
-    edge_domain = f"{name.lower().replace(' ', '-')}-{uuid.uuid4().hex[:6]}.edge.orcacompute.cloud"
+    edge_domain = f"{name.lower().replace(' ', '-')}-{uuid.uuid4().hex[:6]}.edge.orcacloud.cloud"
 
     if not is_openstack_configured():
         return {

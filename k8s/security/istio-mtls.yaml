@@ -11,7 +11,7 @@ apiVersion: security.istio.io/v1beta1
 kind: AuthorizationPolicy
 metadata:
   name: allow-from-frontend-to-backend
-  namespace: orcacompute
+  namespace: orcacloud
 spec:
   selector:
     matchLabels:
@@ -19,7 +19,7 @@ spec:
   rules:
   - from:
     - source:
-        principals: ["cluster.local/ns/orcacompute/sa/frontend-sa"]
+        principals: ["cluster.local/ns/orcacloud/sa/frontend-sa"]
     to:
     - operation:
         methods: ["GET", "POST"]

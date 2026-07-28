@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: orcacompute-frontend
-  namespace: orcacompute
+  name: orcacloud-frontend
+  namespace: orcacloud
   labels:
-    app: orcacompute-frontend
+    app: orcacloud-frontend
 spec:
   selector:
-    app: orcacompute-frontend
+    app: orcacloud-frontend
   ports:
     - protocol: TCP
       port: 80

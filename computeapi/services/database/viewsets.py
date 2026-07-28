@@ -1,4 +1,4 @@
-# OrcaCompute Cloud – Managed Database ViewSets
+# OrcaCloud – Managed Database ViewSets
 # Handles CRUD + actions: scale, restart, rotate credentials, create backup, metrics
 
 import secrets
@@ -32,13 +32,13 @@ def _generate_password(length=24):
 def _simulate_provision(db: ManagedDatabase):
     """Set mock connectivity info on first provision."""
     region_host_map = {
-        'af-south-1': 'af-south.db.orcacompute.cloud',
-        'eu-west-1':  'eu-west.db.orcacompute.cloud',
-        'ap-south-1': 'ap-south.db.orcacompute.cloud',
-        'us-east-1':  'us-east.db.orcacompute.cloud',
-        'us-west-1':  'us-west.db.orcacompute.cloud',
+        'af-south-1': 'af-south.db.orcacloud.cloud',
+        'eu-west-1':  'eu-west.db.orcacloud.cloud',
+        'ap-south-1': 'ap-south.db.orcacloud.cloud',
+        'us-east-1':  'us-east.db.orcacloud.cloud',
+        'us-west-1':  'us-west.db.orcacloud.cloud',
     }
-    db.host   = f"{db.name}.{region_host_map.get(db.region, 'db.orcacompute.cloud')}"
+    db.host   = f"{db.name}.{region_host_map.get(db.region, 'db.orcacloud.cloud')}"
     db.port   = db.default_port
     db.status = 'running'
     db.provisioned_at = timezone.now()

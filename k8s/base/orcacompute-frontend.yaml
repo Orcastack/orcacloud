@@ -2,13 +2,13 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: frontend-config
-  namespace: orcacompute
+  namespace: orcacloud
 data:
-  REACT_APP_API_URL: "https://api.orcacompute.com,http://api.orcacompute.com,http://localhost:8000,http://127.0.0.1:8000,http://orcacompute-backend:8000,"
+  REACT_APP_API_URL: "https://api.orcacloud.com,http://api.orcacloud.com,http://localhost:8000,http://127.0.0.1:8000,http://orcacloud-backend:8000,"
   REACT_APP_ENVIRONMENT: "production"
   # Frontend OpenTelemetry/telemetry flags
   REACT_APP_OTEL_ENABLED: "true"
-  REACT_APP_OTEL_SERVICE_NAME: "orcacompute-frontend"
+  REACT_APP_OTEL_SERVICE_NAME: "orcacloud-frontend"
   REACT_APP_OTEL_SERVICE_VERSION: "1.0.0"
   REACT_APP_OTEL_ENABLE_CONSOLE: "false"
 ---
@@ -16,7 +16,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: frontend
-  namespace: orcacompute
+  namespace: orcacloud
   labels:
     app: frontend
     component: ui
@@ -68,7 +68,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: frontend
-  namespace: orcacompute
+  namespace: orcacloud
   labels:
     app: frontend
     component: ui

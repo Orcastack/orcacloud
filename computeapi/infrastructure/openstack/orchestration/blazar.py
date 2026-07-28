@@ -1,4 +1,4 @@
-# OrcaCompute – OpenStack Resource Reservation Service (Blazar)
+# OrcaCloud – OpenStack Resource Reservation Service (Blazar)
 #
 # Wraps Blazar (blazar.reservation) operations:
 # leases, hosts, instance reservations, and network segments.

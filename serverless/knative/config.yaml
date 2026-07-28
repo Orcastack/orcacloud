@@ -6,7 +6,7 @@
 #   3. kubectl apply -f serverless/knative/config-domain.yaml
 #   4. kubectl apply -f serverless/knative/config-autoscaler.yaml
 
-# Domain configuration — map *.serverless.orcacompute.internal to Knative
+# Domain configuration — map *.serverless.orcacloud.internal to Knative
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -14,7 +14,7 @@ metadata:
   namespace: knative-serving
 data:
   # Internal domain for serverless functions
-  serverless.orcacompute.internal: ""
+  serverless.orcacloud.internal: ""
 ---
 # Autoscaler configuration
 apiVersion: v1

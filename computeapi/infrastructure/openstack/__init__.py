@@ -1,4 +1,4 @@
-# OrcaCompute – OpenStack Infrastructure Package
+# OrcaCloud – OpenStack Infrastructure Package
 # Exposes all service groups as sub-packages.
 # Import from the group packages directly, e.g.:
 #   from infrastructure.openstack.compute    import list_servers

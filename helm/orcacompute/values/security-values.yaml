@@ -15,12 +15,12 @@ secretsProvider:
     roleName: k8s-role
     objects:
       - name: db-creds
-        path: secret/data/orcacompute/db
+        path: secret/data/orcacloud/db
         key: database-url
       - name: redis-creds
-        path: secret/data/orcacompute/redis
+        path: secret/data/orcacloud/redis
         key: redis-url
 
 argoCD:
   enabled: true
-  appName: orcacompute-security
+  appName: orcacloud-security

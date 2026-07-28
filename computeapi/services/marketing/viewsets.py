@@ -1,4 +1,4 @@
-# OrcaCompute Cloud – Email Marketing ViewSets
+# OrcaCloud – Email Marketing ViewSets
 
 import logging
 from rest_framework import viewsets, status, permissions

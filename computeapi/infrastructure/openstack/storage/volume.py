@@ -1,4 +1,4 @@
-# OrcaCompute – OpenStack Volume Service
+# OrcaCloud – OpenStack Volume Service
 #
 # Wraps openstack.block_storage (Cinder) operations:
 # volumes, snapshots, volume types, and server attachments.

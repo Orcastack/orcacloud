@@ -1,4 +1,4 @@
-# OrcaCompute – Storage group
+# OrcaCloud – Storage group
 # Re-exports all public symbols from every module in this package so that:
 #   from infrastructure.openstack.storage import list_volumes       ← Cinder
 #   from infrastructure.openstack.storage import list_containers    ← Swift

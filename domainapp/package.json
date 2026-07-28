@@ -1,0 +1,29 @@
+{
+  "name": "domainapp",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@mui/material": "^5.15.14",
+    "ajv": "^8.17.1",
+    "axios": "^1.12.2",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-router-dom": "^7.9.1",
+    "react-scripts": "^5.0.1",
+    "typescript": "5.1.6",
+    "@types/react": "^18.2.66",
+    "@types/react-dom": "^18.2.22",
+    "@types/node": "^16.18.126"
+  },
+  "scripts": {
+    "start": "PORT=3006 node_modules/.bin/react-scripts start",
+    "build": "node_modules/.bin/react-scripts build",
+    "test": "node_modules/.bin/react-scripts test --watchAll=false --passWithNoTests"
+  },
+  "browserslist": {
+    "production": [">0.2%", "not dead", "not op_mini all"],
+    "development": ["last 1 chrome version", "last 1 firefox version", "last 1 safari version"]
+  }
+}

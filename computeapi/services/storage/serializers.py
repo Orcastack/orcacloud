@@ -1,4 +1,4 @@
-# OrcaCompute Storage Service - Serializers
+# OrcaCloud Storage Service - Serializers
 
 from rest_framework import serializers
 from django.contrib.auth.models import User

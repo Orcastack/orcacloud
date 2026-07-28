@@ -1,5 +1,5 @@
 # ============================================================
-#  OrcaCompute – unified docker-compose
+#  OrcaCloud – unified docker-compose
 #
 #  Profiles
 #  --------
@@ -17,7 +17,7 @@
 # ============================================================
 
 networks:
-  orcacompute-net:
+  orcacloud-net:
     driver: bridge
 
 volumes:
@@ -41,15 +41,15 @@ services:
   # ───────────────────────────────────────────────
   db:
     image: postgres:15-alpine
-    container_name: orcacompute_db
+    container_name: orcacloud_db
     environment:
-      POSTGRES_DB: orcacompute
-      POSTGRES_USER: orcacompute_user
+      POSTGRES_DB: orcacloud
+      POSTGRES_USER: orcacloud_user
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
-      - orcacompute-net
+      - orcacloud-net
     restart: unless-stopped
 
   # ───────────────────────────────────────────────
@@ -57,11 +57,11 @@ services:
   # ───────────────────────────────────────────────
   redis:
     image: redis:7-alpine
-    container_name: orcacompute_redis
+    container_name: orcacloud_redis
     volumes:
       - redis_data:/data
     networks:
-      - orcacompute-net
+      - orcacloud-net
     restart: unless-stopped
 
   # ───────────────────────────────────────────────
@@ -69,11 +69,11 @@ services:
   # ───────────────────────────────────────────────
   rabbitmq:
     image: rabbitmq:3.12-management-alpine
-    container_name: orcacompute_rabbitmq
+    container_name: orcacloud_rabbitmq
     environment:
       RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER:-admin}
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
-      RABBITMQ_DEFAULT_VHOST: orcacompute
+      RABBITMQ_DEFAULT_VHOST: orcacloud
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
       - ./rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:ro
@@ -83,7 +83,7 @@ services:
       - "15672:15672"
       - "15692:15692"
     networks:
-      - orcacompute-net
+      - orcacloud-net
     restart: unless-stopped
 
   # ───────────────────────────────────────────────
@@ -91,7 +91,7 @@ services:
   # ───────────────────────────────────────────────
   zookeeper:
     image: zookeeper:3.8
-    container_name: orcacompute_zookeeper
+    container_name: orcacloud_zookeeper
     environment:
       ZOO_MY_ID: 1
       ZOO_SERVERS: server.1=zookeeper:2888:3888
@@ -102,7 +102,7 @@ services:
       - "2181:2181"
       - "8080:8080"
     networks:
-      - orcacompute-net
+      - orcacloud-net
     restart: unless-stopped
 
   # ───────────────────────────────────────────────
@@ -110,7 +110,7 @@ services:
   # ───────────────────────────────────────────────
   kafka:
     image: confluentinc/cp-kafka:7.4.0
-    container_name: orcacompute_kafka
+    container_name: orcacloud_kafka
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
@@ -124,7 +124,7 @@ services:
     depends_on:
       - zookeeper
     networks:
-      - orcacompute-net
+      - orcacloud-net
     restart: unless-stopped
 
   # ───────────────────────────────────────────────
@@ -135,20 +135,20 @@ services:
     build:
       context: ./computeapi
       dockerfile: Dockerfile
-    container_name: orcacompute_api_prod
+    container_name: orcacloud_api_prod
     command: >
       sh -c "python manage.py migrate --noinput &&
              python manage.py collectstatic --noinput &&
-             gunicorn orcacompute.wsgi:application --bind 0.0.0.0:8000 --workers 3"
+             gunicorn orcacloud.wsgi:application --bind 0.0.0.0:8000 --workers 3"
     environment:
       ENVIRONMENT: production
       DEBUG: "False"
-      POSTGRES_USER: orcacompute_user
+      POSTGRES_USER: orcacloud_user
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      DATABASE_URL: "postgresql://orcacompute_user:${POSTGRES_PASSWORD}@db:5432/orcacompute"
+      DATABASE_URL: "postgresql://orcacloud_user:${POSTGRES_PASSWORD}@db:5432/orcacloud"
       REDIS_URL: redis://redis:6379/0
       SECRET_KEY: ${SECRET_KEY:-replace-with-production-secret}
-      ALLOWED_HOSTS: orcacompute.org,api.orcacompute.org,www.orcacompute.org
+      ALLOWED_HOSTS: orcacloud.org,api.orcacloud.org,www.orcacloud.org
       RABBITMQ_URL: "amqp://${RABBITMQ_USER:-admin}:${RABBITMQ_PASSWORD}@rabbitmq:5672/"
       KAFKA_BOOTSTRAP_SERVERS: kafka:29092
     volumes:
@@ -160,7 +160,7 @@ services:
       - rabbitmq
       - kafka
     networks:
-      - orcacompute-net
+      - orcacloud-net
     restart: always
 
   # ───────────────────────────────────────────────
@@ -171,11 +171,11 @@ services:
     build:
       context: ./webapp
       dockerfile: Dockerfile
-    container_name: orcacompute_webapp_prod
+    container_name: orcacloud_webapp_prod
     expose:
       - "80"
     networks:
-      - orcacompute-net
+      - orcacloud-net
     restart: always
 
   # ───────────────────────────────────────────────
@@ -186,7 +186,7 @@ services:
     build:
       context: ./docker/nginx
       dockerfile: Dockerfile
-    container_name: orcacompute_nginx
+    container_name: orcacloud_nginx
     ports:
       - "80:80"
       - "443:443"
@@ -197,7 +197,7 @@ services:
       - media_volume:/var/www/media:ro
       - /var/log/atonix-nginx:/var/log/nginx
     networks:
-      - orcacompute-net
+      - orcacloud-net
     restart: always
 
   # ───────────────────────────────────────────────
@@ -208,7 +208,7 @@ services:
     build:
       context: ./computeapi
       dockerfile: Dockerfile
-    container_name: orcacompute_api_dev
+    container_name: orcacloud_api_dev
     command: >
       sh -c "python manage.py migrate --noinput &&
              python manage.py runserver 0.0.0.0:8000"
@@ -220,7 +220,7 @@ services:
       ENVIRONMENT: development
       DEBUG: "True"
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      DATABASE_URL: "postgresql://orcacompute_user:${POSTGRES_PASSWORD}@db:5432/orcacompute"
+      DATABASE_URL: "postgresql://orcacloud_user:${POSTGRES_PASSWORD}@db:5432/orcacloud"
       REDIS_URL: redis://redis:6379
       SECRET_KEY: ${SECRET_KEY:-dev-secret}
       ALLOWED_HOSTS: localhost,127.0.0.1,backend,nginx
@@ -236,7 +236,7 @@ services:
       - rabbitmq
       - kafka
     networks:
-      - orcacompute-net
+      - orcacloud-net
     restart: unless-stopped
 
   # ───────────────────────────────────────────────
@@ -245,7 +245,7 @@ services:
   frontend-dev:
     profiles: [dev]
     image: node:18-alpine
-    container_name: orcacompute_webapp_dev
+    container_name: orcacloud_webapp_dev
     working_dir: /app
     volumes:
       - ./webapp:/app
@@ -261,7 +261,7 @@ services:
     ports:
       - "3000:3000"
     networks:
-      - orcacompute-net
+      - orcacloud-net
     restart: unless-stopped
 
   # ───────────────────────────────────────────────
@@ -270,17 +270,17 @@ services:
   pushgateway:
     profiles: [dev, monitoring]
     image: prom/pushgateway:latest
-    container_name: orcacompute_pushgateway
+    container_name: orcacloud_pushgateway
     ports:
       - "9091:9091"
     networks:
-      - orcacompute-net
+      - orcacloud-net
     restart: unless-stopped
 
   prometheus:
     profiles: [monitoring]
     image: prom/prometheus:latest
-    container_name: orcacompute_prometheus
+    container_name: orcacloud_prometheus
     ports:
       - "9090:9090"
     volumes:
@@ -288,13 +288,13 @@ services:
       - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
       - ./monitoring/prometheus/alert_rules.yml:/etc/prometheus/alert_rules.yml:ro
     networks:
-      - orcacompute-net
+      - orcacloud-net
     restart: unless-stopped
 
   grafana:
     profiles: [monitoring]
     image: grafana/grafana:latest
-    container_name: orcacompute_grafana
+    container_name: orcacloud_grafana
     ports:
       - "3002:3000"
     volumes:
@@ -305,13 +305,13 @@ services:
       GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_PASSWORD:-admin123}
       GF_USERS_ALLOW_SIGN_UP: "false"
     networks:
-      - orcacompute-net
+      - orcacloud-net
     restart: unless-stopped
 
   kafka-ui:
     profiles: [monitoring]
     image: provectuslabs/kafka-ui:latest
-    container_name: orcacompute_kafka_ui
+    container_name: orcacloud_kafka_ui
     environment:
       KAFKA_CLUSTERS_0_NAME: local
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:29092
@@ -319,7 +319,7 @@ services:
     ports:
       - "8090:8080"
     networks:
-      - orcacompute-net
+      - orcacloud-net
     restart: unless-stopped
 
   # ───────────────────────────────────────────────
@@ -328,7 +328,7 @@ services:
   elasticsearch:
     profiles: [logging]
     image: docker.elastic.co/elasticsearch/elasticsearch:8.8.0
-    container_name: orcacompute_elasticsearch
+    container_name: orcacloud_elasticsearch
     environment:
       discovery.type: single-node
       ES_JAVA_OPTS: -Xms512m -Xmx512m
@@ -338,39 +338,39 @@ services:
     ports:
       - "9200:9200"
     networks:
-      - orcacompute-net
+      - orcacloud-net
     restart: unless-stopped
 
   logstash:
     profiles: [logging]
     image: docker.elastic.co/logstash/logstash:8.8.0
-    container_name: orcacompute_logstash
+    container_name: orcacloud_logstash
     volumes:
       - ./monitoring/logstash/pipeline:/usr/share/logstash/pipeline:ro
       - ./monitoring/logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
     networks:
-      - orcacompute-net
+      - orcacloud-net
     restart: unless-stopped
 
   kibana:
     profiles: [logging]
     image: docker.elastic.co/kibana/kibana:8.8.0
-    container_name: orcacompute_kibana
+    container_name: orcacloud_kibana
     ports:
       - "5601:5601"
     environment:
       ELASTICSEARCH_HOSTS: http://elasticsearch:9200
     networks:
-      - orcacompute-net
+      - orcacloud-net
     restart: unless-stopped
 
   jaeger:
     profiles: [logging]
     image: jaegertracing/all-in-one:latest
-    container_name: orcacompute_jaeger
+    container_name: orcacloud_jaeger
     ports:
       - "16686:16686"
       - "14268:14268"
     networks:
-      - orcacompute-net
+      - orcacloud-net
     restart: unless-stopped

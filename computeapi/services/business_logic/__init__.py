@@ -1,5 +1,5 @@
 """
-OrcaCompute Services - Business Logic Layer
+OrcaCloud Services - Business Logic Layer
 
 This module contains the service-specific implementations for all cloud capabilities.
 Each service module (compute, storage, networking) contains the business logic that

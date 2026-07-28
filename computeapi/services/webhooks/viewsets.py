@@ -7,7 +7,7 @@ from .serializers import WebhookSerializer
 
 class WebhookViewSet(viewsets.ModelViewSet):
     """
-    OrcaCompute Cloud – Webhook Management
+    OrcaCloud – Webhook Management
 
     Full CRUD for registered outbound webhooks.
 

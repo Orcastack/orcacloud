@@ -6,7 +6,7 @@ import requests
 
 
 class AtonixClient:
-    """Official Python SDK client for OrcaCompute APIs."""
+    """Official Python SDK client for OrcaCloud APIs."""
 
     def __init__(self, base_url: str, token: str, timeout: int = 30):
         self.base_url = base_url.rstrip('/')

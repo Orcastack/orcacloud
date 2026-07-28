@@ -10,7 +10,7 @@ if [[ ! -d "$ROOT_DIR" ]]; then
 fi
 
 # Tokens to audit for potential legacy branding.
-PATTERN='atonix|Atonix|ATONIX|OrcaCompute-Platform|orcacompute-platform'
+PATTERN='atonix|Atonix|ATONIX|OrcaCloud-Platform|orcacloud-platform'
 
 # Exclude generated or external content to reduce noise.
 EXCLUDE_DIRS=(

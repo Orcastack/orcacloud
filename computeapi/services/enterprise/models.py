@@ -1,4 +1,4 @@
-# OrcaCompute – Enterprise Module Models
+# OrcaCloud – Enterprise Module Models
 # All models are scoped to an Organization (multi-tenant anchor).
 # Modules: Organization, Email Sending, Domains, Branding, Billing, Audit/Compliance.
 
@@ -160,7 +160,7 @@ class EnterpriseSendDomain(TimeStampedModel):
                 f'"v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQ"'
             )
         if not self.spf_record:
-            self.spf_record = f'v=spf1 include:mail.orcacompute.com ~all'
+            self.spf_record = f'v=spf1 include:mail.orcacloud.com ~all'
 
 
 class EmailSenderIdentity(TimeStampedModel):

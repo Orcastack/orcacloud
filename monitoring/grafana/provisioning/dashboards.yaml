@@ -1,9 +1,9 @@
 apiVersion: 1
 
 providers:
-  - name: OrcaCompute
+  - name: OrcaCloud
     orgId: 1
-    folder: OrcaCompute
+    folder: OrcaCloud
     type: file
     disableDeletion: false
     updateIntervalSeconds: 30

@@ -1,4 +1,4 @@
-# OrcaCompute – Orchestration group
+# OrcaCloud – Orchestration group
 # Re-exports all public symbols from every module in this package so that:
 #   from infrastructure.openstack.orchestration import list_stacks      ← Heat
 #   from infrastructure.openstack.orchestration import list_workflows   ← Mistral

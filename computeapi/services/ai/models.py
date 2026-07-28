@@ -1,5 +1,5 @@
 """
-OrcaCompute AI/ML service models.
+OrcaCloud AI/ML service models.
 
 Provides:
   - AnomalyDetectionRule  – per-user metric watch configuration

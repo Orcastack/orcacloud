@@ -1,4 +1,4 @@
-# OrcaCompute – Service Catalog app config
+# OrcaCloud – Service Catalog app config
 
 from django.apps import AppConfig
 

@@ -1,4 +1,4 @@
-# OrcaCompute Zero-Trust Service – Models
+# OrcaCloud Zero-Trust Service – Models
 # Zero-Trust Network Access: policies, identities, device posture, access logs
 
 import uuid

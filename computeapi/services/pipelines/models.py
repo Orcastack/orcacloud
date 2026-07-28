@@ -90,7 +90,7 @@ class Project(TimeStampedModel):
 
 
 class Repository(TimeStampedModel):
-    """Represents a source repository — OrcaCompute-hosted or externally connected."""
+    """Represents a source repository — OrcaCloud-hosted or externally connected."""
     id = models.CharField(max_length=50, primary_key=True)
     project = models.ForeignKey(
         Project, on_delete=models.CASCADE, related_name='repositories',
@@ -100,7 +100,7 @@ class Repository(TimeStampedModel):
         ('github',    'GitHub'),
         ('gitlab',    'GitLab'),
         ('bitbucket', 'Bitbucket'),
-        ('atonix',    'OrcaCompute'),
+        ('atonix',    'OrcaCloud'),
     ], default='atonix')
     repo_name        = models.CharField(max_length=100)
     repo_description = models.TextField(blank=True, default='')
@@ -110,7 +110,7 @@ class Repository(TimeStampedModel):
         ('public',  'Public'),
         ('team',    'Team'),
     ], default='private')
-    # Git storage on disk (for OrcaCompute-hosted repos)
+    # Git storage on disk (for OrcaCloud-hosted repos)
     is_bare          = models.BooleanField(default=True)
     disk_path        = models.CharField(max_length=500, blank=True, default='')
     storage_bucket   = models.CharField(max_length=200, blank=True, default='')
@@ -143,7 +143,7 @@ class Repository(TimeStampedModel):
     @property
     def clone_https_url(self):
         from django.conf import settings
-        base = getattr(settings, 'GIT_BASE_URL', 'https://cloud.orcacompute.com')
+        base = getattr(settings, 'GIT_BASE_URL', 'https://cloud.orcacloud.com')
         ns = self.project.project_key if self.project else (
             self.owner.username if self.owner else 'repos'
         )
@@ -152,7 +152,7 @@ class Repository(TimeStampedModel):
     @property
     def clone_ssh_url(self):
         from django.conf import settings
-        host = getattr(settings, 'GIT_SSH_HOST', 'cloud.orcacompute.com')
+        host = getattr(settings, 'GIT_SSH_HOST', 'cloud.orcacloud.com')
         ns = self.project.project_key if self.project else (
             self.owner.username if self.owner else 'repos'
         )

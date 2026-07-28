@@ -92,7 +92,7 @@ rules:
   - delete
 # Quantum module CRDs (example)
 - apiGroups:
-  - quantum.orcacompute.com
+  - quantum.orcacloud.com
   resources:
   - pennylane
   - qiskit

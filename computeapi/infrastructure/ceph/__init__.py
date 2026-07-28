@@ -1,4 +1,4 @@
-# OrcaCompute – Ceph Infrastructure Integration
+# OrcaCloud – Ceph Infrastructure Integration
 #
 # Provides Python wrappers for Ceph administrative operations via the
 # rados and rbd bindings (python3-rados / python3-rbd packages).

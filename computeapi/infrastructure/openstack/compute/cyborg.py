@@ -1,4 +1,4 @@
-# OrcaCompute – OpenStack Accelerator Service (Cyborg)
+# OrcaCloud – OpenStack Accelerator Service (Cyborg)
 #
 # Wraps openstack.accelerator (Cyborg) operations:
 # devices (GPUs, FPGAs, SmartNICs) and device profiles.

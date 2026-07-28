@@ -1,4 +1,4 @@
-# OrcaCompute – OpenStack Keystone Federation Module
+# OrcaCloud – OpenStack Keystone Federation Module
 #
 # Wraps Keystone federation operations:
 #   • Identity providers (LDAP, SAML2, OIDC)

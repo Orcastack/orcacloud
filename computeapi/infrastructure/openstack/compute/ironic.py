@@ -1,4 +1,4 @@
-# OrcaCompute – OpenStack Bare Metal Service (Ironic)
+# OrcaCloud – OpenStack Bare Metal Service (Ironic)
 #
 # Wraps openstack.baremetal (Ironic) operations:
 # nodes, ports, chassis, and provisioning.

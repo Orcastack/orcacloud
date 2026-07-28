@@ -1,4 +1,4 @@
-# OrcaCompute – Ceph Admin Module
+# OrcaCloud – Ceph Admin Module
 #
 # Wraps rados cluster-level operations: pool lifecycle, quota management,
 # cluster health, and capacity reporting.
@@ -150,7 +150,7 @@ def create_pool(
         pgp_num:     PG placement groups for placement; defaults to pg_num.
         replication: Replication factor (default 3).
 
-    OrcaCompute pool naming convention:
+    OrcaCloud pool naming convention:
         atonix-public-cinder   – Public cloud Cinder volumes
         atonix-public-glance   – Public cloud Glance images
         atonix-public-nova     – Public cloud Nova ephemeral disks
@@ -224,7 +224,7 @@ def set_pool_quota(
 
 def bootstrap_cloud_pools(cloud_type: str, cluster=None) -> list[str]:
     """
-    Create the standard OrcaCompute pool set for a given cloud type.
+    Create the standard OrcaCloud pool set for a given cloud type.
 
     Args:
         cloud_type: 'public' | 'private' | 'hybrid'

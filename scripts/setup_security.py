@@ -13,7 +13,7 @@ def print_banner():
     """Print security setup banner"""
     print("""
     ╔══════════════════════════════════════════════════════════════╗
-    ║                  OrcaCompute                         ║
+    ║                  OrcaCloud                         ║
     ║              Comprehensive Security Setup                    ║
     ║                                                              ║
     ║  [SECURITY] Encryption at Rest & in Transit                         ║
@@ -61,7 +61,7 @@ def generate_encryption_keys():
     aes_salt = secrets.token_hex(16)
     
     # Create .env file with security settings
-    env_content = f"""# OrcaCompute Security Configuration
+    env_content = f"""# OrcaCloud Security Configuration
 # Generated on {os.popen('date').read().strip()}
 
 # Encryption Keys
@@ -86,13 +86,13 @@ AUTH_LOCKOUT_TIME=900
 ADMIN_WHITELIST_IPS=127.0.0.1,::1
 
 # Monitoring
-SECURITY_ALERT_EMAIL=security@orcacompute.com
+SECURITY_ALERT_EMAIL=security@orcacloud.com
 
 # Redis for caching
 REDIS_URL=redis://localhost:6379/1
 
 # Email settings
-DEFAULT_FROM_EMAIL=noreply@orcacompute.com
+DEFAULT_FROM_EMAIL=noreply@orcacloud.com
 """
     
     # Write to .env file
@@ -120,7 +120,7 @@ def create_ssl_certificates():
         subprocess.run([
             "openssl", "req", "-new", "-x509", "-key", str(ssl_dir / "key.pem"),
             "-out", str(ssl_dir / "cert.pem"), "-days", "365",
-            "-subj", "/C=US/ST=CA/L=San Francisco/O=OrcaCompute/OU=Development/CN=localhost"
+            "-subj", "/C=US/ST=CA/L=San Francisco/O=OrcaCloud/OU=Development/CN=localhost"
         ], check=True, capture_output=True)
         
         print("[OK] SSL certificates generated for development")
@@ -317,7 +317,7 @@ def create_security_checklist():
     """Create security implementation checklist"""
     print("\n[CHECKLIST] Creating security checklist...")
     
-    checklist = """# OrcaCompute Security Implementation Checklist
+    checklist = """# OrcaCloud Security Implementation Checklist
 
 ## [COMPLETED] Completed
 - [x] Data encryption at rest with Fernet

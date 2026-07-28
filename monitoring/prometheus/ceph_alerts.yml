@@ -1,4 +1,4 @@
-# OrcaCompute – Ceph Prometheus Alert Rules
+# OrcaCloud – Ceph Prometheus Alert Rules
 # Rule source: Ceph MGR Prometheus module v18.x (Reef)
 #
 # Integrate by ensuring the Ceph MGR Prometheus module is enabled:

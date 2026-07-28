@@ -8,7 +8,7 @@ image_resource:
     tag: dind
 
 inputs:
-  - name: orcacompute-source
+  - name: orcacloud-source
 
 outputs:
   - name: build-output
@@ -20,12 +20,12 @@ run:
     - |
       set -e
       
-      echo "Building OrcaCompute application..."
-      cd orcacompute-source
+      echo "Building OrcaCloud application..."
+      cd orcacloud-source
       
       # Build Docker image
       echo "Building Docker image..."
-      docker build -f Dockerfile.fullstack -t orcacompute:build .
+      docker build -f Dockerfile.fullstack -t orcacloud:build .
       
       # Create build artifacts
       echo "Creating build artifacts..."
@@ -37,13 +37,13 @@ run:
         "build_time": "$(date -Iseconds)",
         "git_commit": "$(git rev-parse HEAD)",
         "git_branch": "$(git branch --show-current)",
-        "docker_image": "orcacompute:build",
+        "docker_image": "orcacloud:build",
         "build_number": "${BUILD_NAME:-unknown}"
       }
       EOF
       
       # Export image (optional)
       echo "Exporting Docker image..."
-      docker save orcacompute:build | gzip > ../build-output/orcacompute.tar.gz
+      docker save orcacloud:build | gzip > ../build-output/orcacloud.tar.gz
       
       echo "Build completed successfully"

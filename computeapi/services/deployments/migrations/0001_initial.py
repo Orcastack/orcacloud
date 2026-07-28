@@ -70,7 +70,7 @@ class Migration(migrations.Migration):
                 ('created_at', models.DateTimeField(auto_now_add=True, db_index=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('id', models.CharField(default=services.deployments.models._uid_request, editable=False, max_length=40, primary_key=True, serialize=False)),
-                ('source', models.CharField(choices=[('github', 'GitHub'), ('gitlab', 'GitLab'), ('bitbucket', 'Bitbucket'), ('atonix', 'OrcaCompute Project'), ('zip', 'ZIP Upload')], max_length=20)),
+                ('source', models.CharField(choices=[('github', 'GitHub'), ('gitlab', 'GitLab'), ('bitbucket', 'Bitbucket'), ('atonix', 'OrcaCloud Project'), ('zip', 'ZIP Upload')], max_length=20)),
                 ('app_type', models.CharField(choices=[('financial', 'Financial App'), ('technology', 'Technology App'), ('ecommerce', 'E-Commerce'), ('news', 'News / Media'), ('research', 'Research / Science'), ('social', 'Social App'), ('ai', 'AI / ML App'), ('custom', 'Custom')], default='technology', max_length=20)),
                 ('frontend', models.CharField(choices=[('react', 'React'), ('nextjs', 'Next.js'), ('vue', 'Vue'), ('angular', 'Angular'), ('svelte', 'Svelte'), ('flutter_web', 'Flutter Web'), ('static_html', 'Static HTML'), ('none', 'None')], default='none', max_length=40)),
                 ('backend', models.CharField(choices=[('nodejs', 'Node.js'), ('python_django', 'Python / Django'), ('python_fastapi', 'Python / FastAPI'), ('python_flask', 'Python / Flask'), ('php_laravel', 'PHP / Laravel'), ('java_spring', 'Java / Spring Boot'), ('go', 'Go'), ('ruby_rails', 'Ruby on Rails'), ('dotnet', '.NET'), ('rust', 'Rust'), ('none', 'None')], default='none', max_length=40)),

@@ -13,43 +13,43 @@ spec:
       - module: pennylane
         path: quantum_engines/pennylane
         crd: pennylane.atnixcorp.com
-        namespace: orcacompute-quantum
+        namespace: orcacloud-quantum
         environment: production
       - module: qiskit
         path: quantum_engines/qiskit
         crd: qiskit.atnixcorp.com
-        namespace: orcacompute-quantum
+        namespace: orcacloud-quantum
         environment: production
       - module: pyquil
         path: quantum_engines/pyquil
         crd: pyquil.atnixcorp.com
-        namespace: orcacompute-quantum
+        namespace: orcacloud-quantum
         environment: production
       - module: qutip
         path: quantum_engines/qutip
         crd: qutip.atnixcorp.com
-        namespace: orcacompute-quantum
+        namespace: orcacloud-quantum
         environment: production
       # Staging environments
       - module: pennylane
         path: quantum_engines/pennylane
         crd: pennylane.atnixcorp.com
-        namespace: orcacompute-quantum-staging
+        namespace: orcacloud-quantum-staging
         environment: staging
       - module: qiskit
         path: quantum_engines/qiskit
         crd: qiskit.atnixcorp.com
-        namespace: orcacompute-quantum-staging
+        namespace: orcacloud-quantum-staging
         environment: staging
       - module: pyquil
         path: quantum_engines/pyquil
         crd: pyquil.atnixcorp.com
-        namespace: orcacompute-quantum-staging
+        namespace: orcacloud-quantum-staging
         environment: staging
       - module: qutip
         path: quantum_engines/qutip
         crd: qutip.atnixcorp.com
-        namespace: orcacompute-quantum-staging
+        namespace: orcacloud-quantum-staging
         environment: staging
 
   template:
@@ -61,12 +61,12 @@ spec:
         environment: '{{environment}}'
       annotations:
         argocd.argoproj.io/sync-wave: "5"
-        kas.orcacompute.com/managed: "true"
-        kas.orcacompute.com/crd: '{{crd}}'
+        kas.orcacloud.com/managed: "true"
+        kas.orcacloud.com/crd: '{{crd}}'
     spec:
-      project: orcacompute
+      project: orcacloud
       source:
-        repoURL: https://github.com/orcacompute/orcacompute.git
+        repoURL: https://github.com/orcacloud/orcacloud.git
         targetRevision: HEAD
         path: '{{path}}'
       destination:
@@ -137,11 +137,11 @@ spec:
         environment: '{{environment}}'
       annotations:
         argocd.argoproj.io/sync-wave: "1"  # Deploy CRDs first
-        kas.orcacompute.com/crd-managed: "true"
+        kas.orcacloud.com/crd-managed: "true"
     spec:
-      project: orcacompute
+      project: orcacloud
       source:
-        repoURL: https://github.com/orcacompute/orcacompute.git
+        repoURL: https://github.com/orcacloud/orcacloud.git
         targetRevision: HEAD
         path: '{{path}}'
       destination:
@@ -178,36 +178,36 @@ spec:
       elements:
       - operator: pennylane
         path: quantum_engines/pennylane/operator
-        namespace: orcacompute-quantum
+        namespace: orcacloud-quantum
         environment: production
       - operator: qiskit
         path: quantum_engines/qiskit/operator
-        namespace: orcacompute-quantum
+        namespace: orcacloud-quantum
         environment: production
       - operator: pyquil
         path: quantum_engines/pyquil/operator
-        namespace: orcacompute-quantum
+        namespace: orcacloud-quantum
         environment: production
       - operator: qutip
         path: quantum_engines/qutip/operator
-        namespace: orcacompute-quantum
+        namespace: orcacloud-quantum
         environment: production
       # Staging environments
       - operator: pennylane
         path: quantum_engines/pennylane/operator
-        namespace: orcacompute-quantum-staging
+        namespace: orcacloud-quantum-staging
         environment: staging
       - operator: qiskit
         path: quantum_engines/qiskit/operator
-        namespace: orcacompute-quantum-staging
+        namespace: orcacloud-quantum-staging
         environment: staging
       - operator: pyquil
         path: quantum_engines/pyquil/operator
-        namespace: orcacompute-quantum-staging
+        namespace: orcacloud-quantum-staging
         environment: staging
       - operator: qutip
         path: quantum_engines/qutip/operator
-        namespace: orcacompute-quantum-staging
+        namespace: orcacloud-quantum-staging
         environment: staging
 
   template:
@@ -219,11 +219,11 @@ spec:
         environment: '{{environment}}'
       annotations:
         argocd.argoproj.io/sync-wave: "3"  # Deploy operators after CRDs
-        kas.orcacompute.com/operator-managed: "true"
+        kas.orcacloud.com/operator-managed: "true"
     spec:
-      project: orcacompute
+      project: orcacloud
       source:
-        repoURL: https://github.com/orcacompute/orcacompute.git
+        repoURL: https://github.com/orcacloud/orcacloud.git
         targetRevision: HEAD
         path: '{{path}}'
       destination:

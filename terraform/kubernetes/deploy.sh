@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# OrcaCompute - Kubernetes Deployment Script
+# OrcaCloud - Kubernetes Deployment Script
 # This script helps initialize and deploy the platform to Kubernetes
 
 set -e
@@ -158,7 +158,7 @@ show_access_info() {
     log_info "Deployment completed! Access information:"
     
     # Get ingress information
-    NAMESPACE=$(terraform output -raw namespace_name 2>/dev/null || echo "orcacompute-$ENVIRONMENT")
+    NAMESPACE=$(terraform output -raw namespace_name 2>/dev/null || echo "orcacloud-$ENVIRONMENT")
     
     if kubectl get ingress -n "$NAMESPACE" &> /dev/null; then
         echo ""
@@ -176,14 +176,14 @@ show_access_info() {
     echo "  kubectl get pods -n $NAMESPACE -w"
     echo ""
     echo "  # Check logs:"
-    echo "  kubectl logs -f deployment/orcacompute-backend -n $NAMESPACE"
+    echo "  kubectl logs -f deployment/orcacloud-backend -n $NAMESPACE"
     echo ""
     echo "  # Port forward for local access:"
-    echo "  kubectl port-forward svc/orcacompute-frontend 8080:80 -n $NAMESPACE"
+    echo "  kubectl port-forward svc/orcacloud-frontend 8080:80 -n $NAMESPACE"
 }
 
 show_help() {
-    echo "OrcaCompute - Kubernetes Deployment Script"
+    echo "OrcaCloud - Kubernetes Deployment Script"
     echo ""
     echo "Usage: $0 [ENVIRONMENT] [COMMAND]"
     echo ""

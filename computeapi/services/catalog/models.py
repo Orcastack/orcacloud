@@ -1,5 +1,5 @@
 """
-OrcaCompute Service Catalog Models.
+OrcaCloud Service Catalog Models.
 
 Defines the authoritative list of services available per cloud type
 (public / private / hybrid).  Consumed by the dashboard, provisioning

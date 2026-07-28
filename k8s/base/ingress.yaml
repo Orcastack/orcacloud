@@ -1,8 +1,8 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: orcacompute-ingress
-  namespace: orcacompute
+  name: orcacloud-ingress
+  namespace: orcacloud
   annotations:
     kubernetes.io/ingress.class: "nginx"
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
@@ -18,12 +18,12 @@ spec:
   # so it can receive IPv6 traffic. See cluster/provider docs for enabling IPv6.
   tls:
   - hosts:
-    - orcacompute.com
-    - www.orcacompute.com
-    - api.orcacompute.com
-    secretName: orcacompute-tls
+    - orcacloud.com
+    - www.orcacloud.com
+    - api.orcacloud.com
+    secretName: orcacloud-tls
   rules:
-  - host: orcacompute.com
+  - host: orcacloud.com
     http:
       paths:
       - path: /
@@ -33,7 +33,7 @@ spec:
             name: frontend
             port:
               number: 80
-  - host: www.orcacompute.com
+  - host: www.orcacloud.com
     http:
       paths:
       - path: /
@@ -43,7 +43,7 @@ spec:
             name: frontend
             port:
               number: 80
-  - host: api.orcacompute.com
+  - host: api.orcacloud.com
     http:
       paths:
       - path: /
@@ -58,8 +58,8 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: orcacompute-single-domain
-  namespace: orcacompute
+  name: orcacloud-single-domain
+  namespace: orcacloud
   annotations:
     kubernetes.io/ingress.class: "nginx"
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
@@ -68,10 +68,10 @@ metadata:
 spec:
   tls:
   - hosts:
-    - orcacompute.com
-    secretName: orcacompute-single-tls
+    - orcacloud.com
+    secretName: orcacloud-single-tls
   rules:
-  - host: orcacompute.com
+  - host: orcacloud.com
     http:
       paths:
       - path: /api(/|$)(.*)

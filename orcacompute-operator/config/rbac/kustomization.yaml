@@ -20,9 +20,9 @@ resources:
 - metrics_reader_role.yaml
 # For each CRD, "Admin", "Editor" and "Viewer" roles are scaffolded by
 # default, aiding admins in cluster management. Those roles are
-# not used by the orcacompute-operator itself. You can comment the following lines
+# not used by the orcacloud-operator itself. You can comment the following lines
 # if you do not want those helpers be installed with your Project.
-- orcacompute_admin_role.yaml
-- orcacompute_editor_role.yaml
-- orcacompute_viewer_role.yaml
+- orcacloud_admin_role.yaml
+- orcacloud_editor_role.yaml
+- orcacloud_viewer_role.yaml
 

@@ -1,5 +1,5 @@
 ---
-# site.yml — Full OrcaCompute environment convergence
+# site.yml — Full OrcaCloud environment convergence
 # Applies all roles to all matching hosts in order.
 # Usage: ansible-playbook -i inventory/openstack.yml playbooks/site.yml
 

@@ -1,4 +1,4 @@
-# OrcaCompute Cloud — Group Platform Models
+# OrcaCloud — Group Platform Models
 # Enterprise-grade GitLab-inspired group system.
 
 import uuid
@@ -137,7 +137,7 @@ IMPORT_SOURCE_CHOICES = [
     ('github',    'GitHub Organizations'),
     ('gitlab',    'GitLab Groups'),
     ('bitbucket', 'Bitbucket Workspaces'),
-    ('atonix',    'OrcaCompute Cloud'),
+    ('atonix',    'OrcaCloud'),
 ]
 
 

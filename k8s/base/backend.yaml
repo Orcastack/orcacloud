@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: django-secret
-  namespace: orcacompute
+  namespace: orcacloud
 type: Opaque
 data:
   # your-super-secret-key-change-in-production-with-50-chars-min (base64)
@@ -10,27 +10,27 @@ data:
 stringData:
   # replace these hostnames with the hostnames you will use (DNS names preferred)
   # comma-separated list (the application reads ALLOWED_HOSTS from env and splits by comma)
-  ALLOWED_HOSTS: "orcacompute.com,www.orcacompute.com"
+  ALLOWED_HOSTS: "orcacloud.com,www.orcacloud.com"
 ---
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: django-config
-  namespace: orcacompute
+  namespace: orcacloud
 data:
   DEBUG: "False"
-  DATABASE_URL: "postgresql://orcacompute_user:orcacompute_password@postgres:5432/orcacompute"
+  DATABASE_URL: "postgresql://orcacloud_user:orcacloud_password@postgres:5432/orcacloud"
   REDIS_URL: "redis://:redis_password@redis:6379/0"
   # Celery envs use the same Redis URL for broker and result backend
   CELERY_BROKER_URL: "redis://:redis_password@redis:6379/0"
   CELERY_RESULT_BACKEND: "redis://:redis_password@redis:6379/0"
-  CORS_ALLOWED_ORIGINS: "https://orcacompute.com,https://www.orcacompute.com"
+  CORS_ALLOWED_ORIGINS: "https://orcacloud.com,https://www.orcacloud.com"
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: backend
-  namespace: orcacompute
+  namespace: orcacloud
   labels:
     app: backend
     component: api
@@ -52,7 +52,7 @@ spec:
     spec:
       initContainers:
       - name: migrate
-        image: atonixdev/orcacompute-backend:1.0.1
+        image: atonixdev/orcacloud-backend:1.0.1
         command: ["python", "manage.py", "migrate"]
         envFrom:
         - configMapRef:
@@ -61,7 +61,7 @@ spec:
             name: django-secret
       containers:
       - name: backend
-        image: atonixdev/orcacompute-backend:1.0.1
+        image: atonixdev/orcacloud-backend:1.0.1
         ports:
         - containerPort: 8000
         envFrom:
@@ -104,7 +104,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: media-pvc
-  namespace: orcacompute
+  namespace: orcacloud
 spec:
   accessModes:
     - ReadWriteMany
@@ -117,7 +117,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: backend
-  namespace: orcacompute
+  namespace: orcacloud
   labels:
     app: backend
     component: api

@@ -1,4 +1,4 @@
-# OrcaCompute Cloud – API Management ViewSets
+# OrcaCloud – API Management ViewSets
 
 from rest_framework import viewsets, status
 from rest_framework.decorators import action

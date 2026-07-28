@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: orcacompute-db
-  namespace: orcacompute
+  name: orcacloud-db
+  namespace: orcacloud
   labels:
-    app: orcacompute-db
+    app: orcacloud-db
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: orcacompute-db
+      app: orcacloud-db
   template:
     metadata:
       labels:
-        app: orcacompute-db
+        app: orcacloud-db
     spec:
       containers:
         - name: postgres
@@ -22,22 +22,22 @@ spec:
             - containerPort: 5432
           envFrom:
             - secretRef:
-                name: orcacompute-secrets
+                name: orcacloud-secrets
           env:
             - name: POSTGRES_DB
               valueFrom:
                 secretKeyRef:
-                  name: orcacompute-secrets
+                  name: orcacloud-secrets
                   key: POSTGRES_DB
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
-                  name: orcacompute-secrets
+                  name: orcacloud-secrets
                   key: POSTGRES_USER
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: orcacompute-secrets
+                  name: orcacloud-secrets
                   key: POSTGRES_PASSWORD
           volumeMounts:
             - name: postgres-data
@@ -50,11 +50,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: orcacompute-db
-  namespace: orcacompute
+  name: orcacloud-db
+  namespace: orcacloud
 spec:
   selector:
-    app: orcacompute-db
+    app: orcacloud-db
   ports:
     - protocol: TCP
       port: 5432

@@ -1,5 +1,5 @@
 """
-Background Task Functions for OrcaCompute Services
+Background Task Functions for OrcaCloud Services
 
 These functions handle cloud resource lifecycle operations:
 - Provisioning / deprovisioning compute, storage, and Kubernetes resources
@@ -95,7 +95,7 @@ def _execute_domain_switch_workflow(payload: dict):
     try:
         dns_payload = {'records_updated': []}
         try:
-            record_target = target_endpoint or f"{domain.domain_name}.origin.orcacompute.cloud"
+            record_target = target_endpoint or f"{domain.domain_name}.origin.orcacloud.cloud"
             try:
                 zone = domain.dns_zone
             except DnsZone.DoesNotExist:
@@ -126,7 +126,7 @@ def _execute_domain_switch_workflow(payload: dict):
 
             upsert_record(domain.domain_name, 'A', [record_target])
             upsert_record(f"www.{domain.domain_name}", 'CNAME', [domain.domain_name])
-            upsert_record(domain.domain_name, 'MX', ['10 mail.orcacompute.com.'])
+            upsert_record(domain.domain_name, 'MX', ['10 mail.orcacloud.com.'])
             upsert_record(domain.domain_name, 'TXT', [f"v=spf1 include:_spf.{domain.domain_name} ~all"])
 
             domain.dnssec_enabled = True
@@ -493,7 +493,7 @@ def send_notification(user_id, subject, message):
         logger.info(f"[notify] → {user.email} | {subject}: {message}")
         # In production:
         # from django.core.mail import send_mail
-        # send_mail(subject, message, 'noreply@orcacompute.com', [user.email])
+        # send_mail(subject, message, 'noreply@orcacloud.com', [user.email])
     except Exception as exc:
         logger.error(f"Error sending notification to user {user_id}: {exc}")
 

@@ -5,7 +5,7 @@ metadata:
 spec:
   acme:
     server: https://acme-staging-v02.api.letsencrypt.org/directory
-    email: admin@orcacompute.com
+    email: admin@orcacloud.com
     privateKeySecretRef:
       name: letsencrypt-http-staging-key
     solvers:

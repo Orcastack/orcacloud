@@ -1,4 +1,4 @@
-# OrcaCompute – OpenStack Load Balancer Service (Octavia)
+# OrcaCloud – OpenStack Load Balancer Service (Octavia)
 #
 # Wraps openstack.load_balancer (Octavia) operations:
 # load balancers, listeners, pools, members, and health monitors.
@@ -79,7 +79,7 @@ def provision_load_balancer(
         subnets: List of subnet UUIDs; first is used as the VIP subnet.
         conn:    Pre-authenticated connection (workspace-scoped or global).
     """
-    lb_dns = f"{name}-{uuid.uuid4().hex[:6]}.lb.orcacompute.cloud"
+    lb_dns = f"{name}-{uuid.uuid4().hex[:6]}.lb.orcacloud.cloud"
 
     if not is_openstack_configured():
         return {
@@ -100,7 +100,7 @@ def provision_load_balancer(
         lb = lb_proxy.create_load_balancer(
             name=name,
             vip_subnet_id=vip_subnet,
-            description=f"OrcaCompute {scheme} LB",
+            description=f"OrcaCloud {scheme} LB",
             admin_state_up=True,
         )
         logger.info("Created Octavia LB %s (%s)", name, getattr(lb, "id", ""))

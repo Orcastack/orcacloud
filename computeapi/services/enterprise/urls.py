@@ -1,6 +1,6 @@
-# OrcaCompute – Enterprise API URL Configuration
+# OrcaCloud – Enterprise API URL Configuration
 # All routes are org-scoped via /organizations/:org_pk/...
-# Mounted at /api/enterprise/ by the main orcacompute/urls.py
+# Mounted at /api/enterprise/ by the main orcacloud/urls.py
 
 from django.urls import path, include
 from rest_framework.routers import SimpleRouter

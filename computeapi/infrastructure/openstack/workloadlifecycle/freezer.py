@@ -1,4 +1,4 @@
-# OrcaCompute – OpenStack Backup/Restore Service (Freezer)
+# OrcaCloud – OpenStack Backup/Restore Service (Freezer)
 #
 # Wraps Freezer (freezer.backup) operations:
 # jobs, actions, sessions, and clients.

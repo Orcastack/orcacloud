@@ -1,19 +1,19 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: orcacompute-tls-selfsigned
-  namespace: orcacompute
+  name: orcacloud-tls-selfsigned
+  namespace: orcacloud
 spec:
-  secretName: orcacompute-tls-selfsigned
+  secretName: orcacloud-tls-selfsigned
   duration: 2160h # 90d
   renewBefore: 360h
   subject:
     organizations:
-    - OrcaCompute
+    - OrcaCloud
   dnsNames:
-  - orcacompute.com
-  - www.orcacompute.com
-  - api.orcacompute.com
+  - orcacloud.com
+  - www.orcacloud.com
+  - api.orcacloud.com
   issuerRef:
     name: selfsigned-issuer
     kind: ClusterIssuer

@@ -1,5 +1,5 @@
 """
-Custom Exceptions for OrcaCompute Services
+Custom Exceptions for OrcaCloud Services
 
 All business logic exceptions inherit from AtonixException for consistent
 error handling throughout the services module.
@@ -9,7 +9,7 @@ from rest_framework import status
 
 
 class AtonixException(Exception):
-    """Base exception for all OrcaCompute service errors"""
+    """Base exception for all OrcaCloud service errors"""
     
     status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
     detail = "An error occurred in the service"

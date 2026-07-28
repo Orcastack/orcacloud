@@ -1,4 +1,4 @@
-# OrcaCompute Backend - Base Models and Utilities
+# OrcaCloud Backend - Base Models and Utilities
 
 from django.db import models
 from django.contrib.auth.models import User

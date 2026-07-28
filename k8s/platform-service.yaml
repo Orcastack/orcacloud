@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: orcacompute
-  namespace: orcacompute
+  name: orcacloud
+  namespace: orcacloud
   labels:
-    app: orcacompute
+    app: orcacloud
 spec:
   selector:
-    app: orcacompute
+    app: orcacloud
   ports:
     - protocol: TCP
       port: 8000

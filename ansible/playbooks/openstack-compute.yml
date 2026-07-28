@@ -1,5 +1,5 @@
 ---
-# OrcaCompute – OpenStack Compute Node Deployment
+# OrcaCloud – OpenStack Compute Node Deployment
 #
 # Installs and configures:
 #   - nova-compute (KVM hypervisor)
@@ -13,7 +13,7 @@
 #   ansible-playbook -i inventory/production.ini playbooks/openstack-compute.yml \
 #     --tags nova --limit region-a-compute
 
-- name: OrcaCompute OpenStack Compute Node Deployment
+- name: OrcaCloud OpenStack Compute Node Deployment
   hosts: openstack_compute
   become: true
   gather_facts: true

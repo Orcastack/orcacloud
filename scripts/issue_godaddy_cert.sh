@@ -7,7 +7,7 @@ set -euo pipefail
 # 2) Export GD_Key and GD_Secret env vars, or pass them inline.
 #    export GD_Key="<GODADDY_API_KEY>"; export GD_Secret="<GODADDY_API_SECRET>"
 # 3) Run this script:
-#    ./scripts/issue_godaddy_cert.sh --domains "orcacompute.com,www.orcacompute.com,api.orcacompute.com" --namespace default --secret orcacompute-com-tls --staging
+#    ./scripts/issue_godaddy_cert.sh --domains "orcacloud.com,www.orcacloud.com,api.orcacloud.com" --namespace default --secret orcacloud-com-tls --staging
 
 # This script will:
 #  - call acme.sh to perform DNS-01 issuance against GoDaddy
@@ -16,7 +16,7 @@ set -euo pipefail
 
 DOMAINS=""
 NAMESPACE="default"
-SECRET_NAME="orcacompute-com-tls"
+SECRET_NAME="orcacloud-com-tls"
 STAGING=false
 ACME_HOME="${HOME}/.acme.sh"
 
@@ -29,7 +29,7 @@ Environment variables:
   GD_Secret   GoDaddy API secret
 
 Examples:
-  GD_Key=xxx GD_Secret=yyy $0 --domains "orcacompute.com,www.orcacompute.com,api.orcacompute.com" --staging
+  GD_Key=xxx GD_Secret=yyy $0 --domains "orcacloud.com,www.orcacloud.com,api.orcacloud.com" --staging
 EOF
   exit 1
 }

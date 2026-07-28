@@ -1,4 +1,4 @@
-# OrcaCompute Cloud — Team System ViewSets
+# OrcaCloud — Team System ViewSets
 
 import logging
 from django.contrib.auth.models import User

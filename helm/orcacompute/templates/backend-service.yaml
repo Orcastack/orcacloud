@@ -2,9 +2,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "orcacompute.fullname" . }}-backend
+  name: {{ include "orcacloud.fullname" . }}-backend
   labels:
-    {{- include "orcacompute.backend.labels" . | nindent 4 }}
+    {{- include "orcacloud.backend.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.backend.service.type }}
   ports:
@@ -13,7 +13,7 @@ spec:
       protocol: TCP
       name: http
   selector:
-    app.kubernetes.io/name: {{ include "orcacompute.name" . }}
+    app.kubernetes.io/name: {{ include "orcacloud.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/component: backend
 {{- end }}

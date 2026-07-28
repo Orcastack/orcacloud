@@ -21,7 +21,7 @@ INITIAL_REGIONS = [
         'uptime_30d_pct': 99.99,
         'latency_ms': 12.0,
         'enabled_services': ['compute', 'storage', 'database', 'kubernetes', 'networking', 'cdn'],
-        'api_endpoint': 'https://api-us-east-1.orcacompute.com',
+        'api_endpoint': 'https://api-us-east-1.orcacloud.com',
         'zones': ['a', 'b', 'c'],
     },
     {
@@ -35,7 +35,7 @@ INITIAL_REGIONS = [
         'uptime_30d_pct': 99.98,
         'latency_ms': 18.0,
         'enabled_services': ['compute', 'storage', 'database', 'kubernetes', 'networking', 'cdn'],
-        'api_endpoint': 'https://api-us-west-2.orcacompute.com',
+        'api_endpoint': 'https://api-us-west-2.orcacloud.com',
         'zones': ['a', 'b', 'c'],
     },
     {
@@ -49,7 +49,7 @@ INITIAL_REGIONS = [
         'uptime_30d_pct': 99.97,
         'latency_ms': 21.0,
         'enabled_services': ['compute', 'storage', 'database', 'kubernetes', 'networking'],
-        'api_endpoint': 'https://api-eu-west-1.orcacompute.com',
+        'api_endpoint': 'https://api-eu-west-1.orcacloud.com',
         'zones': ['a', 'b', 'c'],
     },
     {
@@ -63,7 +63,7 @@ INITIAL_REGIONS = [
         'uptime_30d_pct': 99.99,
         'latency_ms': 19.0,
         'enabled_services': ['compute', 'storage', 'database', 'kubernetes', 'networking', 'cdn'],
-        'api_endpoint': 'https://api-eu-central-1.orcacompute.com',
+        'api_endpoint': 'https://api-eu-central-1.orcacloud.com',
         'zones': ['a', 'b', 'c'],
     },
     {
@@ -77,7 +77,7 @@ INITIAL_REGIONS = [
         'uptime_30d_pct': 99.95,
         'latency_ms': 28.0,
         'enabled_services': ['compute', 'storage', 'database', 'kubernetes', 'networking'],
-        'api_endpoint': 'https://api-ap-southeast-1.orcacompute.com',
+        'api_endpoint': 'https://api-ap-southeast-1.orcacloud.com',
         'zones': ['a', 'b'],
     },
     {
@@ -91,7 +91,7 @@ INITIAL_REGIONS = [
         'uptime_30d_pct': 99.98,
         'latency_ms': 24.0,
         'enabled_services': ['compute', 'storage', 'database', 'kubernetes', 'networking', 'cdn'],
-        'api_endpoint': 'https://api-ap-northeast-1.orcacompute.com',
+        'api_endpoint': 'https://api-ap-northeast-1.orcacloud.com',
         'zones': ['a', 'b', 'c'],
     },
 ]

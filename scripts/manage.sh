@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# OrcaCompute Management Script
+# OrcaCloud Management Script
 # Usage: ./manage.sh [command] [options]
 
 set -e
 
-PROJECT_DIR="/home/atonixdev/orcacompute"
+PROJECT_DIR="/home/atonixdev/orcacloud"
 cd $PROJECT_DIR
 
 # Colors for output
@@ -20,7 +20,7 @@ NC='\033[0m' # No Color
 
 # Function to display usage
 usage() {
-    echo "OrcaCompute Management Script"
+    echo "OrcaCloud Management Script"
     echo ""
     echo "Usage: $0 [command] [options]"
     echo ""
@@ -51,7 +51,7 @@ usage() {
 # Function to start services
 start_services() {
     local env=${1:-dev}
-    echo -e "${GREEN}[START] Starting OrcaCompute ($env environment)...${NC}"
+    echo -e "${GREEN}[START] Starting OrcaCloud ($env environment)...${NC}"
     
     if [ "$env" = "prod" ]; then
         docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
@@ -65,7 +65,7 @@ start_services() {
 
 # Function to stop services
 stop_services() {
-    echo -e "${YELLOW} Stopping OrcaCompute...${NC}"
+    echo -e "${YELLOW} Stopping OrcaCloud...${NC}"
     docker-compose down
     echo -e "${GREEN}[OK] Platform stopped successfully!${NC}"
 }
@@ -73,7 +73,7 @@ stop_services() {
 # Function to restart services
 restart_services() {
     local env=${1:-dev}
-    echo -e "${BLUE}[RESTART] Restarting OrcaCompute...${NC}"
+    echo -e "${BLUE}[RESTART] Restarting OrcaCloud...${NC}"
     stop_platform
     sleep 3
     start_platform
@@ -98,7 +98,7 @@ get_status() {
     fi
     
     # Check database health
-    if docker compose exec -T db pg_isready -U orcacompute_user > /dev/null 2>&1; then
+    if docker compose exec -T db pg_isready -U orcacloud_user > /dev/null 2>&1; then
         echo -e "Database: ${GREEN}[OK] Healthy${NC}"
     else
         echo -e "Database: ${RED}[ERROR] Unhealthy${NC}"
@@ -148,7 +148,7 @@ show_status() {
     fi
     
     # Check database health
-    if docker compose exec -T db pg_isready -U orcacompute_user > /dev/null 2>&1; then
+    if docker compose exec -T db pg_isready -U orcacloud_user > /dev/null 2>&1; then
         echo -e "Database: ${GREEN}[OK] Healthy${NC}"
     else
         echo -e "Database: ${RED}[ERROR] Unhealthy${NC}"
@@ -186,7 +186,7 @@ access_shell() {
             docker-compose exec frontend sh
             ;;
         db)
-            docker-compose exec db psql -U orcacompute_user -d orcacompute
+            docker-compose exec db psql -U orcacloud_user -d orcacloud
             ;;
         redis)
             docker-compose exec redis redis-cli
@@ -206,7 +206,7 @@ create_backup() {
     echo -e "${BLUE} Creating database backup...${NC}"
     mkdir -p $backup_dir
     
-    docker-compose exec -T db pg_dump -U orcacompute_user orcacompute > $backup_file
+    docker-compose exec -T db pg_dump -U orcacloud_user orcacloud > $backup_file
     
     echo -e "${GREEN}[OK] Backup created: $backup_file${NC}"
 }
@@ -236,11 +236,11 @@ restore_backup() {
     echo -e "${BLUE}[RESTORE] Restoring database from $backup_file...${NC}"
     
     # Drop and recreate database
-    docker-compose exec -T db psql -U orcacompute_user -c "DROP DATABASE IF EXISTS orcacompute;"
-    docker-compose exec -T db psql -U orcacompute_user -c "CREATE DATABASE orcacompute;"
+    docker-compose exec -T db psql -U orcacloud_user -c "DROP DATABASE IF EXISTS orcacloud;"
+    docker-compose exec -T db psql -U orcacloud_user -c "CREATE DATABASE orcacloud;"
     
     # Restore from backup
-    cat $backup_file | docker-compose exec -T db psql -U orcacompute_user orcacompute
+    cat $backup_file | docker-compose exec -T db psql -U orcacloud_user orcacloud
     
     echo -e "${GREEN}[OK] Database restored successfully${NC}"
 }

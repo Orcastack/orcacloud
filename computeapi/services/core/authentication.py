@@ -1,7 +1,8 @@
-# Authentication classes for OrcaCompute services
+# Authentication classes for OrcaCloud services
 from rest_framework.authentication import TokenAuthentication, BaseAuthentication
 from rest_framework.exceptions import AuthenticationFailed
 from django.utils import timezone
+from rest_framework.authtoken.models import Token
 
 
 class APIKeyAuthentication(BaseAuthentication):
@@ -52,4 +53,32 @@ class BearerTokenAuthentication(TokenAuthentication):
     keyword = 'Bearer'
 
 
-__all__ = ['APIKeyAuthentication', 'BearerTokenAuthentication']
+class SharedCookieTokenAuthentication(BaseAuthentication):
+    """Authenticate dashboard requests with the shared parent-domain cookie."""
+
+    cookie_name = 'orca_auth_token'
+
+    def authenticate(self, request):
+        token_key = request.COOKIES.get(self.cookie_name)
+        if not token_key:
+            return None
+
+        try:
+            token = Token.objects.select_related('user').get(key=token_key)
+        except Token.DoesNotExist as exc:
+            raise AuthenticationFailed('Invalid shared session.') from exc
+
+        if not token.user.is_active:
+            raise AuthenticationFailed('User account is inactive.')
+
+        return (token.user, token)
+
+    def authenticate_header(self, request):
+        return 'Bearer'
+
+
+__all__ = [
+    'APIKeyAuthentication',
+    'BearerTokenAuthentication',
+    'SharedCookieTokenAuthentication',
+]

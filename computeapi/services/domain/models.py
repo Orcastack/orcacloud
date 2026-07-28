@@ -1,4 +1,4 @@
-# OrcaCompute Cloud – Domain Service Models
+# OrcaCloud – Domain Service Models
 
 from django.db import models
 from django.contrib.auth.models import User
@@ -128,7 +128,7 @@ class DnsZone(TimeStampedModel):
     zone_id         = models.CharField(max_length=64, unique=True, db_index=True)  # Designate zone UUID
     zone_name       = models.CharField(max_length=255)   # e.g. 'example.com.'
     status          = models.CharField(max_length=20, choices=DNS_ZONE_STATUS, default='pending')
-    email           = models.EmailField(default='hostmaster@orcacompute.com')
+    email           = models.EmailField(default='hostmaster@orcacloud.com')
     ttl             = models.PositiveIntegerField(default=300)
     serial          = models.BigIntegerField(default=1)
     description     = models.TextField(blank=True)

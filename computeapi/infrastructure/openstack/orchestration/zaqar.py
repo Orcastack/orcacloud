@@ -1,4 +1,4 @@
-# OrcaCompute – OpenStack Messaging Service (Zaqar)
+# OrcaCloud – OpenStack Messaging Service (Zaqar)
 #
 # NOTE: The OpenStack SDK has limited Zaqar proxy support.
 # This module uses the authenticated session's REST calls as a fallback

@@ -1,4 +1,4 @@
-# OrcaCompute Cloud – Managed Database Serializers
+# OrcaCloud – Managed Database Serializers
 
 from rest_framework import serializers
 from .models import ManagedDatabase, DatabaseCredential, DatabaseBackup, DatabaseMetric

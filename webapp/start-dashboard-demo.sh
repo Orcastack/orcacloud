@@ -1,16 +1,16 @@
 #!/bin/bash
 
-# OrcaCompute - Dashboard Demo Script
+# OrcaCloud - Dashboard Demo Script
 # This script starts the frontend development server so you can test the dashboard
 
-echo " Starting OrcaCompute Dashboard Demo"
+echo " Starting OrcaCloud Dashboard Demo"
 echo "=============================================="
 echo ""
 
 # Check if we're in the right directory
 if [ ! -f "package.json" ]; then
     echo " Error: Please run this script from the frontend directory"
-    echo "   Navigate to: cd /home/atonixdev/orcacompute/frontend"
+    echo "   Navigate to: cd /home/atonixdev/orcacloud/frontend"
     exit 1
 fi
 

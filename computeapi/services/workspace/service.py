@@ -1,4 +1,4 @@
-# OrcaCompute – Workspace Binding Service
+# OrcaCloud – Workspace Binding Service
 #
 # Central service that:
 #   1. Resolves workspace_id + environment → OpenStack project
@@ -122,7 +122,7 @@ class WorkspaceService:
             region_name=binding.openstack_region,
             user_domain_name=os.environ.get("OS_USER_DOMAIN_NAME", "Default"),
             project_domain_name=os.environ.get("OS_PROJECT_DOMAIN_NAME", "Default"),
-            app_name="orcacompute-backend",
+            app_name="orcacloud-backend",
             app_version="1.0",
         )
 

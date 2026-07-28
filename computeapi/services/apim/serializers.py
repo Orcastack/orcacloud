@@ -1,4 +1,4 @@
-# OrcaCompute Cloud – API Management Serializers
+# OrcaCloud – API Management Serializers
 
 from rest_framework import serializers
 from .models import (

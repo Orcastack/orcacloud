@@ -1,4 +1,4 @@
-# OrcaCompute – OpenStack REST API Views (Django REST Framework)
+# OrcaCloud – OpenStack REST API Views (Django REST Framework)
 #
 # Exposes OpenStack cloud operations as authenticated REST endpoints.
 # All endpoints require:  Authorization: Token <token>

@@ -1,4 +1,4 @@
-# OrcaCompute – Ceph RBD Module
+# OrcaCloud – Ceph RBD Module
 #
 # Wraps RADOS Block Device (rbd) operations: image create/delete/resize,
 # snapshots, clones, and flatten — consumed by Cinder and Nova ephemeral.

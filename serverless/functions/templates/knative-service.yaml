@@ -32,7 +32,7 @@ spec:
       containerConcurrency: 80
       timeoutSeconds: 300
       containers:
-        - image: ghcr.io/orcacompute/my-function:latest   # ← change per function
+        - image: ghcr.io/orcacloud/my-function:latest   # ← change per function
           ports:
             - name: h2c
               containerPort: 8080

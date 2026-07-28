@@ -1,4 +1,4 @@
-# OrcaCompute – Ceph RADOS Gateway (RGW) Module
+# OrcaCloud – Ceph RADOS Gateway (RGW) Module
 #
 # Wraps S3-compatible object storage operations via boto3 pointed at Ceph RGW.
 # Used for Swift-backed object storage in the Public and Hybrid cloud tiers.

@@ -1,7 +1,7 @@
 heat_template_version: wallaby
 
 description: |
-  OrcaCompute Hybrid Cloud – Cross-Region Workload Stack (Region C)
+  OrcaCloud Hybrid Cloud – Cross-Region Workload Stack (Region C)
   Provisions a hybrid workload that:
     - Creates a VM in Region C with a Barbican-backed TLS secret
     - Establishes a VPNaaS site-to-site tunnel to customer datacenter

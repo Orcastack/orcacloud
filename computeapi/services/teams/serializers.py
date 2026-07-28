@@ -1,4 +1,4 @@
-# OrcaCompute Cloud — Team System Serializers
+# OrcaCloud — Team System Serializers
 
 from django.contrib.auth.models import User
 from rest_framework import serializers

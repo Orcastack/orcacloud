@@ -1,7 +1,7 @@
 ---
 # Keystone Project + Role Definitions
 # Apply via: openstack project create / role add (or Terraform identity module)
-# These are the STANDARD project/role templates for all OrcaCompute tenants.
+# These are the STANDARD project/role templates for all OrcaCloud tenants.
 
 # ── Standard Roles ───────────────────────────────────────────────────────────
 roles:
@@ -24,7 +24,7 @@ roles:
 # Used when onboarding a new team or product
 project_template:
   domain: Default
-  description: "OrcaCompute tenant project"
+  description: "OrcaCloud tenant project"
   enabled: true
   tags:
     - ax:managed=true

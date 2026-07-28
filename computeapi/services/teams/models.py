@@ -1,4 +1,4 @@
-# OrcaCompute Cloud — Team System Models
+# OrcaCloud — Team System Models
 
 from django.db import models
 from django.contrib.auth.models import User

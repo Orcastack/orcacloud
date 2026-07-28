@@ -1,4 +1,4 @@
-# OrcaCompute Cloud – Container Registry Models
+# OrcaCloud – Container Registry Models
 # Multi-tenant, OCI-compliant container image registry
 
 import uuid
@@ -56,7 +56,7 @@ def generate_token():
 # ── ContainerRepository ───────────────────────────────────────────────────────
 class ContainerRepository(TimeStampedModel):
     """
-    A named namespace (registry.orcacompute.com/<owner>/<name>) that stores
+    A named namespace (registry.orcacloud.com/<owner>/<name>) that stores
     container image tags.
     """
     id             = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -83,7 +83,7 @@ class ContainerRepository(TimeStampedModel):
 
     @property
     def full_name(self):
-        return f"registry.orcacompute.com/{self.owner.username}/{self.name}"
+        return f"registry.orcacloud.com/{self.owner.username}/{self.name}"
 
     @property
     def region_display(self):

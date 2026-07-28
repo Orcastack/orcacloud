@@ -1,4 +1,4 @@
-# OrcaCompute Compute Service - ViewSets
+# OrcaCloud Compute Service - ViewSets
 
 import hashlib
 import uuid
@@ -391,7 +391,7 @@ class ServerlessFunctionViewSet(viewsets.ModelViewSet):
         """Invoke a serverless function."""
         function = self.get_object()
         payload = request.data.get('payload', {})
-        endpoint = (function.metadata or {}).get('endpoint', f"https://functions.orcacompute.cloud/{function.name}")
+        endpoint = (function.metadata or {}).get('endpoint', f"https://functions.orcacloud.cloud/{function.name}")
         result = invoke_serverless_function(endpoint=endpoint, payload=payload)
 
         function.invocation_count += 1

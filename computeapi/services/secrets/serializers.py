@@ -1,4 +1,4 @@
-# OrcaCompute Secrets Vault – Serializers
+# OrcaCloud Secrets Vault – Serializers
 
 from rest_framework import serializers
 from .models import Secret, SecretVersion, SecretAccessLog

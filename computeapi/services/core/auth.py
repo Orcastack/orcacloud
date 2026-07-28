@@ -1,4 +1,4 @@
-# OrcaCompute Authentication & Authorization Module
+# OrcaCloud Authentication & Authorization Module
 
 from rest_framework.permissions import IsAuthenticated, BasePermission
 from django.contrib.auth.models import User, Group

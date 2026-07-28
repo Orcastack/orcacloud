@@ -27,4 +27,4 @@ USER appuser
 EXPOSE 8000
 
 # Production default – overridden to `python manage.py runserver` in dev via compose
-CMD ["gunicorn", "orcacompute.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "3"]
+CMD ["gunicorn", "orcacloud.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "3"]

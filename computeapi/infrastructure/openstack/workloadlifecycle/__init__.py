@@ -1,4 +1,4 @@
-# OrcaCompute – Workload Lifecycle group
+# OrcaCloud – Workload Lifecycle group
 # Re-exports all public symbols from every module in this package so that:
 #   from infrastructure.openstack.workloadlifecycle import list_instances ← Trove
 #   from infrastructure.openstack.workloadlifecycle import list_jobs      ← Freezer

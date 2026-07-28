@@ -1,6 +1,6 @@
-# OrcaCompute Cloud – Scaling Runbook
+# OrcaCloud – Scaling Runbook
 
-**Scope:** Procedures for expanding capacity on the OrcaCompute cloud platform.
+**Scope:** Procedures for expanding capacity on the OrcaCloud cloud platform.
 **Owner:** Platform Engineering / Infrastructure team
 
 ---
@@ -41,7 +41,7 @@ compute-04 ansible_host=10.0.1.24 ansible_user=ubuntu
 ### 3. Run the compute playbook
 
 ```bash
-cd /home/atonixdev/orcacompute
+cd /home/atonixdev/orcacloud
 ansible-playbook -i ansible/inventory/production.ini \
   ansible/playbooks/openstack-compute.yml \
   --limit compute-04 \
@@ -58,7 +58,7 @@ openstack hypervisor list --long | grep compute-04
 ### 5. Update the region capacity record
 
 ```bash
-curl -X PATCH https://api.orcacompute.com/api/services/regions/<region-id>/ \
+curl -X PATCH https://api.orcacloud.com/api/services/regions/<region-id>/ \
   -H "Authorization: Token $ADMIN_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"uptime_30d_pct": 100.0}'
@@ -153,16 +153,16 @@ ceph osd crush reweight osd.<osd-id> <new-weight>
 
 **Trigger:** `ProjectVCPUQuotaNearLimit` / `ProjectMemoryQuotaNearLimit` alert, or tenant request.
 
-### Via OrcaCompute API
+### Via OrcaCloud API
 
 ```bash
 # 1. Get current binding
-curl https://api.orcacompute.com/api/services/workspaces/<workspace_id>/ \
+curl https://api.orcacloud.com/api/services/workspaces/<workspace_id>/ \
   -H "Authorization: Token $ADMIN_TOKEN"
 
 # 2. Update quota on the binding
 curl -X PATCH \
-  https://api.orcacompute.com/api/services/workspaces/<workspace_id>/bindings/<binding-id>/ \
+  https://api.orcacloud.com/api/services/workspaces/<workspace_id>/bindings/<binding-id>/ \
   -H "Authorization: Token $ADMIN_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
@@ -228,12 +228,12 @@ openstack subnet create \
 ### 1. Add to ServiceCatalogEntry
 
 ```bash
-# Using the OrcaCompute management command
-cd /home/atonixdev/orcacompute/backend
+# Using the OrcaCloud management command
+cd /home/atonixdev/orcacloud/backend
 python manage.py seed_service_catalog
 
 # Or add a single entry via API (platform_admin role required)
-curl -X POST https://api.orcacompute.com/api/services/catalog/ \
+curl -X POST https://api.orcacloud.com/api/services/catalog/ \
   -H "Authorization: Token $ADMIN_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
@@ -253,7 +253,7 @@ curl -X POST https://api.orcacompute.com/api/services/catalog/ \
 For region-level service availability, update the `CloudRegion.enabled_services` field:
 
 ```bash
-curl -X PATCH https://api.orcacompute.com/api/services/regions/<region-id>/ \
+curl -X PATCH https://api.orcacloud.com/api/services/regions/<region-id>/ \
   -H "Authorization: Token $ADMIN_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"enabled_services": ["compute","storage","networking","database","kubernetes","ironic"]}'

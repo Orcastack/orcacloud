@@ -89,7 +89,7 @@ jobs:
           REDIS_URL: redis://localhost:6379/0
           SECRET_KEY: test-secret-key
           DEBUG: 'True'
-          DJANGO_SETTINGS_MODULE: orcacompute.settings
+          DJANGO_SETTINGS_MODULE: orcacloud.settings
         run: |
           cd computeapi
           python manage.py migrate --noinput
@@ -250,8 +250,8 @@ jobs:
           sed -i "s|image: orcastack/computeapi:.*|image: ${{ env.REGISTRY }}/${{ github.repository }}/backend:develop-${{ github.sha }}|g" k8s/overlays/development/kustomization.yaml || true
           sed -i "s|image: orcastack/webapp:.*|image: ${{ env.REGISTRY }}/${{ github.repository }}/frontend:develop-${{ github.sha }}|g" k8s/overlays/development/kustomization.yaml || true
           kubectl apply -k k8s/overlays/development/
-          kubectl rollout status deployment/computeapi -n orcacompute-dev
-          kubectl rollout status deployment/webapp -n orcacompute-dev
+          kubectl rollout status deployment/computeapi -n orcacloud-dev
+          kubectl rollout status deployment/webapp -n orcacloud-dev
 
   # ── Deploy to Production ────────────────────────────────────────────────────
   deploy-prod:

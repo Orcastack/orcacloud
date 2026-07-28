@@ -1,18 +1,18 @@
 apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
-  name: orcacompute-cd-pipeline
-  namespace: orcacompute-tekton
+  name: orcacloud-cd-pipeline
+  namespace: orcacloud-tekton
   labels:
     app.kubernetes.io/version: "0.1"
   annotations:
     tekton.dev/pipelines.minVersion: "0.29.0"
     tekton.dev/categories: CI/CD
     tekton.dev/tags: cd, deploy, kubernetes
-    tekton.dev/displayName: "OrcaCompute CD Pipeline"
+    tekton.dev/displayName: "OrcaCloud CD Pipeline"
 spec:
   description: |
-    Continuous Deployment pipeline for OrcaCompute platform that:
+    Continuous Deployment pipeline for OrcaCloud platform that:
     1. Clones the source code
     2. Runs quick validation tests
     3. Performs security scanning of the deployment image
@@ -36,7 +36,7 @@ spec:
   - name: namespace
     type: string
     description: Kubernetes namespace to deploy to.
-    default: orcacompute-dev
+    default: orcacloud-dev
   - name: registry-url
     type: string
     description: Container registry URL.
@@ -135,7 +135,7 @@ spec:
     - name: NAMESPACE
       value: $(params.namespace)
     - name: BASE_URL
-      value: "http://orcacompute-$(params.target-environment).$(params.namespace).svc.cluster.local:8080"
+      value: "http://orcacloud-$(params.target-environment).$(params.namespace).svc.cluster.local:8080"
 
   - name: notify-deployment
     taskRef:
@@ -143,7 +143,7 @@ spec:
     runAfter: ["post-deployment-tests"]
     params:
     - name: message
-      value: " OrcaCompute platform deployed successfully to $(params.target-environment)"
+      value: " OrcaCloud platform deployed successfully to $(params.target-environment)"
     - name: environment
       value: $(params.target-environment)
     - name: image

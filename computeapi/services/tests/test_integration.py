@@ -1,5 +1,5 @@
 """
-Integration Tests for OrcaCompute Cloud Platform
+Integration Tests for OrcaCloud Platform
 
 Tests complete end-to-end workflows across multiple services:
 - Compute: Instance creation → running → metrics → termination

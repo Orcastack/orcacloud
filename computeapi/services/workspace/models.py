@@ -1,4 +1,4 @@
-# OrcaCompute – Workspace Models
+# OrcaCloud – Workspace Models
 #
 # A Workspace is an isolated unit of cloud resources belonging to a team/project.
 # Each Workspace maps to exactly one OpenStack project per environment.

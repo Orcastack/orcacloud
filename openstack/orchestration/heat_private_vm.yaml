@@ -1,7 +1,7 @@
 heat_template_version: wallaby
 
 description: |
-  OrcaCompute Private Cloud – VM Stack
+  OrcaCloud Private Cloud – VM Stack
   Provisions a Nova instance in Region B (Private) with:
     - a dedicated Neutron VLAN-backed network (no public floating IP)
     - a Cinder encrypted block volume (Barbican-backed key)

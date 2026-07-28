@@ -2,10 +2,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: frontend
-  namespace: orcacompute
+  namespace: orcacloud
 spec:
   template:
     spec:
       containers:
       - name: frontend
-        image: atonixdev/orcacompute-frontend:1.0.0
+        image: atonixdev/orcacloud-frontend:1.0.0

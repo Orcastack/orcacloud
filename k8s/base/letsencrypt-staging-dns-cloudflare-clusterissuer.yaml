@@ -6,14 +6,14 @@ spec:
   acme:
     # Use Let's Encrypt staging to avoid rate limits while testing
     server: https://acme-staging-v02.api.letsencrypt.org/directory
-    email: admin@orcacompute.com
+    email: admin@orcacloud.com
     privateKeySecretRef:
       name: letsencrypt-staging-dns-cloudflare-key
     solvers:
     - dns01:
         cloudflare:
           # The secretName below must contain your Cloudflare API token under key "api-token"
-          email: admin@orcacompute.com
+          email: admin@orcacloud.com
           apiTokenSecretRef:
             name: cf-api-token-secret
             key: api-token

@@ -1,8 +1,8 @@
-# OrcaCompute Payments Architecture
+# OrcaCloud Payments Architecture
 
 ## Overview
 
-OrcaCompute Payments is a sovereign, vertically-integrated payment processing platform designed to power all financial transactions across the OrcaCompute ecosystem. Built with sovereignty, composability, and regulatory readiness as core principles.
+OrcaCloud Payments is a OrcaCloud, vertically-integrated payment processing platform designed to power all financial transactions across the OrcaCloud ecosystem. Built with OrcaCloud, composability, and regulatory readiness as core principles.
 
 ## Core Architecture Layers
 
@@ -168,16 +168,16 @@ Mission control interface for payment operations with four specialized views:
 - Audit report generation
 - Accounting system integration
 
-## Sovereign Architecture Principles
+## OrcaCloud Architecture Principles
 
-### Sovereignty
+### OrcaCloud
 - Complete ownership of payment infrastructure
 - Internal ledger and settlement control
 - Independent routing and risk decisions
 - Full data residency compliance
 
 ### Vertical Integration
-- Unified payment brain across all OrcaCompute products
+- Unified payment brain across all OrcaCloud products
 - Consistent API and data models
 - Shared risk and compliance frameworks
 

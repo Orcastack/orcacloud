@@ -16,7 +16,7 @@ data:
               allowed_origins:
                 - "http://localhost:3000"
                 - "http://localhost:8000"
-                - "https://orcacompute.com"
+                - "https://orcacloud.com"
               allowed_headers:
                 - "*"
 
@@ -53,7 +53,7 @@ data:
       resource:
         attributes:
           - key: service.namespace
-            value: orcacompute
+            value: orcacloud
             action: upsert
           - key: deployment.environment
             from_attribute: environment
@@ -61,7 +61,7 @@ data:
 
       attributes:
         actions:
-          - key: orcacompute.collector.version
+          - key: orcacloud.collector.version
             value: "1.0.0"
             action: upsert
 
@@ -79,7 +79,7 @@ data:
 
       prometheus:
         endpoint: "0.0.0.0:8889"
-        namespace: orcacompute
+        namespace: orcacloud
         const_labels:
           environment: development
 

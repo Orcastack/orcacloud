@@ -11,11 +11,11 @@ resources:
 - ingress.yaml
 =======
   - namespace.yaml
-  - orcacompute-postgres.yaml
+  - orcacloud-postgres.yaml
   - fast-ssd-postgres-pv.yaml
-  - orcacompute-redis.yaml
-  - orcacompute-backend.yaml
-  - orcacompute-frontend.yaml
-  - orcacompute-celery.yaml
-  - orcacompute-ingress.yaml
+  - orcacloud-redis.yaml
+  - orcacloud-backend.yaml
+  - orcacloud-frontend.yaml
+  - orcacloud-celery.yaml
+  - orcacloud-ingress.yaml
 >>>>>>> 12bd998bda7cee255affa733e542706dbab8dcfb

@@ -136,7 +136,7 @@ data:
             },
             "namespace": {
               "type": "string",
-              "default": "orcacompute-quantum"
+              "default": "orcacloud-quantum"
             },
             "crd": {
               "type": "object",
@@ -186,7 +186,7 @@ data:
             },
             "namespace": {
               "type": "string",
-              "default": "orcacompute-quantum"
+              "default": "orcacloud-quantum"
             },
             "crd": {
               "type": "object",
@@ -223,10 +223,10 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - kas-webhooks.orcacompute.com
+    - kas-webhooks.orcacloud.com
     secretName: kas-webhook-tls
   rules:
-  - host: kas-webhooks.orcacompute.com
+  - host: kas-webhooks.orcacloud.com
     http:
       paths:
       - path: /

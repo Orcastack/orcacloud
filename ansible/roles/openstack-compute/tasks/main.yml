@@ -1,5 +1,5 @@
 ---
-# OrcaCompute – OpenStack Compute Node Role
+# OrcaCloud – OpenStack Compute Node Role
 # tasks/main.yml
 
 - name: Add Ubuntu Cloud Archive (UCA) for {{ openstack_release }}

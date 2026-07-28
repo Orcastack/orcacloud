@@ -10,7 +10,7 @@ from .serializers import PlatformResourceSerializer
 
 class ResourceViewSet(viewsets.ModelViewSet):
     """
-    OrcaCompute Cloud – Resource Control Center (read + limited write).
+    OrcaCloud – Resource Control Center (read + limited write).
 
     List / filter via:
         GET /api/services/resources/?group_id=&project_id=&environment=&resource_type=&status=&search=

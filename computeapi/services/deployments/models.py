@@ -1,4 +1,4 @@
-# OrcaCompute — Deploy Service Models
+# OrcaCloud — Deploy Service Models
 # Orchestrates full-stack application deployment across CI/CD, infra, and environment subsystems.
 
 import uuid
@@ -82,7 +82,7 @@ SOURCE_CHOICES = [
     ('github',    'GitHub'),
     ('gitlab',    'GitLab'),
     ('bitbucket', 'Bitbucket'),
-    ('atonix',    'OrcaCompute Project'),
+    ('atonix',    'OrcaCloud Project'),
     ('zip',       'ZIP Upload'),
 ]
 

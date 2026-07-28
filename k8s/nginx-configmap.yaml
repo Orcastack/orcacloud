@@ -1,17 +1,17 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: orcacompute-nginx-config
-  namespace: orcacompute
+  name: orcacloud-nginx-config
+  namespace: orcacloud
 data:
   default.conf: |
     server {
         listen 80;
-        server_name orcacompute.com www.orcacompute.com;
+        server_name orcacloud.com www.orcacloud.com;
 
         location / {
-            proxy_pass http://orcacompute:8000/;
-            proxy_set_header Host orcacompute.com;
+            proxy_pass http://orcacloud:8000/;
+            proxy_set_header Host orcacloud.com;
             proxy_set_header X-Real-IP $remote_addr;
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
             proxy_set_header X-Forwarded-Proto $scheme;
@@ -24,20 +24,20 @@ data:
 
     server {
         listen 80;
-        server_name api.orcacompute.com;
+        server_name api.orcacloud.com;
 
         location / {
-            proxy_pass http://orcacompute:8000/;
-            proxy_set_header Host api.orcacompute.com;
+            proxy_pass http://orcacloud:8000/;
+            proxy_set_header Host api.orcacloud.com;
             proxy_set_header X-Real-IP $remote_addr;
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
             proxy_set_header X-Forwarded-Proto $scheme;
         }
 
-        location /static/ { proxy_pass http://orcacompute:8000/static/; }
-        location /media/ { proxy_pass http://orcacompute:8000/media/; }
-        location /health/ { proxy_pass http://orcacompute:8000/health/; access_log off; }
-        location /docs/ { proxy_pass http://orcacompute:8000/docs/; }
+        location /static/ { proxy_pass http://orcacloud:8000/static/; }
+        location /media/ { proxy_pass http://orcacloud:8000/media/; }
+        location /health/ { proxy_pass http://orcacloud:8000/health/; access_log off; }
+        location /docs/ { proxy_pass http://orcacloud:8000/docs/; }
 
         location ~ /\.|/\.|/\.|/\.|/\.? { deny all; access_log off; }
     }

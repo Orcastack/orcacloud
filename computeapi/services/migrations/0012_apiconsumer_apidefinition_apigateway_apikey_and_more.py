@@ -70,7 +70,7 @@ class Migration(migrations.Migration):
                 ('id', models.CharField(default=services.apim.models._uid_gw, editable=False, max_length=40, primary_key=True, serialize=False)),
                 ('name', models.CharField(max_length=150)),
                 ('description', models.TextField(blank=True)),
-                ('engine', models.CharField(choices=[('kong', 'Kong'), ('envoy', 'Envoy'), ('nginx', 'NGINX'), ('tyk', 'Tyk'), ('atonix', 'OrcaCompute Gateway'), ('aws_agw', 'AWS API Gateway')], default='atonix', max_length=16)),
+                ('engine', models.CharField(choices=[('kong', 'Kong'), ('envoy', 'Envoy'), ('nginx', 'NGINX'), ('tyk', 'Tyk'), ('atonix', 'OrcaCloud Gateway'), ('aws_agw', 'AWS API Gateway')], default='atonix', max_length=16)),
                 ('environment', models.CharField(choices=[('development', 'Development'), ('staging', 'Staging'), ('production', 'Production')], default='development', max_length=16)),
                 ('region', models.CharField(default='us-east-1', max_length=64)),
                 ('endpoint', models.CharField(blank=True, max_length=500)),

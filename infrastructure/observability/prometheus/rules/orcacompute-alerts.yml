@@ -1,9 +1,9 @@
 groups:
-  - name: orcacompute.rules
+  - name: orcacloud.rules
     rules:
     # Django Backend Alerts
     - alert: DjangoBackendDown
-      expr: up{job="orcacompute-backend"} == 0
+      expr: up{job="orcacloud-backend"} == 0
       for: 5m
       labels:
         severity: critical

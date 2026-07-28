@@ -1,4 +1,4 @@
-# OrcaCompute – OpenStack Placement Service
+# OrcaCloud – OpenStack Placement Service
 #
 # Wraps openstack.placement operations:
 # resource providers, inventories, usages, resource classes, and traits.

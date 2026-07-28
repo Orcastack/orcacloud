@@ -9,10 +9,10 @@ from .client import AtonixClient
 
 
 def _client_from_env(args: argparse.Namespace) -> AtonixClient:
-    base_url = args.base_url or os.environ.get('ORCACOMPUTE_BASE_URL') or os.environ.get('ATONIX_BASE_URL', 'http://localhost:8000')
-    token = args.token or os.environ.get('ORCACOMPUTE_TOKEN') or os.environ.get('ATONIX_TOKEN', '')
+    base_url = args.base_url or os.environ.get('ORCACLOUD_BASE_URL') or os.environ.get('ATONIX_BASE_URL', 'http://localhost:8000')
+    token = args.token or os.environ.get('ORCACLOUD_TOKEN') or os.environ.get('ATONIX_TOKEN', '')
     if not token:
-        raise SystemExit('Missing token. Set --token or ORCACOMPUTE_TOKEN (legacy: ATONIX_TOKEN).')
+        raise SystemExit('Missing token. Set --token or ORCACLOUD_TOKEN (legacy: ATONIX_TOKEN).')
     return AtonixClient(base_url=base_url, token=token)
 
 
@@ -21,9 +21,9 @@ def _emit(payload):
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(prog='atonixctl', description='OrcaCompute CLI')
-    parser.add_argument('--base-url', default=None, help='API base URL (default: ORCACOMPUTE_BASE_URL or legacy ATONIX_BASE_URL)')
-    parser.add_argument('--token', default=None, help='API token (default: ORCACOMPUTE_TOKEN or legacy ATONIX_TOKEN)')
+    parser = argparse.ArgumentParser(prog='atonixctl', description='OrcaCloud CLI')
+    parser.add_argument('--base-url', default=None, help='API base URL (default: ORCACLOUD_BASE_URL or legacy ATONIX_BASE_URL)')
+    parser.add_argument('--token', default=None, help='API token (default: ORCACLOUD_TOKEN or legacy ATONIX_TOKEN)')
 
     subparsers = parser.add_subparsers(dest='command', required=True)
 

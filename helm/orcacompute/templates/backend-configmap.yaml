@@ -2,9 +2,9 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "orcacompute.fullname" . }}-backend-config
+  name: {{ include "orcacloud.fullname" . }}-backend-config
 data:
-  DJANGO_SETTINGS_MODULE: "orcacompute.settings"
+  DJANGO_SETTINGS_MODULE: "orcacloud.settings"
   ENVIRONMENT: "{{ .Release.Namespace }}"
   ALLOWED_HOSTS: "{{ .Values.backend.ALLOWED_HOSTS }}"
   CORS_ALLOWED_ORIGINS: "{{ .Values.backend.CORS_ALLOWED_ORIGINS }}"

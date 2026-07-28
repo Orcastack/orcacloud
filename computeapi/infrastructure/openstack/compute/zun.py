@@ -1,4 +1,4 @@
-# OrcaCompute – OpenStack Container Service (Zun)
+# OrcaCloud – OpenStack Container Service (Zun)
 #
 # Wraps openstack.container (Zun) operations:
 # containers, capsules (pod-like groups), images, and exec/logs.

@@ -1,4 +1,4 @@
-# OrcaCompute – OpenStack integration tests
+# OrcaCloud – OpenStack integration tests
 #
 # run:  python manage.py test services.test_openstack_services
 #  or:  python -m pytest services/test_openstack_services.py -v

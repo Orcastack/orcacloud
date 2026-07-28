@@ -1,12 +1,12 @@
 # Vault – Secret Management
 
-HashiCorp Vault provides secrets management, dynamic credentials, and encryption-as-a-service for all OrcaCompute services.
+HashiCorp Vault provides secrets management, dynamic credentials, and encryption-as-a-service for all OrcaCloud services.
 
 ## Secret Engines
 
 | Engine | Path | Purpose |
 |--------|------|---------|
-| KV v2 | `secret/orcacompute/` | Static secrets (API keys, config) |
+| KV v2 | `secret/orcacloud/` | Static secrets (API keys, config) |
 | OpenStack | `openstack/` | Dynamic OpenStack credentials |
 | Database | `database/` | Dynamic PostgreSQL/MySQL credentials |
 | SSH | `ssh/` | Dynamic SSH certificates for Ansible |
@@ -18,7 +18,7 @@ HashiCorp Vault provides secrets management, dynamic credentials, and encryption
 ### `terraform-policy.hcl`
 ```hcl
 # Terraform — can read/write to specific paths only
-path "secret/data/orcacompute/terraform/*" {
+path "secret/data/orcacloud/terraform/*" {
   capabilities = ["read"]
 }
 path "openstack/creds/terraform-role" {
@@ -29,7 +29,7 @@ path "openstack/creds/terraform-role" {
 ### `developer-policy.hcl`
 ```hcl
 # Developer — read own project secrets, no cross-project access
-path "secret/data/orcacompute/projects/{{identity.entity.aliases.userpass.metadata.project}}/*" {
+path "secret/data/orcacloud/projects/{{identity.entity.aliases.userpass.metadata.project}}/*" {
   capabilities = ["read", "list"]
 }
 ```
@@ -41,7 +41,7 @@ Secrets are injected into pods via the Vault Agent Sidecar Injector. Annotate po
 ```yaml
 vault.hashicorp.com/agent-inject: "true"
 vault.hashicorp.com/role: "my-service"
-vault.hashicorp.com/agent-inject-secret-config: "secret/data/orcacompute/my-service/config"
+vault.hashicorp.com/agent-inject-secret-config: "secret/data/orcacloud/my-service/config"
 ```
 
 ## Rules

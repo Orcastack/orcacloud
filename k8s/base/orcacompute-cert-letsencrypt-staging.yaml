@@ -1,14 +1,14 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: orcacompute-tls-staging
-  namespace: orcacompute
+  name: orcacloud-tls-staging
+  namespace: orcacloud
 spec:
-  secretName: orcacompute-tls-staging
+  secretName: orcacloud-tls-staging
   dnsNames:
-  - orcacompute.com
-  - www.orcacompute.com
-  - api.orcacompute.com
+  - orcacloud.com
+  - www.orcacloud.com
+  - api.orcacloud.com
   issuerRef:
     name: letsencrypt-staging-dns-cloudflare
     kind: ClusterIssuer

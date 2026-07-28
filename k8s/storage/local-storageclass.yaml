@@ -30,7 +30,7 @@ spec:
         - key: kubernetes.io/hostname
           operator: In
           values:
-          - orcacomputevm
+          - orcacloudvm
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -53,7 +53,7 @@ spec:
         - key: kubernetes.io/hostname
           operator: In
           values:
-          - orcacomputevm
+          - orcacloudvm
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -76,7 +76,7 @@ spec:
         - key: kubernetes.io/hostname
           operator: In
           values:
-          - orcacomputevm
+          - orcacloudvm
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -99,7 +99,7 @@ spec:
         - key: kubernetes.io/hostname
           operator: In
           values:
-          - orcacomputevm
+          - orcacloudvm
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -122,4 +122,4 @@ spec:
         - key: kubernetes.io/hostname
           operator: In
           values:
-          - orcacomputevm
+          - orcacloudvm

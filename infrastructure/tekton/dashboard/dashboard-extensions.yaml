@@ -8,16 +8,16 @@ metadata:
     app.kubernetes.io/version: v0.40.1
     dashboard.tekton.dev/extension: "true"
 data:
-  orcacompute-extension.yaml: |
+  orcacloud-extension.yaml: |
     apiVersion: dashboard.tekton.dev/v1alpha1
     kind: Extension
     metadata:
-      name: orcacompute-extension
+      name: orcacloud-extension
     spec:
       apiVersion: dashboard.tekton.dev/v1alpha1
-      name: orcacompute
-      displayname: OrcaCompute
-      bundlelocation: ./static/extensions/orcacompute/
+      name: orcacloud
+      displayname: OrcaCloud
+      bundlelocation: ./static/extensions/orcacloud/
       source: |
         import React from 'react';
         import { 
@@ -30,11 +30,11 @@ data:
           Button
         } from '@material-ui/core';
         
-        function OrcaComputeDashboard() {
+        function OrcaCloudDashboard() {
           return (
             <Box p={3}>
               <Typography variant="h4" gutterBottom>
-                 OrcaCompute Dashboard
+                 OrcaCloud Dashboard
               </Typography>
               
               <Grid container spacing={3}>
@@ -109,7 +109,7 @@ data:
           );
         }
         
-        export default OrcaComputeDashboard;
+        export default OrcaCloudDashboard;
 
 ---
 apiVersion: v1
@@ -157,7 +157,7 @@ data:
       - role: pod
         namespaces:
           names:
-          - orcacompute-tekton
+          - orcacloud-tekton
       relabel_configs:
       - source_labels: [__meta_kubernetes_pod_label_app_kubernetes_io_name]
         action: keep
@@ -168,7 +168,7 @@ data:
       - role: pod
         namespaces:
           names:
-          - orcacompute-tekton
+          - orcacloud-tekton
       relabel_configs:
       - source_labels: [__meta_kubernetes_pod_label_app_kubernetes_io_name]
         action: keep
@@ -178,8 +178,8 @@ data:
     {
       "dashboard": {
         "id": null,
-        "title": "OrcaCompute Tekton Dashboard",
-        "tags": ["tekton", "orcacompute", "ci-cd"],
+        "title": "OrcaCloud Tekton Dashboard",
+        "tags": ["tekton", "orcacloud", "ci-cd"],
         "timezone": "browser",
         "panels": [
           {

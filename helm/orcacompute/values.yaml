@@ -1,4 +1,4 @@
-# Default values for orcacompute
+# Default values for orcacloud
 # This is a YAML-formatted file.
 
 # Global settings
@@ -20,7 +20,7 @@ backend:
   enabled: true
   image:
     registry: ghcr.io
-    repository: orcacompute/platform/backend
+    repository: orcacloud/platform/backend
     tag: "latest"
     pullPolicy: IfNotPresent
   
@@ -30,8 +30,8 @@ backend:
   env:
     DEBUG: "False"
     SECRET_KEY: ""
-  ALLOWED_HOSTS: "localhost,orcacompute.com"
-  CORS_ALLOWED_ORIGINS: "https://orcacompute.com"
+  ALLOWED_HOSTS: "localhost,orcacloud.com"
+  CORS_ALLOWED_ORIGINS: "https://orcacloud.com"
   
   # Resources
   resources:
@@ -89,7 +89,7 @@ frontend:
   enabled: true
   image:
     registry: ghcr.io
-    repository: orcacompute/platform/frontend
+    repository: orcacloud/platform/frontend
     tag: "latest"
     pullPolicy: IfNotPresent
   
@@ -97,7 +97,7 @@ frontend:
   
   # Environment variables
   env:
-    REACT_APP_API_URL: "https://api.orcacompute.com/api"
+    REACT_APP_API_URL: "https://api.orcacloud.com/api"
     REACT_APP_ENVIRONMENT: "production"
   
   # Resources
@@ -209,9 +209,9 @@ postgresql:
   enabled: true
   auth:
     postgresPassword: ""
-    username: "orcacompute_user"
+    username: "orcacloud_user"
     password: ""
-    database: "orcacompute"
+    database: "orcacloud"
   
   primary:
     persistence:
@@ -260,22 +260,22 @@ ingress:
     nginx.ingress.kubernetes.io/rate-limit-window: "1m"
   
   hosts:
-  - host: orcacompute.com
+  - host: orcacloud.com
     paths:
       - path: /
         pathType: Prefix
         service: frontend
-  - host: api.orcacompute.com
+  - host: api.orcacloud.com
     paths:
       - path: /
         pathType: Prefix
         service: backend
   
   tls:
-    - secretName: orcacompute-tls
+    - secretName: orcacloud-tls
       hosts:
-        - orcacompute.com
-        - api.orcacompute.com
+        - orcacloud.com
+        - api.orcacloud.com
 
 # Persistent Volume Claims
 persistence:

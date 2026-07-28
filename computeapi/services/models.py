@@ -1,4 +1,4 @@
-# OrcaCompute Services - Model Registry
+# OrcaCloud Services - Model Registry
 #
 # Re-exports all models from domain-specific files so that
 # `from .models import X` works across business_logic, signals, and tasks.

@@ -1,4 +1,4 @@
-# OrcaCompute – OpenStack Prometheus Alert Rules
+# OrcaCloud – OpenStack Prometheus Alert Rules
 # Requires: openstack-exporter  (https://github.com/openstack-exporter/openstack-exporter)
 #   docker run -d -p 9180:9180 \
 #     -v /etc/openstack:/etc/openstack:ro \

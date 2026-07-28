@@ -1,4 +1,4 @@
-# OrcaCompute Cloud – Monitoring & Incident Management Models
+# OrcaCloud – Monitoring & Incident Management Models
 import uuid
 from django.db import models
 from django.contrib.auth.models import User

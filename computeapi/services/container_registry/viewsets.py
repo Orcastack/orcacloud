@@ -1,4 +1,4 @@
-# OrcaCompute Cloud – Container Registry ViewSets
+# OrcaCloud – Container Registry ViewSets
 
 import random
 import uuid

@@ -1,19 +1,19 @@
-# ArgoCD Application for OrcaCompute - Development
+# ArgoCD Application for OrcaCloud - Development
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: orcacompute-dev
+  name: orcacloud-dev
   namespace: argocd
   labels:
-    app: orcacompute
+    app: orcacloud
     environment: development
 spec:
   project: default
   
   source:
-    repoURL: https://github.com/orcacompute/orcacompute.git
+    repoURL: https://github.com/orcacloud/orcacloud.git
     targetRevision: develop
-    path: helm/orcacompute
+    path: helm/orcacloud
     helm:
       valueFiles:
         - values.yaml
@@ -26,7 +26,7 @@ spec:
   
   destination:
     server: https://kubernetes.default.svc
-    namespace: orcacompute-dev
+    namespace: orcacloud-dev
   
   syncPolicy:
     automated:
@@ -57,22 +57,22 @@ spec:
       jsonPointers:
         - /data
 ---
-# ArgoCD Application for OrcaCompute - Staging
+# ArgoCD Application for OrcaCloud - Staging
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: orcacompute-staging
+  name: orcacloud-staging
   namespace: argocd
   labels:
-    app: orcacompute
+    app: orcacloud
     environment: staging
 spec:
   project: default
   
   source:
-    repoURL: https://github.com/orcacompute/orcacompute.git
+    repoURL: https://github.com/orcacloud/orcacloud.git
     targetRevision: main
-    path: helm/orcacompute
+    path: helm/orcacloud
     helm:
       valueFiles:
         - values.yaml
@@ -85,7 +85,7 @@ spec:
   
   destination:
     server: https://kubernetes.default.svc
-    namespace: orcacompute-staging
+    namespace: orcacloud-staging
   
   syncPolicy:
     automated:
@@ -105,14 +105,14 @@ spec:
   
   revisionHistoryLimit: 10
 ---
-# ArgoCD Application for OrcaCompute - Production
+# ArgoCD Application for OrcaCloud - Production
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: orcacompute-prod
+  name: orcacloud-prod
   namespace: argocd
   labels:
-    app: orcacompute
+    app: orcacloud
     environment: production
   annotations:
     argocd.argoproj.io/sync-wave: "10"  # Deploy after infrastructure
@@ -120,9 +120,9 @@ spec:
   project: production
   
   source:
-    repoURL: https://github.com/orcacompute/orcacompute.git
+    repoURL: https://github.com/orcacloud/orcacloud.git
     targetRevision: main
-    path: helm/orcacompute
+    path: helm/orcacloud
     helm:
       valueFiles:
         - values.yaml
@@ -135,7 +135,7 @@ spec:
   
   destination:
     server: https://kubernetes.default.svc
-    namespace: orcacompute
+    namespace: orcacloud
   
   syncPolicy:
     automated:

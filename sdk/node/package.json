@@ -1,7 +1,7 @@
 {
-  "name": "@orcacompute/sdk",
+  "name": "@orcacloud/sdk",
   "version": "0.1.0",
-  "description": "Official Node.js SDK for OrcaCompute",
+  "description": "Official Node.js SDK for OrcaCloud",
   "main": "dist/client.js",
   "types": "dist/client.d.ts",
   "scripts": {

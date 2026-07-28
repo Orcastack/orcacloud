@@ -70,7 +70,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='repository',
             name='provider',
-            field=models.CharField(choices=[('github', 'GitHub'), ('gitlab', 'GitLab'), ('bitbucket', 'Bitbucket'), ('atonix', 'OrcaCompute')], default='atonix', max_length=20),
+            field=models.CharField(choices=[('github', 'GitHub'), ('gitlab', 'GitLab'), ('bitbucket', 'Bitbucket'), ('atonix', 'OrcaCloud')], default='atonix', max_length=20),
         ),
         migrations.AddIndex(
             model_name='repository',

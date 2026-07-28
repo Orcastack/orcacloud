@@ -1,5 +1,5 @@
 === Legacy Name Audit ===
-Root: /home/orcadevstack/OrcaCompute
+Root: /home/orcadevstack/OrcaCloud
 
 Top directories by match count:
    99  computeapi
@@ -13,7 +13,7 @@ Top directories by match count:
    23  openstack
    18  terraform
    18  docs
-   10  orcacompute-operator
+   10  orcacloud-operator
     5  monitoring
     5  docker
     3  .gitlab-ci.yml
@@ -61,14 +61,14 @@ Sample matches (first 200):
 ./webapp/src/services/groupsApi.ts:25:export type ImportSource = 'github' | 'gitlab' | 'bitbucket' | 'atonix'
 ./webapp/src/pages/ProjectImportPage.tsx:38:const LEGACY_PROJECT_LIST_KEY = 'atonix:projects:list:v1';
 ./webapp/src/pages/ProjectImportPage.tsx:40:const LEGACY_PROJECT_SNACK_KEY = 'atonix:projects:snack:v1';
-./webapp/src/pages/WorkspaceDashboardPage.tsx:480:const PIPELINE_FILES = ['orcacompute.yml', 'atonix.yml', '.gitlab-ci.yml', 'pipeline.yaml', 'Jenkinsfile', '.github/workflows/ci.yml'];
+./webapp/src/pages/WorkspaceDashboardPage.tsx:480:const PIPELINE_FILES = ['orcacloud.yml', 'atonix.yml', '.gitlab-ci.yml', 'pipeline.yaml', 'Jenkinsfile', '.github/workflows/ci.yml'];
 ./webapp/src/pages/WorkspaceDashboardPage.tsx:827:  const [_k8sProvider, _setK8sProvider]             = useState<'atonix' | 'aws' | 'gcp' | 'azure' | 'bare-metal'>('atonix');
 ./webapp/src/pages/WorkspaceDashboardPage.tsx:937:        provider: (cl as any).metadata?.provider ?? 'atonix',
 ./webapp/src/pages/NetworkPage.tsx:98:    zone_id: 'internal.atonix.local',
 ./webapp/src/pages/NetworkPage.tsx:99:    name: 'api.internal.atonix.local',
 ./webapp/src/pages/ProjectDashboardPage.tsx:52:const LEGACY_PROJECT_LIST_KEY = 'atonix:projects:list:v1';
 ./webapp/src/pages/ProjectDashboardPage.tsx:578:                  {repo?.provider && repo.provider !== 'atonix' && (
-./webapp/src/pages/DevGroupsPage.tsx:94:  { id: 'atonix',    label: 'OrcaCompute Cloud',        icon: <CloudDownloadOutlinedIcon sx={{ fontSize: '1rem' }} /> },
+./webapp/src/pages/DevGroupsPage.tsx:94:  { id: 'atonix',    label: 'OrcaCloud',        icon: <CloudDownloadOutlinedIcon sx={{ fontSize: '1rem' }} /> },
 ./webapp/src/pages/DevWorkspacePage.tsx:60:  { value: 'atonix/devbox:22.04-lts',   label: 'Ubuntu 22.04 LTS (default)' },
 ./webapp/src/pages/DevWorkspacePage.tsx:61:  { value: 'atonix/devbox:24.04-lts',   label: 'Ubuntu 24.04 LTS' },
 ./webapp/src/pages/DevWorkspacePage.tsx:62:  { value: 'atonix/devbox:node20',       label: 'Node.js 20' },
@@ -78,27 +78,27 @@ Sample matches (first 200):
 ./webapp/src/pages/DevWorkspacePage.tsx:130:    region: 'us-east-1', image: 'atonix/devbox:22.04-lts', ide: 'VS Code',
 ./webapp/src/pages/ProjectCreateWizardPage.tsx:34:const LEGACY_STORAGE_KEY = 'atonix:project-create:v2';
 ./webapp/src/pages/ProjectCreateWizardPage.tsx:264:        const legacyPipelineKey = `atonix:pipeline-config:${derived.projectId}`;
-./webapp/src/pages/ProjectCreateWizardPage.tsx:571:                On creation the system will initialize/clone repository, auto-detect language, generate <strong>.orcacompute/pipeline.yaml</strong> (legacy <strong>.atonix/pipeline.yaml</strong> is still recognized), initialize CI/CD, and connect repository to workspace when a workspace exists.
-./webapp/src/pages/ProjectCreateWizardPage.tsx:801:                    <strong>Pipeline Ready:</strong> System will generate <code>.orcacompute/pipeline.yaml</code> (legacy <code>.atonix/pipeline.yaml</code> supported) with {state.pipelineTemplate} template, configure {state.pipelineTriggers.join(', ')} triggers, and set up {state.deploymentStrategy} deployment strategy.
+./webapp/src/pages/ProjectCreateWizardPage.tsx:571:                On creation the system will initialize/clone repository, auto-detect language, generate <strong>.orcacloud/pipeline.yaml</strong> (legacy <strong>.atonix/pipeline.yaml</strong> is still recognized), initialize CI/CD, and connect repository to workspace when a workspace exists.
+./webapp/src/pages/ProjectCreateWizardPage.tsx:801:                    <strong>Pipeline Ready:</strong> System will generate <code>.orcacloud/pipeline.yaml</code> (legacy <code>.atonix/pipeline.yaml</code> supported) with {state.pipelineTemplate} template, configure {state.pipelineTriggers.join(', ')} triggers, and set up {state.deploymentStrategy} deployment strategy.
 ./webapp/src/pages/RepoSetupPage.tsx:102:        provider:       'atonix',
 ./webapp/src/pages/DevDeploymentsPage.tsx:95:const LEGACY_NEW_DEPLOY_KEY = 'ATONIX_NEW_DEPLOY';
 ./webapp/src/pages/ServerlessPage.tsx:54:    code_uri: 'ghcr.io/atonix/functions/hello:latest',
 ./webapp/src/pages/DevRepositoriesPage.tsx:61:  atonix:    <AccountTreeIcon sx={{ fontSize: '1rem', color: t.brandPrimary }} />,
-./webapp/src/pages/DNSPage.tsx:28:  { id: 'z-001', name: 'orcacompute.com', type: 'public', records: 24, status: 'active', nameservers: ['ns1.atonix.cloud', 'ns2.atonix.cloud'], ttl: 300 },
-./webapp/src/pages/DNSPage.tsx:29:  { id: 'z-002', name: 'api.orcacompute.com', type: 'public', records: 8, status: 'active', nameservers: ['ns1.atonix.cloud', 'ns2.atonix.cloud'], ttl: 60 },
+./webapp/src/pages/DNSPage.tsx:28:  { id: 'z-001', name: 'orcacloud.com', type: 'public', records: 24, status: 'active', nameservers: ['ns1.atonix.cloud', 'ns2.atonix.cloud'], ttl: 300 },
+./webapp/src/pages/DNSPage.tsx:29:  { id: 'z-002', name: 'api.orcacloud.com', type: 'public', records: 8, status: 'active', nameservers: ['ns1.atonix.cloud', 'ns2.atonix.cloud'], ttl: 60 },
 ./webapp/src/pages/DNSPage.tsx:30:  { id: 'z-003', name: 'internal.corp', type: 'private', records: 42, status: 'active', nameservers: ['ns-int-1.atonix.internal'], ttl: 30 },
-./webapp/src/pages/DNSPage.tsx:31:  { id: 'z-004', name: 'staging.orcacompute.com', type: 'public', records: 12, status: 'active', nameservers: ['ns1.atonix.cloud', 'ns2.atonix.cloud'], ttl: 60 },
-./webapp/src/pages/DNSPage.tsx:38:  { id: 'rec-04', zone: 'orcacompute.com', name: 'mail', type: 'MX', value: '10 mx.atonixmail.com', ttl: 3600, proxied: false },
-./webapp/src/pages/DNSPage.tsx:39:  { id: 'rec-05', zone: 'orcacompute.com', name: '@', type: 'TXT', value: 'v=spf1 include:spf.atonixmail.com ~all', ttl: 3600, proxied: false },
-./webapp/start-dashboard-demo.sh:13:    echo "   Navigate to: cd /home/atonixdev/orcacompute/frontend"
+./webapp/src/pages/DNSPage.tsx:31:  { id: 'z-004', name: 'staging.orcacloud.com', type: 'public', records: 12, status: 'active', nameservers: ['ns1.atonix.cloud', 'ns2.atonix.cloud'], ttl: 60 },
+./webapp/src/pages/DNSPage.tsx:38:  { id: 'rec-04', zone: 'orcacloud.com', name: 'mail', type: 'MX', value: '10 mx.atonixmail.com', ttl: 3600, proxied: false },
+./webapp/src/pages/DNSPage.tsx:39:  { id: 'rec-05', zone: 'orcacloud.com', name: '@', type: 'TXT', value: 'v=spf1 include:spf.atonixmail.com ~all', ttl: 3600, proxied: false },
+./webapp/start-dashboard-demo.sh:13:    echo "   Navigate to: cd /home/atonixdev/orcacloud/frontend"
 ./ARCHITECTURE.md:245:Otherwise it uses **clouds.yaml** (`OS_CLOUD` or `"atonix"`).
 ./ARCHITECTURE.md:451:OS_USERNAME=atonix-service
 ./ARCHITECTURE.md:456:OS_CLOUD=atonix          # used when above are not set
 ./.gitlab-ci.yml:4:# - DOCKER_USERNAME (e.g. atonixdev)
-./.gitlab-ci.yml:16:  IMAGE_REPO_FRONTEND: "atonixdev/orcacompute-frontend"
-./.gitlab-ci.yml:17:  IMAGE_REPO_BACKEND: "atonixdev/orcacompute-backend"
-./bitbucket-pipelines.yml:89:          - export IMAGE_NAME="$DOCKER_REGISTRY/atonixdev/orcacompute/backend"
-./bitbucket-pipelines.yml:121:          - export IMAGE_NAME="$DOCKER_REGISTRY/atonixdev/orcacompute/frontend"
+./.gitlab-ci.yml:16:  IMAGE_REPO_FRONTEND: "atonixdev/orcacloud-frontend"
+./.gitlab-ci.yml:17:  IMAGE_REPO_BACKEND: "atonixdev/orcacloud-backend"
+./bitbucket-pipelines.yml:89:          - export IMAGE_NAME="$DOCKER_REGISTRY/atonixdev/orcacloud/backend"
+./bitbucket-pipelines.yml:121:          - export IMAGE_NAME="$DOCKER_REGISTRY/atonixdev/orcacloud/frontend"
 ./ansible/roles/security-harden/tasks/main.yml:59:    path: /etc/modprobe.d/blacklist-atonix.conf
 ./ansible/playbooks/network-configure.yml:69:        atonix-public-external
 ./ansible/playbooks/network-configure.yml:84:        --network atonix-public-external
@@ -128,57 +128,57 @@ Sample matches (first 200):
 ./ansible/playbooks/ceph-deploy.yml:136:        - atonix-hybrid-rgw
 ./ansible/playbooks/ceph-deploy.yml:143:      command: ceph orch apply rgw atonix --placement="{{ groups['ceph_rgw'] | join(' ') }}"
 ./terraform/modules/kubernetes-service/variables.tf:29:  default     = "atonixdev"
-./terraform/kubernetes/main.tf:7:    organization = "OrcaCompute-Platform"
-./terraform/kubernetes/main.tf:17:    organization = "OrcaCompute-Platform"
+./terraform/kubernetes/main.tf:7:    organization = "OrcaCloud-Platform"
+./terraform/kubernetes/main.tf:17:    organization = "OrcaCloud-Platform"
 ./terraform/kubernetes/modules/postgresql/variables.tf:20:  default     = "atonixuser"
-./terraform/kubernetes/terraform.tfvars.prod:6:project_name = "orcacompute-platform"
-./terraform/kubernetes/terraform.tfvars.prod:9:namespace    = "orcacompute-platform"
+./terraform/kubernetes/terraform.tfvars.prod:6:project_name = "orcacloud-platform"
+./terraform/kubernetes/terraform.tfvars.prod:9:namespace    = "orcacloud-platform"
 ./terraform/kubernetes/terraform.tfvars.prod:42:database_username = "atonixuser"
-./terraform/kubernetes/terraform.tfvars.prod:77:api_url = "http://orcacompute-platform-backend:8000"
-./terraform/kubernetes/terraform.tfvars.example:18:project_name = "orcacompute-platform"
-./terraform/kubernetes/terraform.tfvars.example:21:namespace    = "orcacompute-platform"
+./terraform/kubernetes/terraform.tfvars.prod:77:api_url = "http://orcacloud-platform-backend:8000"
+./terraform/kubernetes/terraform.tfvars.example:18:project_name = "orcacloud-platform"
+./terraform/kubernetes/terraform.tfvars.example:21:namespace    = "orcacloud-platform"
 ./terraform/kubernetes/terraform.tfvars.example:136:database_username = "atonixuser"
-./terraform/kubernetes/terraform.tfvars.example:219:api_url = "http://orcacompute-platform-backend:8000"
-./terraform/kubernetes/terraform.tfvars.dev:6:project_name = "orcacompute-platform"
+./terraform/kubernetes/terraform.tfvars.example:219:api_url = "http://orcacloud-platform-backend:8000"
+./terraform/kubernetes/terraform.tfvars.dev:6:project_name = "orcacloud-platform"
 ./terraform/kubernetes/terraform.tfvars.dev:39:database_username = "atonixuser"
-./terraform/kubernetes/terraform.tfvars.dev:73:api_url = "http://orcacompute-platform-dev-backend:8000"
+./terraform/kubernetes/terraform.tfvars.dev:73:api_url = "http://orcacloud-platform-dev-backend:8000"
 ./terraform/kubernetes/variables.tf:177:  default     = "atonixuser"
-./terraform/kubernetes/terraform.tfvars:5:project_name = "orcacompute-platform"
-./terraform/kubernetes/terraform.tfvars:8:namespace = "orcacompute-platform"
+./terraform/kubernetes/terraform.tfvars:5:project_name = "orcacloud-platform"
+./terraform/kubernetes/terraform.tfvars:8:namespace = "orcacloud-platform"
 ./docker-compose.yml:198:      - /var/log/atonix-nginx:/var/log/nginx
-./docker/docker-compose.spark.yml:10:      - orcacompute_atonix-network
-./docker/docker-compose.spark.yml:23:      - orcacompute_atonix-network
-./docker/docker-compose.spark.yml:35:      - orcacompute_atonix-network
-./docker/docker-compose.spark.yml:47:      - orcacompute_atonix-network
-./docker/docker-compose.spark.yml:51:  orcacompute_atonix-network:
-./helm/orcacompute/templates/_helpers.tpl:4:{{- define "orcacompute-platform.name" -}}
-./helm/orcacompute/templates/_helpers.tpl:13:{{- define "orcacompute-platform.fullname" -}}
-./helm/orcacompute/templates/_helpers.tpl:29:{{- define "orcacompute-platform.chart" -}}
-./helm/orcacompute/templates/_helpers.tpl:36:{{- define "orcacompute-platform.labels" -}}
-./helm/orcacompute/templates/_helpers.tpl:37:helm.sh/chart: {{ include "orcacompute-platform.chart" . }}
-./helm/orcacompute/templates/_helpers.tpl:38:{{ include "orcacompute-platform.selectorLabels" . }}
-./helm/orcacompute/templates/_helpers.tpl:48:{{- define "orcacompute-platform.selectorLabels" -}}
-./helm/orcacompute/templates/_helpers.tpl:49:app.kubernetes.io/name: {{ include "orcacompute-platform.name" . }}
-./helm/orcacompute/templates/_helpers.tpl:56:{{- define "orcacompute-platform.backend.labels" -}}
-./helm/orcacompute/templates/_helpers.tpl:57:{{ include "orcacompute-platform.labels" . }}
-./helm/orcacompute/templates/_helpers.tpl:64:{{- define "orcacompute-platform.frontend.labels" -}}
-./helm/orcacompute/templates/_helpers.tpl:65:{{ include "orcacompute-platform.labels" . }}
-./helm/orcacompute/templates/_helpers.tpl:72:{{- define "orcacompute-platform.celery-worker.labels" -}}
-./helm/orcacompute/templates/_helpers.tpl:73:{{ include "orcacompute-platform.labels" . }}
-./helm/orcacompute/templates/_helpers.tpl:80:{{- define "orcacompute-platform.celery-beat.labels" -}}
-./helm/orcacompute/templates/_helpers.tpl:81:{{ include "orcacompute-platform.labels" . }}
-./helm/orcacompute/templates/_helpers.tpl:88:{{- define "orcacompute-platform.serviceAccountName" -}}
-./helm/orcacompute/templates/_helpers.tpl:90:{{- default (include "orcacompute-platform.fullname" .) .Values.serviceAccount.name }}
-./helm/orcacompute/templates/_helpers.tpl:99:{{- define "orcacompute-platform.backend.image" -}}
-./helm/orcacompute/templates/_helpers.tpl:113:{{- define "orcacompute-platform.frontend.image" -}}
-./helm/orcacompute/templates/_helpers.tpl:127:{{- define "orcacompute-platform.databaseUrl" -}}
-./helm/orcacompute/templates/_helpers.tpl:129:postgresql://{{ .Values.postgresql.auth.username }}:{{ .Values.postgresql.auth.password }}@{{ include "orcacompute-platform.fullname" . }}-postgresql:5432/{{ .Values.postgresql.auth.database }}
-./helm/orcacompute/templates/_helpers.tpl:138:{{- define "orcacompute-platform.redisUrl" -}}
-./helm/orcacompute/templates/_helpers.tpl:141:redis://:{{ .Values.redis.auth.password }}@{{ include "orcacompute-platform.fullname" . }}-redis-master:6379/0
-./helm/orcacompute/templates/_helpers.tpl:143:redis://{{ include "orcacompute-platform.fullname" . }}-redis-master:6379/0
-./sdk/java/src/main/java/com/orcacompute/sdk/AtonixClient.java:10:public class AtonixClient {
-./sdk/java/src/main/java/com/orcacompute/sdk/AtonixClient.java:15:    public AtonixClient(String baseUrl, String token) {
-./sdk/java/src/main/java/com/orcacompute/sdk/AtonixClient.java:38:            throw new IOException("Atonix API error: " + response.body());
+./docker/docker-compose.spark.yml:10:      - orcacloud_atonix-network
+./docker/docker-compose.spark.yml:23:      - orcacloud_atonix-network
+./docker/docker-compose.spark.yml:35:      - orcacloud_atonix-network
+./docker/docker-compose.spark.yml:47:      - orcacloud_atonix-network
+./docker/docker-compose.spark.yml:51:  orcacloud_atonix-network:
+./helm/orcacloud/templates/_helpers.tpl:4:{{- define "orcacloud-platform.name" -}}
+./helm/orcacloud/templates/_helpers.tpl:13:{{- define "orcacloud-platform.fullname" -}}
+./helm/orcacloud/templates/_helpers.tpl:29:{{- define "orcacloud-platform.chart" -}}
+./helm/orcacloud/templates/_helpers.tpl:36:{{- define "orcacloud-platform.labels" -}}
+./helm/orcacloud/templates/_helpers.tpl:37:helm.sh/chart: {{ include "orcacloud-platform.chart" . }}
+./helm/orcacloud/templates/_helpers.tpl:38:{{ include "orcacloud-platform.selectorLabels" . }}
+./helm/orcacloud/templates/_helpers.tpl:48:{{- define "orcacloud-platform.selectorLabels" -}}
+./helm/orcacloud/templates/_helpers.tpl:49:app.kubernetes.io/name: {{ include "orcacloud-platform.name" . }}
+./helm/orcacloud/templates/_helpers.tpl:56:{{- define "orcacloud-platform.backend.labels" -}}
+./helm/orcacloud/templates/_helpers.tpl:57:{{ include "orcacloud-platform.labels" . }}
+./helm/orcacloud/templates/_helpers.tpl:64:{{- define "orcacloud-platform.frontend.labels" -}}
+./helm/orcacloud/templates/_helpers.tpl:65:{{ include "orcacloud-platform.labels" . }}
+./helm/orcacloud/templates/_helpers.tpl:72:{{- define "orcacloud-platform.celery-worker.labels" -}}
+./helm/orcacloud/templates/_helpers.tpl:73:{{ include "orcacloud-platform.labels" . }}
+./helm/orcacloud/templates/_helpers.tpl:80:{{- define "orcacloud-platform.celery-beat.labels" -}}
+./helm/orcacloud/templates/_helpers.tpl:81:{{ include "orcacloud-platform.labels" . }}
+./helm/orcacloud/templates/_helpers.tpl:88:{{- define "orcacloud-platform.serviceAccountName" -}}
+./helm/orcacloud/templates/_helpers.tpl:90:{{- default (include "orcacloud-platform.fullname" .) .Values.serviceAccount.name }}
+./helm/orcacloud/templates/_helpers.tpl:99:{{- define "orcacloud-platform.backend.image" -}}
+./helm/orcacloud/templates/_helpers.tpl:113:{{- define "orcacloud-platform.frontend.image" -}}
+./helm/orcacloud/templates/_helpers.tpl:127:{{- define "orcacloud-platform.databaseUrl" -}}
+./helm/orcacloud/templates/_helpers.tpl:129:postgresql://{{ .Values.postgresql.auth.username }}:{{ .Values.postgresql.auth.password }}@{{ include "orcacloud-platform.fullname" . }}-postgresql:5432/{{ .Values.postgresql.auth.database }}
+./helm/orcacloud/templates/_helpers.tpl:138:{{- define "orcacloud-platform.redisUrl" -}}
+./helm/orcacloud/templates/_helpers.tpl:141:redis://:{{ .Values.redis.auth.password }}@{{ include "orcacloud-platform.fullname" . }}-redis-master:6379/0
+./helm/orcacloud/templates/_helpers.tpl:143:redis://{{ include "orcacloud-platform.fullname" . }}-redis-master:6379/0
+./sdk/java/src/main/java/com/orcacloud/sdk/AtonixClient.java:10:public class AtonixClient {
+./sdk/java/src/main/java/com/orcacloud/sdk/AtonixClient.java:15:    public AtonixClient(String baseUrl, String token) {
+./sdk/java/src/main/java/com/orcacloud/sdk/AtonixClient.java:38:            throw new IOException("Atonix API error: " + response.body());
 ./sdk/node/src/client.ts:3:export class AtonixClient {
 ./sdk/go/atonixsdk/client.go:1:package atonixsdk
 ./sdk/go/atonixsdk/client.go:54:		return nil, fmt.Errorf("atonix api error: %s", string(data))
@@ -188,19 +188,19 @@ Sample matches (first 200):
 ./sdk/python/README.md:28:atonixctl compliance-controls --framework soc2
 ./sdk/python/README.md:29:atonixctl collect-evidence --framework iso27001
 ./sdk/python/README.md:30:atonixctl graphql --query '{ instances { name status } }'
-./sdk/python/orcacompute_sdk/__init__.py:1:from .client import AtonixClient
-./sdk/python/orcacompute_sdk/__init__.py:3:__all__ = ['AtonixClient']
-./sdk/python/orcacompute_sdk/cli.py:8:from .client import AtonixClient
-./sdk/python/orcacompute_sdk/cli.py:11:def _client_from_env(args: argparse.Namespace) -> AtonixClient:
-./sdk/python/orcacompute_sdk/cli.py:12:    base_url = args.base_url or os.environ.get('ORCACOMPUTE_BASE_URL') or os.environ.get('ATONIX_BASE_URL', 'http://localhost:8000')
-./sdk/python/orcacompute_sdk/cli.py:13:    token = args.token or os.environ.get('ORCACOMPUTE_TOKEN') or os.environ.get('ATONIX_TOKEN', '')
-./sdk/python/orcacompute_sdk/cli.py:15:        raise SystemExit('Missing token. Set --token or ORCACOMPUTE_TOKEN (legacy: ATONIX_TOKEN).')
-./sdk/python/orcacompute_sdk/cli.py:16:    return AtonixClient(base_url=base_url, token=token)
-./sdk/python/orcacompute_sdk/cli.py:24:    parser = argparse.ArgumentParser(prog='atonixctl', description='OrcaCompute CLI')
-./sdk/python/orcacompute_sdk/cli.py:25:    parser.add_argument('--base-url', default=None, help='API base URL (default: ORCACOMPUTE_BASE_URL or legacy ATONIX_BASE_URL)')
-./sdk/python/orcacompute_sdk/cli.py:26:    parser.add_argument('--token', default=None, help='API token (default: ORCACOMPUTE_TOKEN or legacy ATONIX_TOKEN)')
-./sdk/python/orcacompute_sdk/client.py:8:class AtonixClient:
-./sdk/python/pyproject.toml:15:atonixctl = "orcacompute_sdk.cli:main"
+./sdk/python/orcacloud_sdk/__init__.py:1:from .client import AtonixClient
+./sdk/python/orcacloud_sdk/__init__.py:3:__all__ = ['AtonixClient']
+./sdk/python/orcacloud_sdk/cli.py:8:from .client import AtonixClient
+./sdk/python/orcacloud_sdk/cli.py:11:def _client_from_env(args: argparse.Namespace) -> AtonixClient:
+./sdk/python/orcacloud_sdk/cli.py:12:    base_url = args.base_url or os.environ.get('ORCACLOUD_BASE_URL') or os.environ.get('ATONIX_BASE_URL', 'http://localhost:8000')
+./sdk/python/orcacloud_sdk/cli.py:13:    token = args.token or os.environ.get('ORCACLOUD_TOKEN') or os.environ.get('ATONIX_TOKEN', '')
+./sdk/python/orcacloud_sdk/cli.py:15:        raise SystemExit('Missing token. Set --token or ORCACLOUD_TOKEN (legacy: ATONIX_TOKEN).')
+./sdk/python/orcacloud_sdk/cli.py:16:    return AtonixClient(base_url=base_url, token=token)
+./sdk/python/orcacloud_sdk/cli.py:24:    parser = argparse.ArgumentParser(prog='atonixctl', description='OrcaCloud CLI')
+./sdk/python/orcacloud_sdk/cli.py:25:    parser.add_argument('--base-url', default=None, help='API base URL (default: ORCACLOUD_BASE_URL or legacy ATONIX_BASE_URL)')
+./sdk/python/orcacloud_sdk/cli.py:26:    parser.add_argument('--token', default=None, help='API token (default: ORCACLOUD_TOKEN or legacy ATONIX_TOKEN)')
+./sdk/python/orcacloud_sdk/client.py:8:class AtonixClient:
+./sdk/python/pyproject.toml:15:atonixctl = "orcacloud_sdk.cli:main"
 ./Jenkinsfile:25:        IMAGE_REGISTRY    = 'atonixdev'
 ./docs.html:178:      <a href="docs/ATONIX_YAML_SPEC.md" class="docs-card">
 ./docs.html:272:      <a href="atonix-hardware-integration/README.md" class="docs-card">
@@ -210,8 +210,8 @@ Sample matches (first 200):
 ./monitoring/prometheus/prometheus.yml:86:      cloud: [atonix]
 ./monitoring/prometheus/prometheus.yml:96:      cloud:    [atonix]
 ./monitoring/prometheus/prometheus.yml:104:      cloud:  [atonix]
-./infrastructure/cni/10-orcacompute-network.conflist:10:      "bridge": "atonix-br0",
-./infrastructure/cni/10-orcacompute-network.conflist:39:      "iptablesAdminChainName": "ATONIX-ADMIN"
+./infrastructure/cni/10-orcacloud-network.conflist:10:      "bridge": "atonix-br0",
+./infrastructure/cni/10-orcacloud-network.conflist:39:      "iptablesAdminChainName": "ATONIX-ADMIN"
 ./infrastructure/cni/setup-cni.sh:73:    if ! ip link show atonix-br0 &>/dev/null; then
 ./infrastructure/cni/setup-cni.sh:74:        ip link add name atonix-br0 type bridge
 ./infrastructure/cni/setup-cni.sh:75:        ip addr add 10.100.0.1/16 dev atonix-br0

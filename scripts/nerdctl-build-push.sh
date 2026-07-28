@@ -7,7 +7,7 @@ fi
 # scripts/nerdctl-build-push.sh
 # Build production images with nerdctl (containerd) and push them to a registry.
 # Usage:
-#   REGISTRY=registry.example.com NAMESPACE=team PROJECT=orcacompute TAG=ci-1234 ./scripts/nerdctl-build-push.sh
+#   REGISTRY=registry.example.com NAMESPACE=team PROJECT=orcacloud TAG=ci-1234 ./scripts/nerdctl-build-push.sh
 # If TAG is not provided the script uses `git rev-parse --short HEAD` as the tag.
 
 set -euo pipefail
@@ -15,7 +15,7 @@ cd "$(dirname "$0")/.." || exit 1
 
 REGISTRY=${REGISTRY:-}
 NAMESPACE=${NAMESPACE:-atonix}
-PROJECT=${PROJECT:-orcacompute}
+PROJECT=${PROJECT:-orcacloud}
 TAG=${TAG:-}
 START=${START:-0}
 COMPOSE_FILE=${COMPOSE_FILE:-docker-compose.yml}

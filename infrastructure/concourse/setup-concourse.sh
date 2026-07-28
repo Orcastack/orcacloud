@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# OrcaCompute - Concourse CI Setup Script
-# This script sets up Concourse CI for the OrcaCompute platform
+# OrcaCloud - Concourse CI Setup Script
+# This script sets up Concourse CI for the OrcaCloud platform
 
 set -euo pipefail
 
@@ -40,7 +40,7 @@ log_error() {
 # Usage function
 usage() {
     cat << EOF
-OrcaCompute Concourse Setup Script
+OrcaCloud Concourse Setup Script
 
 Usage: $0 [OPTIONS]
 
@@ -176,7 +176,7 @@ login_to_concourse() {
     log_info "Logging into Concourse..."
     
     # Login with fly CLI
-    fly -t orcacompute login \
+    fly -t orcacloud login \
         -c "$CONCOURSE_URL" \
         -u "$USERNAME" \
         -p "$PASSWORD" \
@@ -187,13 +187,13 @@ login_to_concourse() {
 
 # Set pipeline
 set_pipeline() {
-    log_info "Setting up OrcaCompute pipeline..."
+    log_info "Setting up OrcaCloud pipeline..."
     
     # Create secrets file
     cat > /tmp/concourse-secrets.yml << EOF
 git-private-key: |
   # Add your Git private key here
-  # Generate with: ssh-keygen -t rsa -b 4096 -C "concourse@orcacompute.com"
+  # Generate with: ssh-keygen -t rsa -b 4096 -C "concourse@orcacloud.com"
   
 docker-registry-username: "your-registry-username"
 docker-registry-password: "your-registry-password"
@@ -204,13 +204,13 @@ EOF
     log_warning "Please update /tmp/concourse-secrets.yml with your actual secrets"
     
     # Set the pipeline
-    fly -t orcacompute set-pipeline \
-        -p orcacompute \
-        -c "$CONCOURSE_DIR/pipelines/orcacompute.yml" \
+    fly -t orcacloud set-pipeline \
+        -p orcacloud \
+        -c "$CONCOURSE_DIR/pipelines/orcacloud.yml" \
         -l /tmp/concourse-secrets.yml
     
     # Unpause the pipeline
-    fly -t orcacompute unpause-pipeline -p orcacompute
+    fly -t orcacloud unpause-pipeline -p orcacloud
     
     log_success "Pipeline set up successfully"
 }
@@ -250,11 +250,11 @@ jobs:
                 # Add comprehensive security scanning logic here
 EOF
 
-    fly -t orcacompute set-pipeline \
+    fly -t orcacloud set-pipeline \
         -p security-scans \
         -c "$CONCOURSE_DIR/pipelines/security-pipeline.yml"
     
-    fly -t orcacompute unpause-pipeline -p security-scans
+    fly -t orcacloud unpause-pipeline -p security-scans
     
     log_success "Additional pipelines created"
 }
@@ -333,14 +333,14 @@ print_access_info() {
     echo ""
     echo "  Fly CLI Commands:"
     echo "====================="
-    echo " List pipelines:     fly -t orcacompute pipelines"
-    echo "  Trigger build:      fly -t orcacompute trigger-job -j orcacompute/ci-pipeline"
-    echo " Watch build:        fly -t orcacompute watch -j orcacompute/ci-pipeline"
-    echo " Get pipeline:       fly -t orcacompute get-pipeline -p orcacompute"
+    echo " List pipelines:     fly -t orcacloud pipelines"
+    echo "  Trigger build:      fly -t orcacloud trigger-job -j orcacloud/ci-pipeline"
+    echo " Watch build:        fly -t orcacloud watch -j orcacloud/ci-pipeline"
+    echo " Get pipeline:       fly -t orcacloud get-pipeline -p orcacloud"
     echo ""
     echo " Pipeline Files:"
     echo "=================="
-    echo "  Main pipeline:     $CONCOURSE_DIR/pipelines/orcacompute.yml"
+    echo "  Main pipeline:     $CONCOURSE_DIR/pipelines/orcacloud.yml"
     echo " Security pipeline:  $CONCOURSE_DIR/pipelines/security-pipeline.yml"
     echo " Task definitions:   $CONCOURSE_DIR/tasks/"
     echo ""
@@ -350,7 +350,7 @@ print_access_info() {
     echo "2. Configure Git repository webhooks pointing to Concourse"
     echo "3. Set up Slack notifications (update webhook URL)"
     echo "4. Configure Docker registry credentials"
-    echo "5. Test pipeline: fly -t orcacompute trigger-job -j orcacompute/ci-pipeline"
+    echo "5. Test pipeline: fly -t orcacloud trigger-job -j orcacloud/ci-pipeline"
     echo ""
     echo " Integration:"
     echo "==============="
@@ -368,7 +368,7 @@ print_access_info() {
 
 # Main execution
 main() {
-    echo " OrcaCompute Concourse CI Setup"
+    echo " OrcaCloud Concourse CI Setup"
     echo "================================="
     echo ""
     

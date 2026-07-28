@@ -1,4 +1,4 @@
-# OrcaCompute Secrets Vault – Models
+# OrcaCloud Secrets Vault – Models
 # Secrets manager: storing, versioning, rotating, expiring secrets
 
 import uuid

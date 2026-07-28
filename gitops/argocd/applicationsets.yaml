@@ -2,10 +2,10 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: orcacompute-environments
+  name: orcacloud-environments
   namespace: argocd
   labels:
-    app: orcacompute
+    app: orcacloud
 spec:
   generators:
   - list:
@@ -13,25 +13,25 @@ spec:
       - cluster: in-cluster
         url: https://kubernetes.default.svc
         environment: development
-        namespace: orcacompute-dev
+        namespace: orcacloud-dev
         branch: develop
-        project: orcacompute
+        project: orcacloud
         valueFile: values-dev.yaml
         autoSync: true
         selfHeal: true
       - cluster: in-cluster
         url: https://kubernetes.default.svc
         environment: staging
-        namespace: orcacompute-staging
+        namespace: orcacloud-staging
         branch: main
-        project: orcacompute
+        project: orcacloud
         valueFile: values-staging.yaml
         autoSync: true
         selfHeal: false
       - cluster: in-cluster
         url: https://kubernetes.default.svc
         environment: production
-        namespace: orcacompute
+        namespace: orcacloud
         branch: main
         project: production
         valueFile: values-prod.yaml
@@ -40,16 +40,16 @@ spec:
   
   template:
     metadata:
-      name: 'orcacompute-{{environment}}'
+      name: 'orcacloud-{{environment}}'
       labels:
-        app: orcacompute
+        app: orcacloud
         environment: '{{environment}}'
     spec:
       project: '{{project}}'
       source:
-        repoURL: https://github.com/orcacompute/orcacompute.git
+        repoURL: https://github.com/orcacloud/orcacloud.git
         targetRevision: '{{branch}}'
-        path: helm/orcacompute
+        path: helm/orcacloud
         helm:
           valueFiles:
             - values.yaml
@@ -78,16 +78,16 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: orcacompute-feature-branches
+  name: orcacloud-feature-branches
   namespace: argocd
   labels:
-    app: orcacompute
+    app: orcacloud
     type: feature-branch
 spec:
   generators:
   - pullRequest:
       github:
-        owner: orcacompute
+        owner: orcacloud
         repo: platform
         tokenRef:
           secretName: github-token
@@ -96,19 +96,19 @@ spec:
   
   template:
     metadata:
-      name: 'orcacompute-pr-{{number}}'
+      name: 'orcacloud-pr-{{number}}'
       labels:
-        app: orcacompute
+        app: orcacloud
         type: feature-branch
         pr-number: '{{number}}'
       annotations:
         link.argocd.argoproj.io/external-link: '{{url}}'
     spec:
-      project: orcacompute
+      project: orcacloud
       source:
-        repoURL: https://github.com/orcacompute/orcacompute.git
+        repoURL: https://github.com/orcacloud/orcacloud.git
         targetRevision: '{{head_sha}}'
-        path: helm/orcacompute
+        path: helm/orcacloud
         helm:
           valueFiles:
             - values.yaml
@@ -121,10 +121,10 @@ spec:
             - name: frontend.image.tag
               value: pr-{{number}}-{{head_sha}}
             - name: ingress.hosts[0].host
-              value: pr-{{number}}.dev.orcacompute.com
+              value: pr-{{number}}.dev.orcacloud.com
       destination:
         server: https://kubernetes.default.svc
-        namespace: 'orcacompute-pr-{{number}}'
+        namespace: 'orcacloud-pr-{{number}}'
       syncPolicy:
         automated:
           prune: true

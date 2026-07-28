@@ -1,6 +1,6 @@
 # Workflows – Argo Workflows + n8n
 
-The OrcaCompute workflow automation layer uses two engines, matching the AWS Step Functions + EventBridge pattern:
+The OrcaCloud workflow automation layer uses two engines, matching the AWS Step Functions + EventBridge pattern:
 
 | Engine | Purpose | AWS Equivalent |
 |--------|---------|----------------|

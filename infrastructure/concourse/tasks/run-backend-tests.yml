@@ -8,7 +8,7 @@ image_resource:
     tag: 3.11-slim
 
 inputs:
-  - name: orcacompute-source
+  - name: orcacloud-source
 
 run:
   path: bash
@@ -18,10 +18,10 @@ run:
       set -e
       
       echo "Running backend tests..."
-      cd orcacompute-source/backend
+      cd orcacloud-source/backend
       
       # Set up test environment
-      export DJANGO_SETTINGS_MODULE=orcacompute.settings
+      export DJANGO_SETTINGS_MODULE=orcacloud.settings
       export DATABASE_URL=sqlite:///test_db.sqlite3
       export REDIS_URL=redis://localhost:6379/0
       export SECRET_KEY=test-secret-key

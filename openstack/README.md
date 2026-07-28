@@ -1,6 +1,6 @@
 # OpenStack – IaaS Control Plane
 
-This directory contains all configuration, templates, and operational tooling for the **OrcaCompute OpenStack control plane**, which serves as the foundational layer for our IaaS infrastructure. It includes Terraform modules, Ansible playbooks, and custom scripts to manage compute, networking, storage, and image services.
+This directory contains all configuration, templates, and operational tooling for the **OrcaCloud OpenStack control plane**, which serves as the foundational layer for our IaaS infrastructure. It includes Terraform modules, Ansible playbooks, and custom scripts to manage compute, networking, storage, and image services.
 ## Folder Map
 
 | Folder | OpenStack Service | AWS Equivalent |

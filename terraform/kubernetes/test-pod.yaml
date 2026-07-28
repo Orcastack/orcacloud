@@ -3,9 +3,9 @@ kind: Pod
 metadata:
   name: test-pvc-binding
 <<<<<<< HEAD
-  namespace: orcacompute
+  namespace: orcacloud
 =======
-  namespace: orcacompute
+  namespace: orcacloud
 >>>>>>> 12bd998bda7cee255affa733e542706dbab8dcfb
 spec:
   containers:
@@ -21,13 +21,13 @@ spec:
   - name: postgresql-data
     persistentVolumeClaim:
 <<<<<<< HEAD
-      claimName: orcacompute-dev-postgresql-data
+      claimName: orcacloud-dev-postgresql-data
   - name: redis-data
     persistentVolumeClaim:
-      claimName: orcacompute-dev-redis-data
+      claimName: orcacloud-dev-redis-data
 =======
-      claimName: orcacompute-dev-postgresql-data
+      claimName: orcacloud-dev-postgresql-data
   - name: redis-data
     persistentVolumeClaim:
-      claimName: orcacompute-dev-redis-data
+      claimName: orcacloud-dev-redis-data
 >>>>>>> 12bd998bda7cee255affa733e542706dbab8dcfb

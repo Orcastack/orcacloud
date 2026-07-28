@@ -1,4 +1,4 @@
-# OrcaCompute Zero-Trust – Serializers
+# OrcaCloud Zero-Trust – Serializers
 
 from rest_framework import serializers
 from .models import ZeroTrustPolicy, DevicePosture, ZeroTrustAccessLog

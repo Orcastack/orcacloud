@@ -1,4 +1,4 @@
-# OrcaCompute Cloud – Email Service Models
+# OrcaCloud – Email Service Models
 # Mailboxes, aliases, DKIM keys, and email domains are all scoped per Domain.
 
 import uuid
@@ -13,7 +13,7 @@ from ..domain.models import Domain
 
 class EmailDomain(TimeStampedModel):
     """
-    Links an OrcaCompute Domain to the email service.
+    Links an OrcaCloud Domain to the email service.
     One EmailDomain per Domain — created automatically when email is enabled.
     """
     STATUSES = [
@@ -26,7 +26,7 @@ class EmailDomain(TimeStampedModel):
     domain       = models.OneToOneField(Domain, on_delete=models.CASCADE,
                                         related_name='email_domain')
     status       = models.CharField(max_length=20, choices=STATUSES, default='pending')
-    mail_host    = models.CharField(max_length=253, default='mail.orcacompute.com',
+    mail_host    = models.CharField(max_length=253, default='mail.orcacloud.com',
                                     help_text='FQDN of the mail server')
     smtp_port    = models.PositiveIntegerField(default=587)
     imap_port    = models.PositiveIntegerField(default=993)

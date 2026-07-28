@@ -1,0 +1,51 @@
+/*
+ * OrcaCompute Cloud Design Tokens — IBM Carbon White Theme Aligned
+ *
+ * Naming convention: --ac-<category>-<variant>
+ * All values follow IBM Carbon's Gray scale (White theme).
+ * These tokens are the single source of truth for backgrounds, layers,
+ * and text on light surfaces. They are complemented by --dashboard-*
+ * tokens defined in ThemeContext (MuiCssBaseline) for MUI-managed theming.
+ */
+
+/* ─── Light mode (default / White theme) ──────────────────────────────────── */
+:root {
+  /* Backgrounds */
+  --ac-bg-primary:   #FFFFFF;   /* Carbon White 0  — page bg, dashboards      */
+  --ac-bg-secondary: #F4F4F4;   /* Carbon Gray 10  — cards, panels, tables    */
+  --ac-bg-tertiary:  #E0E0E0;   /* Carbon Gray 20  — hover states, borders    */
+
+  /* Layers — maps to Carbon's layering model */
+  --ac-layer-01: #FFFFFF;       /* base layer — outermost container           */
+  --ac-layer-02: #F4F4F4;       /* raised layer — cards on page bg            */
+  --ac-layer-03: #E0E0E0;       /* top layer — modals, popovers on cards      */
+
+  /* Text */
+  --ac-text-primary:   #161616; /* Carbon Gray 100 — headings, body labels    */
+  --ac-text-secondary: #525252; /* Carbon Gray 70  — muted text, descriptions */
+  --ac-text-inverse:   #F4F4F4; /* text on dark / colored surfaces            */
+}
+
+/* ─── Dark mode override ──────────────────────────────────────────────────── */
+/*
+ * Dark variables are keyed to html[data-color-scheme="dark"], which is set
+ * only by ThemeContext when the user is on a dashboard/app route in dark mode.
+ * This ensures the landing page is NEVER affected by the dark theme, even when
+ * the user's OS preference is dark or they toggled dark mode in the dashboard.
+ */
+html[data-color-scheme="dark"] {
+  /* Backgrounds */
+  --ac-bg-primary:   #161616;  /* Carbon Gray 100                           */
+  --ac-bg-secondary: #262626;  /* Carbon Gray 90                            */
+  --ac-bg-tertiary:  #393939;  /* Carbon Gray 80                            */
+
+  /* Layers */
+  --ac-layer-01: #1C1C1C;
+  --ac-layer-02: #262626;
+  --ac-layer-03: #393939;
+
+  /* Text */
+  --ac-text-primary:   #F4F4F4; /* Carbon Gray 10                           */
+  --ac-text-secondary: #A8A8A8; /* Carbon Gray 40                           */
+  --ac-text-inverse:   #161616; /* text on light surfaces in dark mode      */
+}

@@ -2,21 +2,21 @@
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: orcacompute
+  name: orcacloud
   namespace: argocd
   labels:
-    project: orcacompute
+    project: orcacloud
 spec:
-  description: OrcaCompute Project
+  description: OrcaCloud Project
 
   sourceRepos:
-    - 'https://github.com/orcacompute/orcacompute.git'
+    - 'https://github.com/orcacloud/orcacloud.git'
     - 'https://charts.bitnami.com/bitnami'
     - 'https://kubernetes-sigs.github.io/external-dns'
     - 'https://prometheus-community.github.io/helm-charts'
 
   destinations:
-    - namespace: 'orcacompute*'
+    - namespace: 'orcacloud*'
       server: https://kubernetes.default.svc
     - namespace: 'monitoring'
       server: https://kubernetes.default.svc
@@ -61,28 +61,28 @@ spec:
     - name: developer
       description: Developer role with read access
       policies:
-        - p, proj:orcacompute:developer, applications, get, orcacompute/*, allow
-        - p, proj:orcacompute:developer, applications, sync, orcacompute/*-dev, allow
-        - p, proj:orcacompute:developer, logs, get, orcacompute/*, allow
-        - p, proj:orcacompute:developer, exec, create, orcacompute/*-dev, allow
+        - p, proj:orcacloud:developer, applications, get, orcacloud/*, allow
+        - p, proj:orcacloud:developer, applications, sync, orcacloud/*-dev, allow
+        - p, proj:orcacloud:developer, logs, get, orcacloud/*, allow
+        - p, proj:orcacloud:developer, exec, create, orcacloud/*-dev, allow
       groups:
-        - orcacompute:developers
+        - orcacloud:developers
 
     - name: devops
       description: DevOps role with full access
       policies:
-        - p, proj:orcacompute:devops, applications, *, orcacompute/*, allow
-        - p, proj:orcacompute:devops, logs, *, orcacompute/*, allow
-        - p, proj:orcacompute:devops, exec, *, orcacompute/*, allow
+        - p, proj:orcacloud:devops, applications, *, orcacloud/*, allow
+        - p, proj:orcacloud:devops, logs, *, orcacloud/*, allow
+        - p, proj:orcacloud:devops, exec, *, orcacloud/*, allow
       groups:
-        - orcacompute:devops
+        - orcacloud:devops
 
     - name: admin
       description: Admin role with cluster-wide access
       policies:
-        - p, proj:orcacompute:admin, *, *, */*, allow
+        - p, proj:orcacloud:admin, *, *, */*, allow
       groups:
-        - orcacompute:admins
+        - orcacloud:admins
 
   syncWindows:
     - kind: allow
@@ -112,11 +112,11 @@ spec:
   description: Production Environment Project
 
   sourceRepos:
-    - 'https://github.com/orcacompute/platform.git'
+    - 'https://github.com/orcacloud/platform.git'
     - 'https://charts.bitnami.com/bitnami'
 
   destinations:
-    - namespace: 'orcacompute'
+    - namespace: 'orcacloud'
       server: https://kubernetes.default.svc
     - namespace: 'monitoring'
       server: https://kubernetes.default.svc
@@ -149,14 +149,14 @@ spec:
         - p, proj:production:production-deployer, applications, sync, production/*, allow
         - p, proj:production:production-deployer, applications, override, production/*, deny
       groups:
-        - orcacompute:production-deployers
+        - orcacloud:production-deployers
 
     - name: production-admin
       description: Production admin role
       policies:
         - p, proj:production:production-admin, *, *, production/*, allow
       groups:
-        - orcacompute:production-admins
+        - orcacloud:production-admins
 
   syncWindows:
     - kind: allow

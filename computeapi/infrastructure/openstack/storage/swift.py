@@ -1,4 +1,4 @@
-# OrcaCompute – OpenStack Object Store (Swift)
+# OrcaCloud – OpenStack Object Store (Swift)
 #
 # Wraps openstack.object_store (Swift) operations:
 # containers (buckets), objects (files), temp URLs, and metadata.

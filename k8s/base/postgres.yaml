@@ -2,21 +2,21 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: postgres-secret
-  namespace: orcacompute
+  namespace: orcacloud
 type: Opaque
 data:
-  # orcacompute_user (base64)
+  # orcacloud_user (base64)
   POSTGRES_USER: YXRvbml4Y29ycF91c2Vy
-  # orcacompute_password (base64)
+  # orcacloud_password (base64)
   POSTGRES_PASSWORD: YXRvbml4Y29ycF9wYXNzd29yZA==
-  # orcacompute (base64)
+  # orcacloud (base64)
   POSTGRES_DB: YXRvbml4Y29ycA==
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: postgres-pvc
-  namespace: orcacompute
+  namespace: orcacloud
 spec:
   accessModes:
     - ReadWriteOnce
@@ -29,7 +29,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: postgres
-  namespace: orcacompute
+  namespace: orcacloud
   labels:
     app: postgres
     component: database
@@ -84,9 +84,9 @@ spec:
             command:
             - pg_isready
             - -U
-            - orcacompute_user
+            - orcacloud_user
             - -d
-            - orcacompute
+            - orcacloud
           initialDelaySeconds: 30
           periodSeconds: 10
         readinessProbe:
@@ -94,9 +94,9 @@ spec:
             command:
             - pg_isready
             - -U
-            - orcacompute_user
+            - orcacloud_user
             - -d
-            - orcacompute
+            - orcacloud
           initialDelaySeconds: 5
           periodSeconds: 5
       volumes:
@@ -108,7 +108,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: postgres
-  namespace: orcacompute
+  namespace: orcacloud
   labels:
     app: postgres
     component: database

@@ -1,7 +1,7 @@
 """
 Management command: seed_service_catalog
 
-Populates ServiceCatalogEntry with the canonical OrcaCompute service list
+Populates ServiceCatalogEntry with the canonical OrcaCloud service list
 for public, private, and hybrid cloud types.
 
 Usage:
@@ -59,7 +59,7 @@ CATALOG = [
 
 
 class Command(BaseCommand):
-    help = "Seed ServiceCatalogEntry with canonical OrcaCompute service definitions."
+    help = "Seed ServiceCatalogEntry with canonical OrcaCloud service definitions."
 
     def add_arguments(self, parser):
         parser.add_argument(

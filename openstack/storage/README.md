@@ -1,6 +1,6 @@
 # Cinder + Ceph/MinIO – Storage
 
-Block storage (Cinder) and object/file storage (Ceph RBD / MinIO) for all OrcaCompute workloads.
+Block storage (Cinder) and object/file storage (Ceph RBD / MinIO) for all OrcaCloud workloads.
 
 ## Storage Tiers
 
@@ -17,7 +17,7 @@ Defined in `volume-types.yaml`. Create via Terraform only.
 
 ## Object Storage (MinIO)
 
-- S3-compatible endpoint: `https://s3.orcacompute.internal`
+- S3-compatible endpoint: `https://s3.orcacloud.internal`
 - Lifecycle policies: defined in `lifecycle-policies.yaml`
 - Encryption: AES-256 at rest, TLS in transit
 

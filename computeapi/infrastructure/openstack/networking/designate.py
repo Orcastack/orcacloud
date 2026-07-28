@@ -1,4 +1,4 @@
-# OrcaCompute – OpenStack DNS Service (Designate)
+# OrcaCloud – OpenStack DNS Service (Designate)
 #
 # Wraps openstack.dns (Designate) operations:
 # zones, record sets, and reverse DNS mappings.

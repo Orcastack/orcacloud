@@ -1,4 +1,4 @@
-# OrcaCompute Official Python SDK + CLI
+# OrcaCloud Official Python SDK + CLI
 
 Install locally:
 
@@ -10,8 +10,8 @@ pip install -e .
 Set auth:
 
 ```bash
-export ORCACOMPUTE_BASE_URL=http://localhost:8000
-export ORCACOMPUTE_TOKEN=<your-token>
+export ORCACLOUD_BASE_URL=http://localhost:8000
+export ORCACLOUD_TOKEN=<your-token>
 ```
 
 Legacy env vars are still supported:

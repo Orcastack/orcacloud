@@ -1,4 +1,4 @@
-# OrcaCompute – Networking group
+# OrcaCloud – Networking group
 # Re-exports all public symbols from every module in this package so that:
 #   from infrastructure.openstack.networking import list_networks         ← Neutron
 #   from infrastructure.openstack.networking import provision_load_balancer ← Octavia

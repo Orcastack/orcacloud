@@ -1,5 +1,5 @@
 ---
-# security-harden role — CIS benchmark hardening for all OrcaCompute VMs
+# security-harden role — CIS benchmark hardening for all OrcaCloud VMs
 
 - name: Disable root SSH login
   ansible.builtin.lineinfile:

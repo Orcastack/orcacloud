@@ -1,4 +1,4 @@
-# OrcaCompute KMS Service – Models
+# OrcaCloud KMS Service – Models
 # Key Management: encryption keys, key rotations, usage audit
 
 import uuid
@@ -36,7 +36,7 @@ class KMSEncryptionKey(ResourceModel):
     status       = models.CharField(max_length=30, choices=STATUS_CHOICES, default='enabled', db_index=True)
     key_material_origin = models.CharField(
         max_length=20,
-        choices=[('atonix', 'OrcaCompute'), ('external', 'External'), ('custom_key_store', 'Custom Key Store')],
+        choices=[('atonix', 'OrcaCloud'), ('external', 'External'), ('custom_key_store', 'Custom Key Store')],
         default='atonix',
     )
     alias        = models.CharField(max_length=255, blank=True, db_index=True)

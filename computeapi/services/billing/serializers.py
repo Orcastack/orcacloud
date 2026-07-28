@@ -1,4 +1,4 @@
-# OrcaCompute Cloud – Billing Serializers
+# OrcaCloud – Billing Serializers
 
 from rest_framework import serializers
 from .models import (

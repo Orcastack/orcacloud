@@ -2,7 +2,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: postgres-pvc
-  namespace: orcacompute
+  namespace: orcacloud
 spec:
   accessModes:
     - ReadWriteOnce
@@ -14,7 +14,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: redis-pvc
-  namespace: orcacompute
+  namespace: orcacloud
 spec:
   accessModes:
     - ReadWriteOnce
@@ -25,8 +25,8 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: orcacompute-media-pvc
-  namespace: orcacompute
+  name: orcacloud-media-pvc
+  namespace: orcacloud
 spec:
   accessModes:
     - ReadWriteOnce

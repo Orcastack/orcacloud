@@ -1,0 +1,203 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: orcacloud-accountapp
+  namespace: orcacloud
+spec:
+  selector:
+    app: orcacloud-accountapp
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orcacloud-accountapp
+  namespace: orcacloud
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: orcacloud-accountapp
+  template:
+    metadata:
+      labels:
+        app: orcacloud-accountapp
+    spec:
+      containers:
+        - name: accountapp
+          image: ghcr.io/orcacloud/orcacloud-accountapp:latest
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: orcacloud-cloudapp
+  namespace: orcacloud
+spec:
+  selector:
+    app: orcacloud-cloudapp
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orcacloud-cloudapp
+  namespace: orcacloud
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: orcacloud-cloudapp
+  template:
+    metadata:
+      labels:
+        app: orcacloud-cloudapp
+    spec:
+      containers:
+        - name: cloudapp
+          image: ghcr.io/orcacloud/orcacloud-cloudapp:latest
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: orcacloud-devopsapp
+  namespace: orcacloud
+spec:
+  selector:
+    app: orcacloud-devopsapp
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orcacloud-devopsapp
+  namespace: orcacloud
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: orcacloud-devopsapp
+  template:
+    metadata:
+      labels:
+        app: orcacloud-devopsapp
+    spec:
+      containers:
+        - name: devopsapp
+          image: ghcr.io/orcacloud/orcacloud-devopsapp:latest
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: orcacloud-emailapp
+  namespace: orcacloud
+spec:
+  selector:
+    app: orcacloud-emailapp
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orcacloud-emailapp
+  namespace: orcacloud
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: orcacloud-emailapp
+  template:
+    metadata:
+      labels:
+        app: orcacloud-emailapp
+    spec:
+      containers:
+        - name: emailapp
+          image: ghcr.io/orcacloud/orcacloud-emailapp:latest
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: orcacloud-enterpriseapp
+  namespace: orcacloud
+spec:
+  selector:
+    app: orcacloud-enterpriseapp
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orcacloud-enterpriseapp
+  namespace: orcacloud
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: orcacloud-enterpriseapp
+  template:
+    metadata:
+      labels:
+        app: orcacloud-enterpriseapp
+    spec:
+      containers:
+        - name: enterpriseapp
+          image: ghcr.io/orcacloud/orcacloud-enterpriseapp:latest
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: orcacloud-domainapp
+  namespace: orcacloud
+spec:
+  selector:
+    app: orcacloud-domainapp
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orcacloud-domainapp
+  namespace: orcacloud
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: orcacloud-domainapp
+  template:
+    metadata:
+      labels:
+        app: orcacloud-domainapp
+    spec:
+      containers:
+        - name: domainapp
+          image: ghcr.io/orcacloud/orcacloud-domainapp:latest
+          ports:
+            - containerPort: 80

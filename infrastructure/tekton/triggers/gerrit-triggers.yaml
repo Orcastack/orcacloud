@@ -1,8 +1,8 @@
 apiVersion: triggers.tekton.dev/v1beta1
 kind: EventListener
 metadata:
-  name: orcacompute-gerrit-listener
-  namespace: orcacompute-tekton
+  name: orcacloud-gerrit-listener
+  namespace: orcacloud-tekton
   labels:
     app.kubernetes.io/version: "0.1"
   annotations:
@@ -27,7 +27,7 @@ spec:
     bindings:
     - ref: gerrit-patchset-binding
     template:
-      ref: orcacompute-gerrit-ci-template
+      ref: orcacloud-gerrit-ci-template
 
   - name: gerrit-change-merged-trigger
     interceptors:
@@ -43,14 +43,14 @@ spec:
     bindings:
     - ref: gerrit-merged-binding
     template:
-      ref: orcacompute-gerrit-cd-template
+      ref: orcacloud-gerrit-cd-template
 
 ---
 apiVersion: triggers.tekton.dev/v1beta1
 kind: TriggerBinding
 metadata:
   name: gerrit-patchset-binding
-  namespace: orcacompute-tekton
+  namespace: orcacloud-tekton
 spec:
   params:
   - name: gitrevision
@@ -75,7 +75,7 @@ apiVersion: triggers.tekton.dev/v1beta1
 kind: TriggerBinding
 metadata:
   name: gerrit-merged-binding
-  namespace: orcacompute-tekton
+  namespace: orcacloud-tekton
 spec:
   params:
   - name: gitrevision
@@ -97,8 +97,8 @@ spec:
 apiVersion: triggers.tekton.dev/v1beta1
 kind: TriggerTemplate
 metadata:
-  name: orcacompute-gerrit-ci-template
-  namespace: orcacompute-tekton
+  name: orcacloud-gerrit-ci-template
+  namespace: orcacloud-tekton
 spec:
   params:
   - name: gitrevision
@@ -121,10 +121,10 @@ spec:
   - apiVersion: tekton.dev/v1beta1
     kind: PipelineRun
     metadata:
-      generateName: orcacompute-gerrit-ci-$(tt.params.changenumber)-$(tt.params.patchsetnumber)-
-      namespace: orcacompute-tekton
+      generateName: orcacloud-gerrit-ci-$(tt.params.changenumber)-$(tt.params.patchsetnumber)-
+      namespace: orcacloud-tekton
       labels:
-        tekton.dev/pipeline: orcacompute-ci-pipeline
+        tekton.dev/pipeline: orcacloud-ci-pipeline
         git.revision: $(tt.params.gitrevision)
         git.branch: $(tt.params.gitbranch)
         gerrit.change: $(tt.params.changenumber)
@@ -132,14 +132,14 @@ spec:
         trigger.type: gerrit-patchset
     spec:
       pipelineRef:
-        name: orcacompute-ci-pipeline
+        name: orcacloud-ci-pipeline
       params:
       - name: repo-url
         value: $(tt.params.gitrepositoryurl)
       - name: revision
         value: $(tt.params.gitrevision)
       - name: image-reference
-        value: "orcacompute:change-$(tt.params.changenumber)-$(tt.params.patchsetnumber)"
+        value: "orcacloud:change-$(tt.params.changenumber)-$(tt.params.patchsetnumber)"
       - name: test-type
         value: "all"
       workspaces:
@@ -159,8 +159,8 @@ spec:
 apiVersion: triggers.tekton.dev/v1beta1
 kind: TriggerTemplate
 metadata:
-  name: orcacompute-gerrit-cd-template
-  namespace: orcacompute-tekton
+  name: orcacloud-gerrit-cd-template
+  namespace: orcacloud-tekton
 spec:
   params:
   - name: gitrevision
@@ -181,24 +181,24 @@ spec:
   - apiVersion: tekton.dev/v1beta1
     kind: PipelineRun
     metadata:
-      generateName: orcacompute-gerrit-cd-$(tt.params.changenumber)-
-      namespace: orcacompute-tekton
+      generateName: orcacloud-gerrit-cd-$(tt.params.changenumber)-
+      namespace: orcacloud-tekton
       labels:
-        tekton.dev/pipeline: orcacompute-cd-pipeline
+        tekton.dev/pipeline: orcacloud-cd-pipeline
         git.revision: $(tt.params.gitrevision)
         git.branch: $(tt.params.gitbranch)
         gerrit.change: $(tt.params.changenumber)
         trigger.type: gerrit-merged
     spec:
       pipelineRef:
-        name: orcacompute-cd-pipeline
+        name: orcacloud-cd-pipeline
       params:
       - name: repo-url
         value: $(tt.params.gitrepositoryurl)
       - name: revision
         value: $(tt.params.gitrevision)
       - name: image-reference
-        value: "orcacompute:$(tt.params.gitrevision)"
+        value: "orcacloud:$(tt.params.gitrevision)"
       - name: target-environment
         value: "staging"
       - name: auto-approve

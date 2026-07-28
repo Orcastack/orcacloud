@@ -1,0 +1,113 @@
+services:
+  db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-orcacloud}
+      POSTGRES_USER: ${POSTGRES_USER:-orcacloud_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-orcacloud_dev_password}
+    volumes:
+      - multi_dashboard_postgres:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+
+  backend:
+    build:
+      context: ./computeapi
+      dockerfile: Dockerfile
+    command: sh -c "python manage.py migrate --noinput && python manage.py runserver 0.0.0.0:8000"
+    environment:
+      DEBUG: "True"
+      SECRET_KEY: ${SECRET_KEY:-local-development-only}
+      POSTGRES_DB: ${POSTGRES_DB:-orcacloud}
+      POSTGRES_USER: ${POSTGRES_USER:-orcacloud_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-orcacloud_dev_password}
+      DATABASE_URL: postgresql://${POSTGRES_USER:-orcacloud_user}:${POSTGRES_PASSWORD:-orcacloud_dev_password}@db:5432/${POSTGRES_DB:-orcacloud}
+      REDIS_URL: redis://redis:6379/0
+      ALLOWED_HOSTS: "*"
+      AUTH_COOKIE_DOMAIN: ${AUTH_COOKIE_DOMAIN:-}
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - redis
+
+  webapp:
+    build:
+      context: ./webapp
+      dockerfile: Dockerfile
+      args:
+        REACT_APP_API_URL: ${REACT_APP_API_URL:-http://localhost:8000/api/v1}
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+  accountapp:
+    build:
+      context: ./accountapp
+      dockerfile: Dockerfile
+      args:
+        REACT_APP_API_URL: ${REACT_APP_API_URL:-http://localhost:8000/api/v1}
+    ports:
+      - "3001:80"
+    depends_on:
+      - backend
+
+  cloudapp:
+    build:
+      context: ./cloudapp
+      dockerfile: Dockerfile
+      args:
+        REACT_APP_API_URL: ${REACT_APP_API_URL:-http://localhost:8000/api/v1}
+    ports:
+      - "3002:80"
+    depends_on:
+      - backend
+
+  devopsapp:
+    build:
+      context: ./devopsapp
+      dockerfile: Dockerfile
+      args:
+        REACT_APP_API_URL: ${REACT_APP_API_URL:-http://localhost:8000/api/v1}
+    ports:
+      - "3003:80"
+    depends_on:
+      - backend
+
+  emailapp:
+    build:
+      context: ./emailapp
+      dockerfile: Dockerfile
+      args:
+        REACT_APP_API_URL: ${REACT_APP_API_URL:-http://localhost:8000/api/v1}
+    ports:
+      - "3004:80"
+    depends_on:
+      - backend
+
+  enterpriseapp:
+    build:
+      context: ./enterpriseapp
+      dockerfile: Dockerfile
+      args:
+        REACT_APP_API_URL: ${REACT_APP_API_URL:-http://localhost:8000/api/v1}
+    ports:
+      - "3005:80"
+    depends_on:
+      - backend
+
+  domainapp:
+    build:
+      context: ./domainapp
+      dockerfile: Dockerfile
+      args:
+        REACT_APP_ACCOUNT_URL: ${REACT_APP_ACCOUNT_URL:-https://account.orcacloud.com}
+    ports:
+      - "3006:80"
+    depends_on:
+      - backend
+
+volumes:
+  multi_dashboard_postgres:

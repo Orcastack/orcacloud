@@ -1,4 +1,4 @@
-# OrcaCompute Cloud – Email Marketing Service
+# OrcaCloud – Email Marketing Service
 # Handles campaign sending via Django's email backend (SMTP).
 # Falls back to a mock dry-run when MARKETING_SMTP_HOST is not configured.
 
@@ -18,9 +18,9 @@ SMTP_USER     = os.environ.get('MARKETING_SMTP_USER',  '')
 SMTP_PASS     = os.environ.get('MARKETING_SMTP_PASS',  '')
 SMTP_USE_TLS  = os.environ.get('MARKETING_SMTP_TLS',   'true').lower() == 'true'
 UNSUBSCRIBE_BASE = os.environ.get('UNSUBSCRIBE_BASE_URL',
-                                  'https://app.orcacompute.com/unsubscribe')
+                                  'https://app.orcacloud.com/unsubscribe')
 TRACKING_BASE    = os.environ.get('TRACKING_BASE_URL',
-                                  'https://app.orcacompute.com/t')
+                                  'https://app.orcacloud.com/t')
 
 
 def _live() -> bool:

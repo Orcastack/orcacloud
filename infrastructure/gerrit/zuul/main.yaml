@@ -1,16 +1,16 @@
-# Zuul Configuration for OrcaCompute CI/CD
+# Zuul Configuration for OrcaCloud CI/CD
 
 - tenant:
-    name: orcacompute
+    name: orcacloud
     source:
       gerrit:
         config-projects:
-          - orcacompute-config
+          - orcacloud-config
         untrusted-projects:
-          - orcacompute
-          - orcacompute-frontend
-          - orcacompute-backend
-          - orcacompute-infrastructure
+          - orcacloud
+          - orcacloud-frontend
+          - orcacloud-backend
+          - orcacloud-infrastructure
 
 - connection:
     driver: gerrit
@@ -32,11 +32,11 @@
     server: localhost
     port: 25
 <<<<<<< HEAD
-    default_from: zuul@orcacompute.com
-    default_to: dev@orcacompute.com
+    default_from: zuul@orcacloud.com
+    default_to: dev@orcacloud.com
 =======
-    default_from: zuul@orcacompute.com
-    default_to: dev@orcacompute.com
+    default_from: zuul@orcacloud.com
+    default_to: dev@orcacloud.com
 >>>>>>> 12bd998bda7cee255affa733e542706dbab8dcfb
 
 # Pipeline definitions
@@ -133,11 +133,11 @@
 - job:
     name: base
     parent: null
-    description: The base job for all OrcaCompute jobs
+    description: The base job for all OrcaCloud jobs
     pre-run: playbooks/base/pre.yaml
     post-run: playbooks/base/post.yaml
     roles:
-      - zuul: orcacompute-config
+      - zuul: orcacloud-config
     timeout: 1800
     attempts: 3
     secrets:
@@ -145,70 +145,70 @@
         secret: npm-registry-credentials
 
 - job:
-    name: orcacompute-lint
+    name: orcacloud-lint
     parent: base
-    description: Lint check for OrcaCompute platform
+    description: Lint check for OrcaCloud platform
     run: playbooks/lint/run.yaml
 
 - job:
-    name: orcacompute-test-unit
+    name: orcacloud-test-unit
     parent: base
-    description: Unit tests for OrcaCompute platform
+    description: Unit tests for OrcaCloud platform
     run: playbooks/test/unit.yaml
 
 - job:
-    name: orcacompute-test-integration
+    name: orcacloud-test-integration
     parent: base
-    description: Integration tests for OrcaCompute platform
+    description: Integration tests for OrcaCloud platform
     run: playbooks/test/integration.yaml
 
 - job:
-    name: orcacompute-security-scan
+    name: orcacloud-security-scan
     parent: base
-    description: Security scanning for OrcaCompute platform
+    description: Security scanning for OrcaCloud platform
     run: playbooks/security/scan.yaml
 
 - job:
-    name: orcacompute-build-image
+    name: orcacloud-build-image
     parent: base
-    description: Build container image for OrcaCompute platform
+    description: Build container image for OrcaCloud platform
     run: playbooks/build/image.yaml
 
 - job:
-    name: orcacompute-deploy-staging
+    name: orcacloud-deploy-staging
     parent: base
     description: Deploy to staging environment
     run: playbooks/deploy/staging.yaml
 
 - job:
-    name: orcacompute-deploy-production
+    name: orcacloud-deploy-production
     parent: base
     description: Deploy to production environment
     run: playbooks/deploy/production.yaml
 
 # Project configurations
 - project:
-    name: orcacompute
+    name: orcacloud
     check:
       jobs:
-        - orcacompute-lint
-        - orcacompute-test-unit
-        - orcacompute-security-scan
-        - orcacompute-build-image
+        - orcacloud-lint
+        - orcacloud-test-unit
+        - orcacloud-security-scan
+        - orcacloud-build-image
     gate:
       jobs:
-        - orcacompute-lint
-        - orcacompute-test-unit
-        - orcacompute-test-integration
-        - orcacompute-security-scan
-        - orcacompute-build-image
+        - orcacloud-lint
+        - orcacloud-test-unit
+        - orcacloud-test-integration
+        - orcacloud-security-scan
+        - orcacloud-build-image
     post:
       jobs:
-        - orcacompute-deploy-staging
+        - orcacloud-deploy-staging
     release:
       jobs:
 <<<<<<< HEAD
-        - orcacompute-deploy-production
+        - orcacloud-deploy-production
 =======
-        - orcacompute-deploy-production
+        - orcacloud-deploy-production
 >>>>>>> 12bd998bda7cee255affa733e542706dbab8dcfb

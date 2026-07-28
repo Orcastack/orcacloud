@@ -1,4 +1,4 @@
 ## Append samples of your project ##
 resources:
-- cache_v1alpha1_orcacompute.yaml
+- cache_v1alpha1_orcacloud.yaml
 # +kubebuilder:scaffold:manifestskustomizesamples

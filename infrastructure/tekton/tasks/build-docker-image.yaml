@@ -2,7 +2,7 @@ apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
   name: build-docker-image
-  namespace: orcacompute-tekton
+  namespace: orcacloud-tekton
   labels:
     app.kubernetes.io/version: "0.1"
   annotations:
@@ -13,7 +13,7 @@ metadata:
     tekton.dev/platforms: "linux/amd64"
 spec:
   description: |
-    This task builds the OrcaCompute platform Docker image using the multi-stage Dockerfile.
+    This task builds the OrcaCloud platform Docker image using the multi-stage Dockerfile.
     It builds both frontend and backend components in a unified container.
   workspaces:
   - name: source

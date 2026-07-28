@@ -1,5 +1,5 @@
 ---
-# OrcaCompute – Ceph OSD Node Role
+# OrcaCloud – Ceph OSD Node Role
 # tasks/main.yml
 #
 # Installs ceph-osd on a storage node and adds the host to

@@ -1,4 +1,4 @@
-# OrcaCompute KMS Service – Serializers
+# OrcaCloud KMS Service – Serializers
 
 from rest_framework import serializers
 from .models import KMSEncryptionKey, KeyRotationRecord, KeyUsageLog

@@ -1,4 +1,4 @@
-# OrcaCompute Cloud – Billing Service
+# OrcaCloud – Billing Service
 # Tracks every billable platform event, computes weekly snapshots,
 # and provides spend analysis across all services.
 

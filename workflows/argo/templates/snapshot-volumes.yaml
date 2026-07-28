@@ -18,11 +18,11 @@ spec:
     templates:
       - name: snapshot-all-volumes
         container:
-          image: ghcr.io/orcacompute/openstack-ops:latest
+          image: ghcr.io/orcacloud/openstack-ops:latest
           command: [python3, /scripts/snapshot_volumes.py]
           env:
             - name: OS_CLOUD
-              value: orcacompute
+              value: orcacloud
             - name: SNAPSHOT_RETENTION_DAYS
               value: "30"
             - name: VOLUME_TAG_FILTER

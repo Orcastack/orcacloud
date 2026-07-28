@@ -8,7 +8,7 @@ image_resource:
     tag: 3.11-slim
 
 inputs:
-  - name: orcacompute-source
+  - name: orcacloud-source
 
 run:
   path: bash
@@ -18,7 +18,7 @@ run:
       set -e
       
       echo "Running code linting and static analysis..."
-      cd orcacompute-source
+      cd orcacloud-source
       
       # Backend linting
       echo "Linting backend code..."

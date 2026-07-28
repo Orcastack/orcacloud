@@ -1,6 +1,6 @@
 # Networking – OVN + Calico
 
-The OrcaCompute networking layer implements a two-tier SDN fabric:
+The OrcaCloud networking layer implements a two-tier SDN fabric:
 
 | Component | Scope | Role |
 |-----------|-------|------|

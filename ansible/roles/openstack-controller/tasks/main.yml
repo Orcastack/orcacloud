@@ -1,5 +1,5 @@
 ---
-# OrcaCompute – OpenStack Controller Role
+# OrcaCloud – OpenStack Controller Role
 # tasks/main.yml
 #
 # Installs and configures the full OpenStack controller service stack

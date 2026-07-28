@@ -1,4 +1,4 @@
-# OrcaCompute Cloud – Monitoring Serializers
+# OrcaCloud – Monitoring Serializers
 
 from rest_framework import serializers
 from .models import (

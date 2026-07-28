@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# OrcaCompute - Quick Build Core Containers
+# OrcaCloud - Quick Build Core Containers
 # This script quickly builds and starts just the core containers (db, redis, backend, frontend)
 
 set -e  # Exit on any error
@@ -18,7 +18,7 @@ print_success() {
     echo -e "${GREEN}[SUCCESS]${NC} $1"
 }
 
-print_status "Building and starting core OrcaCompute containers..."
+print_status "Building and starting core OrcaCloud containers..."
 
 # Clean up
 print_status "Cleaning up existing containers..."

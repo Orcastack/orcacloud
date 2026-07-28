@@ -2,26 +2,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "orcacompute.fullname" . }}-frontend
+  name: {{ include "orcacloud.fullname" . }}-frontend
   labels:
-    {{- include "orcacompute.frontend.labels" . | nindent 4 }}
+    {{- include "orcacloud.frontend.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.frontend.replicaCount }}
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ include "orcacompute.name" . }}
+      app.kubernetes.io/name: {{ include "orcacloud.name" . }}
       app.kubernetes.io/instance: {{ .Release.Name }}
       app.kubernetes.io/component: frontend
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: {{ include "orcacompute.name" . }}
+        app.kubernetes.io/name: {{ include "orcacloud.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
         app.kubernetes.io/component: frontend
     spec:
       containers:
       - name: frontend
-        image: {{ include "orcacompute.frontend.image" . }}
+        image: {{ include "orcacloud.frontend.image" . }}
         imagePullPolicy: {{ .Values.frontend.image.pullPolicy }}
         ports:
         - name: http

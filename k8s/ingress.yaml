@@ -1,54 +1,120 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: orcacompute-ingress
-  namespace: orcacompute
+  name: orcacloud-ingress
+  namespace: orcacloud
   annotations:
     kubernetes.io/ingress.class: "nginx"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "86400"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "86400"
     # WebSocket upgrade for /ws/ paths
-    nginx.ingress.kubernetes.io/proxy-set-headers: "orcacompute/websocket-headers"
+    nginx.ingress.kubernetes.io/proxy-set-headers: "orcacloud/websocket-headers"
 spec:
   tls:
     - hosts:
-        - orcacompute.com
-        - api.orcacompute.com
-      secretName: orcacompute-tls
+        - orcacloud.com
+        - api.orcacloud.com
+        - account.orcacloud.com
+        - cloud.orcacloud.com
+        - devop.orcacloud.com
+        - email.orcacloud.com
+        - enterprise.orcacloud.com
+        - domain.orcacloud.com
+      secretName: orcacloud-tls
   rules:
     # Main domain: SPA frontend + API + WebSocket on same host
-    - host: orcacompute.com
+    - host: orcacloud.com
       http:
         paths:
           - path: /api
             pathType: Prefix
             backend:
               service:
-                name: orcacompute-backend
+                name: orcacloud-backend
                 port:
                   number: 8000
           - path: /ws
             pathType: Prefix
             backend:
               service:
-                name: orcacompute-backend
+                name: orcacloud-backend
                 port:
                   number: 8000
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: orcacompute-frontend
+                name: orcacloud-frontend
                 port:
                   number: 80
     # API subdomain routes all traffic to backend
-    - host: api.orcacompute.com
+    - host: api.orcacloud.com
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: orcacompute-backend
+                name: orcacloud-backend
                 port:
                   number: 8000
+    - host: account.orcacloud.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: orcacloud-accountapp
+                port:
+                  number: 80
+    - host: cloud.orcacloud.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: orcacloud-cloudapp
+                port:
+                  number: 80
+    - host: devop.orcacloud.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: orcacloud-devopsapp
+                port:
+                  number: 80
+    - host: email.orcacloud.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: orcacloud-emailapp
+                port:
+                  number: 80
+    - host: enterprise.orcacloud.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: orcacloud-enterpriseapp
+                port:
+                  number: 80
+    - host: domain.orcacloud.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: orcacloud-domainapp
+                port:
+                  number: 80

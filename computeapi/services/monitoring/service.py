@@ -1,4 +1,4 @@
-# OrcaCompute Cloud – Monitoring Service
+# OrcaCloud – Monitoring Service
 # Collects metrics, evaluates alert rules, and manages incidents.
 # Falls back to realistic mock data when live Prometheus/agents are unavailable.
 

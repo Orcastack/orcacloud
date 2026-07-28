@@ -2,10 +2,10 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: frontend-nginx-config
-  namespace: orcacompute
+  namespace: orcacloud
 data:
   default.conf: |
-    # OrcaCompute - Development
+    # OrcaCloud - Development
 
     upstream django_backend {
         server backend:8000;

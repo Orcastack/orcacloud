@@ -1,4 +1,4 @@
-# OrcaCompute – Compute group
+# OrcaCloud – Compute group
 # Re-exports all public symbols from every module in this package so that:
 #   from infrastructure.openstack.compute import list_servers        ← Nova
 #   from infrastructure.openstack.compute import list_containers     ← Zun

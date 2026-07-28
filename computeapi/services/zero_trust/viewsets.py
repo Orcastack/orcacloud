@@ -1,4 +1,4 @@
-# OrcaCompute Zero-Trust – ViewSets
+# OrcaCloud Zero-Trust – ViewSets
 
 from django.db.models import Q
 from django.utils import timezone

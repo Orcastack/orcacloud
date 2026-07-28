@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# OrcaCompute - Container Build and Test Script
+# OrcaCloud - Container Build and Test Script
 # This script builds all containers and tests that they are working properly
 
 set -e  # Exit on any error
@@ -12,7 +12,7 @@ echo "[DOCS] API Documentation:          http://localhost:8000/api/docs/"
 echo "[DB] API Admin:                 http://localhost:8000/admin/"
 echo "[EMAIL] Email UI (MailHog):         http://localhost:8025"
 echo "[MQ] RabbitMQ Management:        http://localhost:15672 (admin/rabbitmq_password)"
-echo "[DB] PostgreSQL:                localhost:5432 (orcacompute_user/orcacompute_password)"
+echo "[DB] PostgreSQL:                localhost:5432 (orcacloud_user/orcacloud_password)"
 echo "[CACHE] Redis:                      localhost:6379 (password: redis_password)";31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
@@ -82,7 +82,7 @@ test_endpoint() {
 }
 
 # Main script
-print_status "Starting OrcaCompute Container Build and Test"
+print_status "Starting OrcaCloud Container Build and Test"
 echo "=================================================================="
 
 # 1. Clean up any existing containers
@@ -119,7 +119,7 @@ print_status "Testing core services..."
 
 # Test database
 print_status "Testing PostgreSQL database..."
-if docker compose -f docker-compose.all-in-one.yml exec -T db psql -U orcacompute_user -d orcacompute -c "SELECT 1;" > /dev/null 2>&1; then
+if docker compose -f docker-compose.all-in-one.yml exec -T db psql -U orcacloud_user -d orcacloud -c "SELECT 1;" > /dev/null 2>&1; then
     print_success "PostgreSQL database is working"
 else
     print_error "PostgreSQL database test failed"
@@ -210,7 +210,7 @@ echo " API Documentation:          http://localhost:8000/api/docs/"
 echo "  API Admin:                 http://localhost:8000/admin/"
 echo " Email UI (MailHog):         http://localhost:8025"
 echo " RabbitMQ Management:        http://localhost:15672 (admin/rabbitmq_password)"
-echo "  PostgreSQL:                localhost:5432 (orcacompute_user/orcacompute_password)"
+echo "  PostgreSQL:                localhost:5432 (orcacloud_user/orcacloud_password)"
 echo " Redis:                      localhost:6379 (password: redis_password)"
 echo "=================================================================="
 echo ""

@@ -7,7 +7,7 @@ def health():
 
 @app.route("/")
 def root():
-    return "orcacompute-kas stub\n"
+    return "orcacloud-kas stub\n"
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8081)

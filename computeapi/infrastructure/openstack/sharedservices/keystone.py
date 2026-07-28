@@ -1,4 +1,4 @@
-# OrcaCompute – OpenStack Identity Service (Keystone)
+# OrcaCloud – OpenStack Identity Service (Keystone)
 #
 # Wraps openstack.identity (Keystone) operations:
 # projects, users, roles, domains, groups, and service catalog.

@@ -1,4 +1,4 @@
-# Gerrit CI/CD Configuration for OrcaCompute
+# Gerrit CI/CD Configuration for OrcaCloud
 version: '3.8'
 
 services:
@@ -125,8 +125,8 @@ services:
       - "389:389"
       - "636:636"
     environment:
-      - LDAP_ORGANISATION=OrcaCompute
-      - LDAP_DOMAIN=orcacompute.com
+      - LDAP_ORGANISATION=OrcaCloud
+      - LDAP_DOMAIN=orcacloud.com
       - LDAP_ADMIN_PASSWORD=admin_pass
     volumes:
       - ldap_data:/var/lib/ldap

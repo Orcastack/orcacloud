@@ -68,7 +68,7 @@ class EmailDomainViewSet(ModelViewSet):
 
         ed = EmailDomain.objects.create(
             domain=domain,
-            webmail_url=f'https://webmail.orcacompute.com',
+            webmail_url=f'https://webmail.orcacloud.com',
         )
         _log(ed, 'dns_provisioned', 'Email domain created', actor=request.user)
         return Response(EmailDomainSerializer(ed).data,
@@ -198,7 +198,7 @@ class MailboxViewSet(ModelViewSet):
         # Auto-create EmailDomain if not yet enabled
         ed, _ = EmailDomain.objects.get_or_create(
             domain=domain,
-            defaults={'webmail_url': 'https://webmail.orcacompute.com'},
+            defaults={'webmail_url': 'https://webmail.orcacloud.com'},
         )
 
         email_address = f'{d["local_part"]}@{domain.domain_name}'
@@ -329,7 +329,7 @@ class EmailAliasViewSet(ModelViewSet):
 
         ed, _ = EmailDomain.objects.get_or_create(
             domain=domain,
-            defaults={'webmail_url': 'https://webmail.orcacompute.com'},
+            defaults={'webmail_url': 'https://webmail.orcacloud.com'},
         )
 
         if EmailAlias.objects.filter(email_domain=ed,

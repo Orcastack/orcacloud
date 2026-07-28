@@ -1,5 +1,5 @@
 ---
-# Standard OrcaCompute Compute Flavors
+# Standard OrcaCloud Compute Flavors
 # Apply with: openstack flavor create (or via Terraform module)
 
 flavors:

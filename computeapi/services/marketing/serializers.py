@@ -1,4 +1,4 @@
-# OrcaCompute Cloud – Email Marketing Serializers
+# OrcaCloud – Email Marketing Serializers
 
 from rest_framework import serializers
 from .models import (

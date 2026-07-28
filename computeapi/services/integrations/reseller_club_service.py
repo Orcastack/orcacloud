@@ -1,4 +1,4 @@
-# OrcaCompute Cloud – ResellerClub Domain Registrar Service
+# OrcaCloud – ResellerClub Domain Registrar Service
 # Wraps the ResellerClub HTTP API for domain registration, transfer, and management.
 # Falls back to mock responses when credentials are not configured.
 
@@ -16,7 +16,7 @@ RESELLER_ID  = os.environ.get('RESELLERCLUB_RESELLER_ID',  '')
 BASE_URL     = os.environ.get('RESELLERCLUB_BASE_URL',     'https://httpapi.com/api')
 TIMEOUT      = int(os.environ.get('RESELLERCLUB_TIMEOUT',  '15'))
 
-DEFAULT_NS   = os.environ.get('ATONIX_NS', 'ns1.orcacompute.com,ns2.orcacompute.com').split(',')
+DEFAULT_NS   = os.environ.get('ATONIX_NS', 'ns1.orcacloud.com,ns2.orcacloud.com').split(',')
 DEFAULT_TLDS = ['com', 'net', 'org', 'io', 'co', 'app', 'dev', 'cloud', 'ai', 'tech']
 
 

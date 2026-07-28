@@ -1,7 +1,7 @@
 heat_template_version: wallaby
 
 description: |
-  OrcaCompute Public Cloud – VM Stack
+  OrcaCloud Public Cloud – VM Stack
   Provisions a Nova instance in Region A (Public) with:
     - a Neutron network and subnet
     - a security group allowing SSH + HTTPS

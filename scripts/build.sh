@@ -1,15 +1,15 @@
 #!/bin/bash
-# Build and run script for OrcaCompute unified container
+# Build and run script for OrcaCloud unified container
 
 set -e
 
-echo "[BUILD] OrcaCompute - Unified Container Builder"
+echo "[BUILD] OrcaCloud - Unified Container Builder"
 echo "=================================================="
 
 # Configuration
 REGISTRY="quay.io/atonixdev"
-IMAGE_NAME="orcacompute"
-LOCAL_TAG="orcacompute:latest"
+IMAGE_NAME="orcacloud"
+LOCAL_TAG="orcacloud:latest"
 VERSION="${VERSION:-latest}"
 REGISTRY_TAG="${REGISTRY}/${IMAGE_NAME}:${VERSION}"
 
@@ -46,16 +46,16 @@ show_usage() {
 build_container() {
     echo " Building unified container..."
 <<<<<<< HEAD
-    nerdctl build -f Dockerfile.fullstack -t orcacompute:latest .
+    nerdctl build -f Dockerfile.fullstack -t orcacloud:latest .
 =======
-    nerdctl build -f Dockerfile.fullstack -t orcacomputevm:latest .
+    nerdctl build -f Dockerfile.fullstack -t orcacloudvm:latest .
 >>>>>>> 12bd998bda7cee255affa733e542706dbab8dcfb
     echo " Container built successfully!"
 }
 
 # Function to run the unified stack
 run_stack() {
-    echo " Starting OrcaCompute..."
+    echo " Starting OrcaCloud..."
     nerdctl compose -f docker-compose.unified.yml up -d
     echo " Platform started successfully!"
     echo ""
@@ -81,7 +81,7 @@ services:
       - ./frontend/src:/app/frontend_src:ro
     environment:
       - DEBUG=True
-      - DJANGO_SETTINGS_MODULE=orcacompute.settings
+      - DJANGO_SETTINGS_MODULE=orcacloud.settings
 EOF
     
     nerdctl compose -f docker-compose.unified.yml -f docker-compose.dev.yml up -d
@@ -105,10 +105,10 @@ show_logs() {
 clean_up() {
     echo " Cleaning up..."
     nerdctl compose -f docker-compose.unified.yml down -v
-    nerdctl image rm orcacompute:latest 2>/dev/null || true
+    nerdctl image rm orcacloud:latest 2>/dev/null || true
 <<<<<<< HEAD
 =======
-    nerdctl image rm orcacomputevm:latest 2>/dev/null || true
+    nerdctl image rm orcacloudvm:latest 2>/dev/null || true
 >>>>>>> 12bd998bda7cee255affa733e542706dbab8dcfb
     echo " Cleanup completed!"
 }

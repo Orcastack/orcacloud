@@ -1,4 +1,4 @@
-# OrcaCompute Cloud – Container Registry Serializers
+# OrcaCloud – Container Registry Serializers
 
 from rest_framework import serializers
 from .models import (
@@ -124,7 +124,7 @@ class ContainerRepositoryDetailSerializer(serializers.ModelSerializer):
 
     def get_login_command(self, obj):
         return (
-            "docker login registry.orcacompute.com \\\n"
+            "docker login registry.orcacloud.com \\\n"
             "  --username <your-username> \\\n"
             "  --password <your-token>"
         )

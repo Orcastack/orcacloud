@@ -1,0 +1,275 @@
+/* -------------------------------------------------------
+   OrcaCompute Cloud — IBM Carbon Structural Styles
+   Edges, Borders, Lines, Spacing, Layers
+-------------------------------------------------------- */
+
+/* ---------- Color Tokens (IBM Carbon Neutral Palette) ---------- */
+:root {
+  --ac-gray-10: #f4f4f4;
+  --ac-gray-20: #e0e0e0;
+  --ac-gray-30: #c6c6c6;
+  --ac-gray-40: #a8a8a8;
+  --ac-gray-100: #161616;
+
+  --ac-bg-primary: #ffffff;
+  --ac-bg-secondary: var(--ac-gray-10);
+  --ac-bg-tertiary: var(--ac-gray-20);
+
+  --ac-text-primary: var(--ac-gray-100);
+  --ac-text-secondary: #525252;
+}
+
+/* ---------- Spacing Scale (IBM 2× Grid) ---------- */
+:root {
+  --ac-space-2: 2px;
+  --ac-space-4: 4px;
+  --ac-space-8: 8px;
+  --ac-space-12: 12px;
+  --ac-space-16: 16px;
+  --ac-space-24: 24px;
+  --ac-space-32: 32px;
+  --ac-space-48: 48px;
+  --ac-space-64: 64px;
+}
+
+/* ---------- Global Layout ---------- */
+body {
+  background: var(--ac-bg-primary);
+  color: var(--ac-text-primary);
+  font-family: "IBM Plex Sans", sans-serif;
+}
+
+/* ---------- Cards (IBM Layer-01) ---------- */
+.ac-card {
+  background: var(--ac-bg-primary);
+  border: 1px solid var(--ac-gray-30);
+  border-radius: 2px;
+  padding: var(--ac-space-16);
+}
+
+/* ---------- Panels (Monitoring, Compute, Storage) ---------- */
+.ac-panel {
+  background: var(--ac-bg-secondary);
+  border: 1px solid var(--ac-gray-40);
+  border-radius: 0px;
+  padding: var(--ac-space-24);
+}
+
+/* ---------- Section Dividers ---------- */
+.ac-section-divider {
+  border-bottom: 1px solid var(--ac-gray-20);
+  margin: var(--ac-space-24) 0;
+}
+
+/* ---------- Navigation Sidebar ---------- */
+.ac-sidebar {
+  background: var(--ac-bg-secondary);
+  width: 260px;
+  padding: var(--ac-space-16);
+  border-right: 1px solid var(--ac-gray-20);
+}
+
+.ac-sidebar-item {
+  padding: var(--ac-space-12) var(--ac-space-16);
+  border-left: 2px solid transparent;
+  cursor: pointer;
+}
+
+.ac-sidebar-item.active {
+  border-left-color: var(--ac-gray-100);
+  background: var(--ac-bg-tertiary);
+}
+
+/* ---------- Tables (IBM Data Table Style) ---------- */
+.ac-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid var(--ac-gray-40);
+}
+
+.ac-table th {
+  background: var(--ac-bg-secondary);
+  border-bottom: 1px solid var(--ac-gray-40);
+  padding: var(--ac-space-12);
+  text-align: left;
+}
+
+.ac-table td {
+  border-bottom: 1px solid var(--ac-gray-20);
+  padding: var(--ac-space-12);
+}
+
+/* ---------- Charts (Grid Lines) ---------- */
+.ac-chart-grid line {
+  stroke: var(--ac-gray-20);
+  stroke-width: 1px;
+}
+
+/* ---------- Inputs & Forms ---------- */
+.ac-input {
+  border: 1px solid var(--ac-gray-30);
+  border-radius: 2px;
+  padding: var(--ac-space-12);
+  background: var(--ac-bg-primary);
+  color: var(--ac-text-primary);
+}
+
+.ac-input:focus {
+  outline: 2px solid #0f62fe; /* IBM Blue */
+  outline-offset: 2px;
+}
+
+/* ---------- Hover Elevation (IBM Subtle Shadow) ---------- */
+.ac-hover-elevate:hover {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+}
+
+/* -------------------------------------------------------
+   OrcaCompute Component Library Design Tokens
+   Button, Input, and Card Components
+-------------------------------------------------------- */
+
+/* ---------- Component Color Tokens ---------- */
+:root {
+  /* Button Colors */
+  --ac-button-primary-bg: #153d75;
+  --ac-button-primary-bg-hover: #0f2d5a;
+  --ac-button-primary-bg-active: #0a1e3f;
+  --ac-button-primary-text: #ffffff;
+  --ac-button-primary-border: #153d75;
+
+  --ac-button-secondary-bg: transparent;
+  --ac-button-secondary-bg-hover: rgba(21, 61, 117, 0.08);
+  --ac-button-secondary-bg-active: rgba(21, 61, 117, 0.16);
+  --ac-button-secondary-text: #153d75;
+  --ac-button-secondary-border: #c6c6c6;
+
+  --ac-button-ghost-bg: transparent;
+  --ac-button-ghost-bg-hover: rgba(21, 61, 117, 0.04);
+  --ac-button-ghost-bg-active: rgba(21, 61, 117, 0.08);
+  --ac-button-ghost-text: #153d75;
+  --ac-button-ghost-border: transparent;
+
+  --ac-button-danger-bg: #dc2626;
+  --ac-button-danger-bg-hover: #b91c1c;
+  --ac-button-danger-bg-active: #991b1b;
+  --ac-button-danger-text: #ffffff;
+  --ac-button-danger-border: #dc2626;
+
+  --ac-button-disabled-bg: #f4f4f4;
+  --ac-button-disabled-text: #a8a8a8;
+  --ac-button-disabled-border: #e0e0e0;
+
+  /* Input Colors */
+  --ac-input-default-bg: #ffffff;
+  --ac-input-default-border: #c6c6c6;
+  --ac-input-default-text: #161616;
+  --ac-input-placeholder-text: #a8a8a8;
+  --ac-input-label-text: #525252;
+  --ac-input-helper-text: #525252;
+
+  --ac-input-hover-border: #a8a8a8;
+  --ac-input-focus-border: #153d75;
+  --ac-input-focus-outline: rgba(21, 61, 117, 0.2);
+  --ac-input-error-border: #dc2626;
+  --ac-input-error-text: #dc2626;
+  --ac-input-error-helper-text: #dc2626;
+
+  --ac-input-disabled-bg: #f4f4f4;
+  --ac-input-disabled-border: #e0e0e0;
+  --ac-input-disabled-text: #a8a8a8;
+  --ac-input-disabled-label-text: #a8a8a8;
+
+  /* Card Colors */
+  --ac-card-bg: #ffffff;
+  --ac-card-border: #e0e0e0;
+  --ac-card-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --ac-card-header-bg: transparent;
+  --ac-card-header-text: #161616;
+  --ac-card-subtitle-text: #525252;
+  --ac-card-body-bg: transparent;
+  --ac-card-body-text: #161616;
+  --ac-card-footer-bg: transparent;
+  --ac-card-footer-border: #e0e0e0;
+  --ac-card-footer-text: #161616;
+
+  /* Semantic Colors */
+  --ac-color-success: #22c55e;
+  --ac-color-warning: #f59e0b;
+  --ac-color-error: #dc2626;
+  --ac-color-info: #153d75;
+}
+
+/* ---------- Component Spacing Tokens ---------- */
+:root {
+  --ac-space-xs: 4px;
+  --ac-space-sm: 8px;
+  --ac-space-md: 16px;
+  --ac-space-lg: 24px;
+  --ac-space-xl: 32px;
+  --ac-space-xxl: 48px;
+}
+
+/* ---------- Component Typography Tokens ---------- */
+:root {
+  --ac-font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --ac-font-size-xs: 12px;
+  --ac-font-size-sm: 14px;
+  --ac-font-size-md: 16px;
+  --ac-font-size-lg: 18px;
+  --ac-font-size-xl: 20px;
+  --ac-font-size-xxl: 24px;
+  --ac-font-weight-regular: 400;
+  --ac-font-weight-medium: 500;
+  --ac-font-weight-semibold: 600;
+  --ac-font-weight-bold: 700;
+  --ac-line-height-tight: 1.25;
+  --ac-line-height-normal: 1.5;
+  --ac-line-height-relaxed: 1.75;
+}
+
+/* ---------- Component Border Radius Tokens ---------- */
+:root {
+  --ac-radius-none: 0px;
+  --ac-radius-sm: 2px;
+  --ac-radius-md: 4px;
+  --ac-radius-lg: 8px;
+  --ac-radius-xl: 12px;
+  --ac-radius-full: 9999px;
+}
+
+/* ---------- Component Shadow Tokens ---------- */
+:root {
+  --ac-shadow-none: none;
+  --ac-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --ac-shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+  --ac-shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --ac-shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* ---------- Component-Specific Tokens ---------- */
+:root {
+  /* Button */
+  --ac-button-height: 48px;
+  --ac-button-padding-x: 16px;
+  --ac-button-border-width: 1px;
+  --ac-button-transition: all 0.2s ease-in-out;
+
+  /* Input */
+  --ac-input-height: 48px;
+  --ac-input-padding-x: 12px;
+  --ac-input-padding-y: 12px;
+  --ac-input-border-width: 1px;
+  --ac-input-border-radius: 4px;
+  --ac-input-focus-outline-width: 2px;
+  --ac-input-label-spacing: 8px;
+  --ac-input-helper-spacing: 4px;
+
+  /* Card */
+  --ac-card-padding: 32px;
+  --ac-card-border-width: 1px;
+  --ac-card-border-radius: 4px;
+  --ac-card-header-padding: 0 0 16px 0;
+  --ac-card-footer-padding: 16px 0 0 0;
+  --ac-card-footer-border-width: 1px;
+}

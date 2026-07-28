@@ -1,4 +1,4 @@
-# OrcaCompute IAM Service – Models
+# OrcaCloud IAM Service – Models
 # Identity, Access Management: Users, Groups, Roles, Policies, Keys, MFA, Audit
 
 import uuid
@@ -69,7 +69,7 @@ class IAMPolicy(ResourceModel):
     policy_type     = models.CharField(max_length=20, choices=POLICY_TYPE_CHOICES, default='managed')
     policy_document = models.JSONField(help_text="Policy document (JSON)")
     version         = models.CharField(max_length=16, default='2024-10-17')
-    is_atonix_managed = models.BooleanField(default=False, help_text="Managed by OrcaCompute")
+    is_atonix_managed = models.BooleanField(default=False, help_text="Managed by OrcaCloud")
     attachment_count  = models.IntegerField(default=0)
 
     class Meta:

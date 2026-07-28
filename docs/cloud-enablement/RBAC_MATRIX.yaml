@@ -1,4 +1,4 @@
-# OrcaCompute Cloud – RBAC Matrix
+# OrcaCloud – RBAC Matrix
 # ─────────────────────────────────────────────────────────────────────────────
 # Defines which platform roles can perform which actions on which services
 # per cloud type.
@@ -17,7 +17,7 @@
 
 roles:
   platform_admin:
-    description: "OrcaCompute platform superuser — full access to all resources in all regions"
+    description: "OrcaCloud platform superuser — full access to all resources in all regions"
     keystone_role: admin
     trust_level: highest
 

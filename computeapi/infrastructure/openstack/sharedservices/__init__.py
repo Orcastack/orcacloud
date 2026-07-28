@@ -1,4 +1,4 @@
-# OrcaCompute – Shared Services group
+# OrcaCloud – Shared Services group
 # Re-exports all public symbols from every module in this package so that:
 #   from infrastructure.openstack.sharedservices import list_projects   ← Keystone
 #   from infrastructure.openstack.sharedservices import list_resource_providers ← Placement

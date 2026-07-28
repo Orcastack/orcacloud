@@ -1,4 +1,4 @@
-# OrcaCompute – OpenStack Instance HA Service (Masakari)
+# OrcaCloud – OpenStack Instance HA Service (Masakari)
 #
 # Wraps openstack.instance_ha (Masakari) operations:
 # segments, hosts, failover notifications, and recovery workflows.

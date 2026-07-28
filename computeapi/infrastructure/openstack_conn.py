@@ -1,4 +1,4 @@
-# OrcaCompute – OpenStack Connection Layer
+# OrcaCloud – OpenStack Connection Layer
 #
 # All OpenStack API calls route through get_connection().
 # Credentials are read exclusively from environment variables (never hard-coded).
@@ -18,7 +18,7 @@ _DEFAULTS = {
     "user_domain_name":    "Default",
     "project_domain_name": "Default",
     "region_name":         "RegionOne",
-    "app_name":            "orcacompute-backend",
+    "app_name":            "orcacloud-backend",
     "app_version":         "1.0",
 }
 

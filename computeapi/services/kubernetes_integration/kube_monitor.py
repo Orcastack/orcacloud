@@ -181,7 +181,7 @@ def _mock_monitor(namespace: str) -> dict:
             ],
             'ingresses': [
                 {'name': 'main-ingress', 'namespace': namespace,
-                 'hosts': [f'{namespace}.orcacompute.dev'],
+                 'hosts': [f'{namespace}.orcacloud.dev'],
                  'tls': True, 'address': '203.0.113.10', 'age': '30d'}
             ],
         },

@@ -1,4 +1,4 @@
-# OrcaCompute – OpenStack Database as a Service (Trove)
+# OrcaCloud – OpenStack Database as a Service (Trove)
 #
 # Wraps openstack.database (Trove) operations:
 # instances, databases, users, backups, and configurations.

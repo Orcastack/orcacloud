@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-echo "Starting OrcaCompute..."
+echo "Starting OrcaCloud..."
 echo "Environment: ${ENVIRONMENT:-development}"
 
 # Configure nginx based on environment
@@ -10,7 +10,7 @@ if [ "${ENVIRONMENT}" = "production" ]; then
     ln -sf /etc/nginx/sites-available/production /etc/nginx/sites-enabled/default
     
     # Verify SSL certificates exist
-    if [ ! -f "/etc/ssl/certs/orcacompute.com.crt" ] || [ ! -f "/etc/ssl/private/orcacompute.com.key" ]; then
+    if [ ! -f "/etc/ssl/certs/orcacloud.com.crt" ] || [ ! -f "/etc/ssl/private/orcacloud.com.key" ]; then
         echo "WARNING: Production SSL certificates not found. Nginx may not start properly."
         echo "Please ensure SSL certificates are mounted in the container."
     fi

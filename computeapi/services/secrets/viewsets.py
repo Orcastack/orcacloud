@@ -1,4 +1,4 @@
-# OrcaCompute Secrets Vault – ViewSets
+# OrcaCloud Secrets Vault – ViewSets
 
 from django.utils import timezone
 from datetime import timedelta

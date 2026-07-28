@@ -1,19 +1,19 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: orcacompute
+  name: orcacloud
 ---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: ruby-service-sa
-  namespace: orcacompute
+  namespace: orcacloud
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ruby-service
-  namespace: orcacompute
+  namespace: orcacloud
   labels:
     app: ruby-service
     component: web
@@ -36,7 +36,7 @@ spec:
       serviceAccountName: ruby-service-sa
       containers:
       - name: ruby-service
-        image: ghcr.io/orcacompute/orcacompute-ruby-service:1.0.0
+        image: ghcr.io/orcacloud/orcacloud-ruby-service:1.0.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 3000
@@ -109,7 +109,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ruby-service-sidekiq
-  namespace: orcacompute
+  namespace: orcacloud
   labels:
     app: ruby-service
     component: worker
@@ -127,7 +127,7 @@ spec:
     spec:
       containers:
       - name: sidekiq
-        image: ghcr.io/orcacompute/orcacompute-ruby-service:1.0.0
+        image: ghcr.io/orcacloud/orcacloud-ruby-service:1.0.0
         command: ["./start-sidekiq.sh"]
         env:
         - name: RACK_ENV
@@ -174,7 +174,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: ruby-service-sidekiq
-  namespace: orcacompute
+  namespace: orcacloud
   labels:
     app: ruby-service
     component: worker
@@ -193,7 +193,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ruby-service-ingress
-  namespace: orcacompute
+  namespace: orcacloud
   labels:
     app: ruby-service
   annotations:
@@ -206,10 +206,10 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - ruby.orcacompute.com
+    - ruby.orcacloud.com
     secretName: ruby-service-tls
   rules:
-  - host: ruby.orcacompute.com
+  - host: ruby.orcacloud.com
     http:
       paths:
       - path: /
@@ -224,7 +224,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: ruby-service-config
-  namespace: orcacompute
+  namespace: orcacloud
   labels:
     app: ruby-service
 data:
@@ -271,7 +271,7 @@ apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
   name: ruby-service-pdb
-  namespace: orcacompute
+  namespace: orcacloud
   labels:
     app: ruby-service
 spec:
@@ -285,7 +285,7 @@ apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: ruby-service-hpa
-  namespace: orcacompute
+  namespace: orcacloud
   labels:
     app: ruby-service
 spec:
@@ -320,7 +320,7 @@ apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: ruby-service-monitor
-  namespace: orcacompute
+  namespace: orcacloud
   labels:
     app: ruby-service
     release: prometheus
@@ -339,7 +339,7 @@ apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
   name: ruby-service-alerts
-  namespace: orcacompute
+  namespace: orcacloud
   labels:
     app: ruby-service
     release: prometheus

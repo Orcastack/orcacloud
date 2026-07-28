@@ -1,5 +1,5 @@
 """
-Permission classes for OrcaCompute services.
+Permission classes for OrcaCloud services.
 Re-exports existing permissions from auth.py and adds missing ones.
 """
 from rest_framework.permissions import BasePermission

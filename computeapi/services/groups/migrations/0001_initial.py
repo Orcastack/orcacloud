@@ -31,7 +31,7 @@ class Migration(migrations.Migration):
                 ('member_count', models.PositiveIntegerField(default=1)),
                 ('project_count', models.PositiveIntegerField(default=0)),
                 ('pipeline_count', models.PositiveIntegerField(default=0)),
-                ('import_source', models.CharField(blank=True, choices=[('github', 'GitHub Organizations'), ('gitlab', 'GitLab Groups'), ('bitbucket', 'Bitbucket Workspaces'), ('atonix', 'OrcaCompute Cloud')], default='', max_length=20)),
+                ('import_source', models.CharField(blank=True, choices=[('github', 'GitHub Organizations'), ('gitlab', 'GitLab Groups'), ('bitbucket', 'Bitbucket Workspaces'), ('atonix', 'OrcaCloud')], default='', max_length=20)),
                 ('import_external_id', models.CharField(blank=True, default='', max_length=255)),
                 ('owner', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='owned_groups', to=settings.AUTH_USER_MODEL)),
             ],

@@ -1,5 +1,5 @@
 """
-Test Configuration and Fixtures for OrcaCompute Services
+Test Configuration and Fixtures for OrcaCloud Services
 
 Provides:
 - Pytest configuration

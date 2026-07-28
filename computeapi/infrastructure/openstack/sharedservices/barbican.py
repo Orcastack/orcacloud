@@ -1,4 +1,4 @@
-# OrcaCompute – OpenStack Key Manager (Barbican)
+# OrcaCloud – OpenStack Key Manager (Barbican)
 #
 # Wraps openstack.key_manager (Barbican) operations:
 # secrets, containers (certificate bundles), and secret metadata.

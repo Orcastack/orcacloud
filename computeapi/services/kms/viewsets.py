@@ -1,4 +1,4 @@
-# OrcaCompute KMS Service – ViewSets
+# OrcaCloud KMS Service – ViewSets
 
 from django.utils import timezone
 from rest_framework import viewsets, status

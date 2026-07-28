@@ -1,17 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: orcacompute-security
+  name: orcacloud-security
   namespace: argocd
 spec:
   project: default
   source:
-    repoURL: 'https://github.com/orcacompute/orcacompute'
+    repoURL: 'https://github.com/orcacloud/orcacloud'
     targetRevision: HEAD
     path: k8s/overlays/security
   destination:
     server: 'https://kubernetes.default.svc'
-    namespace: orcacompute
+    namespace: orcacloud
   syncPolicy:
     automated:
       prune: true

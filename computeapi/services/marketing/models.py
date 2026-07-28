@@ -1,4 +1,4 @@
-# OrcaCompute Cloud – Marketing Workspace Models
+# OrcaCloud – Marketing Workspace Models
 # Campaigns, contact lists, templates, automations, analytics, segments, channels, A/B tests, calendar.
 # All new org-scoped models are keyed via organization_id (string FK to enterprise.Organization).
 

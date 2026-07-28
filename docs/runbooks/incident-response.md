@@ -1,8 +1,8 @@
-# OrcaCompute Cloud – Incident Response Runbook
+# OrcaCloud – Incident Response Runbook
 
-**Scope:** Responding to infrastructure incidents on the OrcaCompute cloud platform.
+**Scope:** Responding to infrastructure incidents on the OrcaCloud cloud platform.
 **Severity levels:** P1 (critical) / P2 (major) / P3 (moderate) / P4 (minor)
-**On-call rotation:** ops@orcacompute.com / PagerDuty policy `atonix-cloud-ops`
+**On-call rotation:** ops@orcacloud.com / PagerDuty policy `atonix-cloud-ops`
 
 ---
 
@@ -304,7 +304,7 @@ apachectl status
 
 # 2. Test token issuance manually
 curl -s -o /dev/null -w "%{http_code}" \
-  -X POST https://keystone.orcacompute.com/v3/auth/tokens \
+  -X POST https://keystone.orcacloud.com/v3/auth/tokens \
   -H "Content-Type: application/json" \
   -d '{"auth":{"identity":{"methods":["password"],"password":{"user":{"name":"admin","domain":{"name":"Default"},"password":"'"$KEYSTONE_ADMIN_PW"'"}}},"scope":{"project":{"name":"admin","domain":{"name":"Default"}}}}}'
 

@@ -1,15 +1,17 @@
-export type PortalVariant = 'standard' | 'home' | 'login' | 'cloud' | 'developer' | 'matrix';
-export type PortalTarget = 'cloud' | 'developer' | 'matrix';
+export type PortalVariant = 'standard' | 'home' | 'login' | 'cloud' | 'devops' | 'email' | 'enterprise' | 'domain';
+export type PortalTarget = 'cloud' | 'devops' | 'email' | 'enterprise' | 'domain';
 
 const publicPort = process.env.REACT_APP_PORTAL_PUBLIC_PORT || '3000';
 const isLocalMultiDashboardEnvironment = process.env.REACT_APP_ENVIRONMENT === 'local-multi-dashboard';
 
 const localPortalPorts = {
-  home: '3000',
-  login: '3001',
-  cloud: '3002',
-  developer: '3003',
-  matrix: '3004',
+  home: '8081',
+  login: '5000',
+  cloud: '3000',
+  devops: '3002',
+  email: '3003',
+  enterprise: '4000',
+  domain: '3001',
 } as const;
 
 function inferPortalVariantFromPort(): PortalVariant | null {
@@ -32,11 +34,17 @@ function inferPortalVariantFromPort(): PortalVariant | null {
   if (port === localPortalPorts.cloud) {
     return 'cloud';
   }
-  if (port === localPortalPorts.developer) {
-    return 'developer';
+  if (port === localPortalPorts.devops) {
+    return 'devops';
   }
-  if (port === localPortalPorts.matrix) {
-    return 'matrix';
+  if (port === localPortalPorts.email) {
+    return 'email';
+  }
+  if (port === localPortalPorts.enterprise) {
+    return 'enterprise';
+  }
+  if (port === localPortalPorts.domain) {
+    return 'domain';
   }
 
   return null;
@@ -55,13 +63,9 @@ function inferPortalVariantFromPathname(): PortalVariant | null {
   if (pathname === '/cloud' || pathname.startsWith('/dashboard')) {
     return 'cloud';
   }
-  if (pathname === '/developer' || pathname.startsWith('/developer/')) {
-    return 'developer';
+  if (pathname === '/dashboard' || pathname.startsWith('/dashboard/')) {
+    return null;
   }
-  if (pathname === '/matrix' || pathname.startsWith('/matrix/')) {
-    return 'matrix';
-  }
-
   return null;
 }
 
@@ -72,7 +76,7 @@ function inferPortalVariantFromQuery(): PortalVariant | null {
 
   const portal = new URLSearchParams(window.location.search).get('portal');
 
-  if (portal === 'home' || portal === 'login' || portal === 'cloud' || portal === 'developer' || portal === 'matrix') {
+  if (portal === 'home' || portal === 'login' || portal === 'cloud' || portal === 'devops' || portal === 'email' || portal === 'enterprise' || portal === 'domain') {
     return portal;
   }
 
@@ -107,11 +111,32 @@ function inferPortalVariantFromHostname(): PortalVariant {
   if (hostname === 'cloud.localhost') {
     return 'cloud';
   }
-  if (hostname === 'developer.localhost') {
-    return 'developer';
+  if (hostname === 'devop.localhost') {
+    return 'devops';
   }
-  if (hostname === 'matrix.localhost') {
-    return 'matrix';
+  if (hostname === 'email.localhost') {
+    return 'email';
+  }
+  if (hostname === 'enterprise.localhost') {
+    return 'enterprise';
+  }
+  if (hostname === 'devop.orcacloud.com') {
+    return 'devops';
+  }
+  if (hostname === 'cloud.orcacloud.com') {
+    return 'cloud';
+  }
+  if (hostname === 'email.orcacloud.com') {
+    return 'email';
+  }
+  if (hostname === 'enterprise.orcacloud.com') {
+    return 'enterprise';
+  }
+  if (hostname === 'domain.orcacloud.com') {
+    return 'domain';
+  }
+  if (hostname === 'account.orcacloud.com') {
+    return 'login';
   }
   if (hostname === 'localhost' || hostname === '127.0.0.1') {
     return 'home';
@@ -134,7 +159,9 @@ function isLocalSingleHostMode(): boolean {
   const hostname = window.location.hostname;
   const port = window.location.port || (window.location.protocol === 'https:' ? '443' : '80');
 
-  return (hostname === 'localhost' || hostname === '127.0.0.1') && port === localPortalPorts.home;
+  const localPorts = Object.values(localPortalPorts);
+
+  return hostname.endsWith('.localhost') || ((hostname === 'localhost' || hostname === '127.0.0.1') && localPorts.includes(port as typeof localPorts[number]));
 }
 
 function getLocalSingleHostBaseUrl(): string {
@@ -158,31 +185,39 @@ export const portalHosts: Record<PortalTarget | 'home' | 'login', string> = isLo
       home: `${singleHostBaseUrl}/`,
       login: `http://localhost:${localPortalPorts.login}`,
       cloud: `http://localhost:${localPortalPorts.cloud}`,
-      developer: `http://localhost:${localPortalPorts.developer}`,
-      matrix: `http://localhost:${localPortalPorts.matrix}`,
+      devops: `http://localhost:${localPortalPorts.devops}`,
+      email: `http://localhost:${localPortalPorts.email}`,
+      enterprise: `http://localhost:${localPortalPorts.enterprise}`,
+      domain: `http://localhost:${localPortalPorts.domain}`,
     }
   : {
-      home: `http://localhost:${publicPort}`,
-      login: `http://login.localhost:${publicPort}`,
-      cloud: `http://cloud.localhost:${publicPort}`,
-      developer: `http://developer.localhost:${publicPort}`,
-      matrix: `http://matrix.localhost:${publicPort}`,
+      home: 'https://orcacloud.com',
+      login: 'https://account.orcacloud.com',
+      cloud: 'https://cloud.orcacloud.com',
+      devops: 'https://devop.orcacloud.com',
+      email: 'https://email.orcacloud.com',
+      enterprise: 'https://enterprise.orcacloud.com',
+      domain: 'https://domain.orcacloud.com',
     };
 
 export const portalTargetLabels: Record<PortalTarget, string> = {
   cloud: 'Cloud Dashboard',
-  developer: 'Developer Dashboard',
-  matrix: 'Matrix Dashboard',
+  devops: 'DevOps Dashboard',
+  email: 'Email Dashboard',
+  enterprise: 'Enterprise Dashboard',
+  domain: 'Domain Dashboard',
 };
 
 export const portalTargetPaths: Record<PortalTarget, string> = {
-  cloud: '/cloud',
-  developer: '/developer/Dashboard',
-  matrix: '/matrix',
+  cloud: '/dashboard',
+  devops: '/dashboard',
+  email: '/dashboard',
+  enterprise: '/dashboard',
+  domain: '/dashboard',
 };
 
 export function resolvePortalTarget(value: string | null | undefined): PortalTarget {
-  if (value === 'developer' || value === 'matrix') {
+  if (value === 'devops' || value === 'email' || value === 'enterprise' || value === 'domain') {
     return value;
   }
   return 'cloud';
@@ -212,10 +247,10 @@ export function getPortalLoginUrl(target?: PortalTarget): string {
 }
 
 export function getPortalPlan(target: PortalTarget): 'cloud' | 'developer' | 'enterprise' {
-  if (target === 'developer') {
+  if (target === 'devops') {
     return 'developer';
   }
-  if (target === 'matrix') {
+  if (target === 'enterprise') {
     return 'enterprise';
   }
   return 'cloud';

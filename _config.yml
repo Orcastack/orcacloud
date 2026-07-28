@@ -1,11 +1,11 @@
-title: OrcaCompute
+title: OrcaCloud
 description: Intelligent Infrastructure for the Future – Compute, Storage, Networking, Automation, and AI Unified.
-url: "https://orcacompute.github.io"
-baseurl: "/orcacompute"
+url: "https://orcacloud.github.io"
+baseurl: "/orcacloud"
 
 author:
-  name: OrcaCompute Engineering
-  email: platform-team@orcacompute.com
+  name: OrcaCloud Engineering
+  email: platform-team@orcacloud.com
 
 # Disable Jekyll theme (using custom HTML/CSS)
 theme: null

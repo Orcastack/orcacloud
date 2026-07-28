@@ -1,25 +1,25 @@
 apiVersion: v2
-name: orcacompute
-description: A Helm chart for OrcaCompute
+name: orcacloud
+description: A Helm chart for OrcaCloud
 type: application
 version: 0.1.0
 appVersion: "1.0.0"
 
 keywords:
-  - orcacompute
+  - orcacloud
   - platform
   - django
   - react
   - postgresql
   - redis
 
-home: https://orcacompute.com
+home: https://orcacloud.com
 sources:
-  - https://github.com/orcacompute/platform
+  - https://github.com/orcacloud/platform
 
 maintainers:
-  - name: OrcaCompute DevOps Team
-    email: devops@orcacompute.com
+  - name: OrcaCloud DevOps Team
+    email: devops@orcacloud.com
 
 dependencies:
   - name: postgresql

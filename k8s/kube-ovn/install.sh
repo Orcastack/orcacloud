@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Kube-OVN Installation Script for OrcaCompute
+# Kube-OVN Installation Script for OrcaCloud
 # This script installs Kube-OVN networking plugin
 
 set -e

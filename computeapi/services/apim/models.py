@@ -1,4 +1,4 @@
-# OrcaCompute Cloud – API Management Models
+# OrcaCloud – API Management Models
 # Control-plane data model for APIs, gateways, consumers, keys, products, policies.
 
 import uuid
@@ -112,7 +112,7 @@ class ApiGateway(TimeStampedModel):
         ('envoy',   'Envoy'),
         ('nginx',   'NGINX'),
         ('tyk',     'Tyk'),
-        ('atonix',  'OrcaCompute Gateway'),
+        ('atonix',  'OrcaCloud Gateway'),
         ('aws_agw', 'AWS API Gateway'),
     ]
 

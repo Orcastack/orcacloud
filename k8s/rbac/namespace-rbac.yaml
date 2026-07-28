@@ -1,25 +1,25 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: orcacompute
+  name: orcacloud
 ---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: app-user-sa
-  namespace: orcacompute
+  namespace: orcacloud
 ---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: app-admin-sa
-  namespace: orcacompute
+  namespace: orcacloud
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  name: orcacompute-user-role
-  namespace: orcacompute
+  name: orcacloud-user-role
+  namespace: orcacloud
 rules:
   - apiGroups: [""]
     resources: ["pods", "services", "endpoints", "configmaps"]
@@ -31,8 +31,8 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  name: orcacompute-admin-role
-  namespace: orcacompute
+  name: orcacloud-admin-role
+  namespace: orcacloud
 rules:
   - apiGroups: [""]
     resources: ["pods", "services", "endpoints", "configmaps", "persistentvolumeclaims"]
@@ -48,35 +48,35 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: bind-app-user-sa
-  namespace: orcacompute
+  namespace: orcacloud
 subjects:
   - kind: ServiceAccount
     name: app-user-sa
-    namespace: orcacompute
+    namespace: orcacloud
 roleRef:
   kind: Role
-  name: orcacompute-user-role
+  name: orcacloud-user-role
   apiGroup: rbac.authorization.k8s.io
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: bind-app-admin-sa
-  namespace: orcacompute
+  namespace: orcacloud
 subjects:
   - kind: ServiceAccount
     name: app-admin-sa
-    namespace: orcacompute
+    namespace: orcacloud
 roleRef:
   kind: Role
-  name: orcacompute-admin-role
+  name: orcacloud-admin-role
   apiGroup: rbac.authorization.k8s.io
 ---
 # Cluster-level admin role (use carefully)
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: orcacompute-cluster-admin
+  name: orcacloud-cluster-admin
 rules:
   - apiGroups: ["*"]
     resources: ["*"]
@@ -85,12 +85,12 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: orcacompute-admins-binding
+  name: orcacloud-admins-binding
 subjects:
   - kind: Group
-    name: orcacompute-admins
+    name: orcacloud-admins
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
-  name: orcacompute-cluster-admin
+  name: orcacloud-cluster-admin
   apiGroup: rbac.authorization.k8s.io

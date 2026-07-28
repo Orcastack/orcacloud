@@ -1,4 +1,4 @@
-# OrcaCompute Networking Service - Serializers
+# OrcaCloud Networking Service - Serializers
 
 from rest_framework import serializers
 from .models import (

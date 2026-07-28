@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# OrcaCompute Startup Script
+# OrcaCloud Startup Script
 # This script provides easy commands to start the entire platform
 
-set    echo -e "${RED}[CLEANUP] Cleaning all OrcaCompute services and data...${NC}"-e
+set    echo -e "${RED}[CLEANUP] Cleaning all OrcaCloud services and data...${NC}"-e
 
 # Colors for output
 RED='\033[0;31m'
@@ -14,7 +14,7 @@ NC='\033[0m' # No Color
 
 print_header() {
     echo -e "${BLUE}=================================="
-    echo -e "[PLATFORM] OrcaCompute Manager"
+    echo -e "[PLATFORM] OrcaCloud Manager"
     echo -e "==================================${NC}"
 }
 
@@ -66,7 +66,7 @@ create_env_if_needed() {
 }
 
 start_minimal() {
-    echo -e "${GREEN}[START] Starting minimal OrcaCompute...${NC}"
+    echo -e "${GREEN}[START] Starting minimal OrcaCloud...${NC}"
     echo "Services: PostgreSQL, Redis, Backend, Frontend"
     
     COMPOSE_CMD="docker-compose -f docker-compose.all-in-one.yml"
@@ -75,14 +75,14 @@ start_minimal() {
 }
 
 start_full() {
-    echo -e "${GREEN}[START] Starting full OrcaCompute...${NC}"
+    echo -e "${GREEN}[START] Starting full OrcaCloud...${NC}"
     echo "Services: All development services"
     
     docker compose -f docker-compose.yml up $@
 }
 
 start_production() {
-    echo -e "${GREEN}[START] Starting production OrcaCompute...${NC}"
+    echo -e "${GREEN}[START] Starting production OrcaCloud...${NC}"
     echo "Services: Production-ready services with Nginx"
     
     COMPOSE_CMD="docker-compose -f docker-compose.all-in-one.yml"
@@ -91,7 +91,7 @@ start_production() {
 }
 
 start_messaging() {
-    echo -e "${GREEN}[START] Starting OrcaCompute with messaging...${NC}"
+    echo -e "${GREEN}[START] Starting OrcaCloud with messaging...${NC}"
     echo "Services: Full stack with Kafka, RabbitMQ, and Celery"
     
     COMPOSE_CMD="docker-compose -f docker-compose.all-in-one.yml"
@@ -100,14 +100,14 @@ start_messaging() {
 }
 
 start_unified() {
-    echo -e "${GREEN}[START] Starting unified OrcaCompute...${NC}"
+    echo -e "${GREEN}[START] Starting unified OrcaCloud...${NC}"
     echo "Services: Single container with frontend and backend"
     
     docker compose -f docker-compose.unified.yml up $@
 }
 
 stop_services() {
-    echo -e "${YELLOW} Stopping all OrcaCompute services...${NC}"
+    echo -e "${YELLOW} Stopping all OrcaCloud services...${NC}"
     
     docker compose -f docker-compose.yml down 2>/dev/null || true
     docker compose -f docker-compose.all-in-one.yml down 2>/dev/null || true
@@ -118,7 +118,7 @@ stop_services() {
 }
 
 clean_services() {
-    echo -e "${RED} Cleaning all OrcaCompute services and data...${NC}"
+    echo -e "${RED} Cleaning all OrcaCloud services and data...${NC}"
     read -p "This will remove all containers and volumes. Are you sure? (y/N) " -n 1 -r
     echo
     if [[ $REPLY =~ ^[Yy]$ ]]; then
@@ -145,12 +145,12 @@ show_status() {
     docker compose -f docker-compose.all-in-one.yml ps
     echo ""
     echo -e "${BLUE} Volume Usage:${NC}"
-    docker volume ls | grep orcacompute || echo "No OrcaCompute volumes found"
+    docker volume ls | grep orcacloud || echo "No OrcaCloud volumes found"
 }
 
 print_success_info() {
     echo ""
-    echo -e "${GREEN}[SUCCESS] OrcaCompute is starting up!${NC}"
+    echo -e "${GREEN}[SUCCESS] OrcaCloud is starting up!${NC}"
     echo ""
     echo -e "${BLUE}[ACCESS] Access URLs:${NC}"
     echo "  Frontend:          http://localhost:3000"
@@ -159,7 +159,7 @@ print_success_info() {
     echo "  API Documentation: http://localhost:8000/api/docs"
     echo ""
     echo -e "${BLUE}[TOOLS] Development Tools:${NC}"
-    echo "  PostgreSQL:        localhost:5432 (user: orcacompute_user, db: orcacompute)"
+    echo "  PostgreSQL:        localhost:5432 (user: orcacloud_user, db: orcacloud)"
     echo "  Redis:             localhost:6379"
     echo "  MailHog UI:        http://localhost:8025 (if email profile enabled)"
     echo "  RabbitMQ UI:       http://localhost:15672 (if messaging profile enabled)"

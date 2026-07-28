@@ -1,4 +1,4 @@
-# OrcaCompute Cloud – Billing Models
+# OrcaCloud – Billing Models
 
 import uuid
 from django.db import models

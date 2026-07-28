@@ -1,5 +1,5 @@
 """
-OrcaCompute Multi-Region models.
+OrcaCloud Multi-Region models.
 
 Provides a queryable registry of cloud regions and availability zones,
 with failover pairing and per-region service endpoint tracking.

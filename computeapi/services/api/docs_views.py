@@ -8,7 +8,7 @@ def swagger_ui_view(request):
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>OrcaCompute API Docs</title>
+  <title>OrcaCloud API Docs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@5/swagger-ui.css" />
 </head>
@@ -37,7 +37,7 @@ def redoc_view(request):
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>OrcaCompute API Reference</title>
+  <title>OrcaCloud API Reference</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
 <body>

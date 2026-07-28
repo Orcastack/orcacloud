@@ -190,9 +190,9 @@ spec:
         - name: LOG_FORMAT
           value: json
         - name: PIPELINES_NAMESPACE
-          value: orcacompute-tekton
+          value: orcacloud-tekton
         - name: TRIGGERS_NAMESPACE
-          value: orcacompute-tekton
+          value: orcacloud-tekton
         - name: INSTALLED_NAMESPACE
           valueFrom:
             fieldRef:
@@ -273,17 +273,17 @@ data:
     dashboard:
       readonly: false
       logoURL: ""
-      logoAlt: "OrcaCompute Tekton Dashboard"
+      logoAlt: "OrcaCloud Tekton Dashboard"
       namespaces:
-        - orcacompute-tekton
-        - orcacompute-dev
-        - orcacompute-staging
-        - orcacompute-production
+        - orcacloud-tekton
+        - orcacloud-dev
+        - orcacloud-staging
+        - orcacloud-production
       pipelines:
-        namespace: orcacompute-tekton
+        namespace: orcacloud-tekton
       triggers:
-        namespace: orcacompute-tekton
-      defaultNamespace: orcacompute-tekton
+        namespace: orcacloud-tekton
+      defaultNamespace: orcacloud-tekton
       streaming:
         enabled: true
       auth:

@@ -9,11 +9,11 @@ image_resource:
 
 params:
   ENVIRONMENT: development
-  NAMESPACE: orcacompute-dev
+  NAMESPACE: orcacloud-dev
   IMAGE_TAG: latest
 
 inputs:
-  - name: orcacompute-source
+  - name: orcacloud-source
 
 run:
   path: bash
@@ -26,7 +26,7 @@ run:
       echo "Namespace: $NAMESPACE"
       echo "Image tag: $IMAGE_TAG"
       
-      cd orcacompute-source
+      cd orcacloud-source
       
       # Create namespace if it doesn't exist
       kubectl create namespace $NAMESPACE --dry-run=client -o yaml | kubectl apply -f -
@@ -45,39 +45,39 @@ run:
       apiVersion: apps/v1
       kind: Deployment
       metadata:
-        name: orcacompute
+        name: orcacloud
         namespace: $NAMESPACE
       spec:
         replicas: 2
         selector:
           matchLabels:
-            app: orcacompute
+            app: orcacloud
         template:
           metadata:
             labels:
-              app: orcacompute
+              app: orcacloud
           spec:
             containers:
             - name: platform
-              image: quay.io/atonixdev/orcacompute:$IMAGE_TAG
+              image: quay.io/atonixdev/orcacloud:$IMAGE_TAG
               ports:
               - containerPort: 8080
               env:
               - name: ENVIRONMENT
                 value: $ENVIRONMENT
               - name: DATABASE_URL
-                value: postgresql://user:pass@db:5432/orcacompute
+                value: postgresql://user:pass@db:5432/orcacloud
               - name: REDIS_URL
                 value: redis://redis:6379/0
       ---
       apiVersion: v1
       kind: Service
       metadata:
-        name: orcacompute-service
+        name: orcacloud-service
         namespace: $NAMESPACE
       spec:
         selector:
-          app: orcacompute
+          app: orcacloud
         ports:
         - port: 80
           targetPort: 8080
@@ -88,10 +88,10 @@ run:
       fi
       
       # Wait for deployment to be ready
-      kubectl rollout status deployment/orcacompute -n $NAMESPACE --timeout=300s
+      kubectl rollout status deployment/orcacloud -n $NAMESPACE --timeout=300s
       
       # Verify deployment
-      kubectl get pods -n $NAMESPACE -l app=orcacompute
-      kubectl get service -n $NAMESPACE orcacompute-service
+      kubectl get pods -n $NAMESPACE -l app=orcacloud
+      kubectl get service -n $NAMESPACE orcacloud-service
       
       echo "Deployment to $ENVIRONMENT completed successfully"

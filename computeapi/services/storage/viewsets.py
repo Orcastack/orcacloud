@@ -1,4 +1,4 @@
-# OrcaCompute Storage Service - ViewSets
+# OrcaCloud Storage Service - ViewSets
 
 import json
 from django.db.models import Sum

@@ -1,15 +1,15 @@
-# OrcaCompute Cloud Platform
+# OrcaCloud Platform
 
-**Sovereign. Scalable. Enterprise-Grade.**
+**OrcaCloud. Scalable. Enterprise-Grade.**
 
-OrcaCompute is a full-stack cloud platform built on open-source infrastructure components — designed to match the architecture of AWS, Google Cloud, and OVH, but operated as a private, auditable, and self-sovereign system.
+OrcaCloud is a full-stack cloud platform built on open-source infrastructure components — designed to match the architecture of AWS, Google Cloud, and OVH, but operated as a private, auditable, and self-OrcaCloud system.
 
 ---
 
 ## Architecture Overview
 
 ```
-OrcaCompute Cloud
+OrcaCloud
 │
 ├── Identity & Governance          identity/
 │   ├── Keystone (IAM)             identity/keystone/
@@ -79,7 +79,7 @@ OrcaCompute Cloud
 │   └── Developer Dashboard        frontend/
 │
 ├── Application Services           backend/
-│   ├── Django REST API            backend/orcacompute/
+│   ├── Django REST API            backend/orcacloud/
 │   ├── Platform services          backend/services/
 │   └── Infrastructure integration backend/infrastructure/
 │
@@ -88,7 +88,7 @@ OrcaCompute Cloud
 │   └── KAS                        gitops/kas/
 │
 ├── Helm Charts                    helm/
-│   └── orcacompute/                helm/orcacompute/
+│   └── orcacloud/                helm/orcacloud/
 │
 ├── Security                       security/
 ├── Infrastructure tooling         infrastructure/
@@ -248,7 +248,7 @@ Service accounts: every automated service has its own scoped account.
 
 ### 9. Developer Experience
 
-OrcaCompute provides a complete developer experience layer:
+OrcaCloud provides a complete developer experience layer:
 
 | Component | Location |
 |-----------|----------|
@@ -312,7 +312,7 @@ gunzip argo-linux-amd64.gz && chmod +x argo-linux-amd64 && sudo mv argo-linux-am
 cp backend/clouds.yaml.example backend/clouds.yaml
 
 # Set active cloud
-export OS_CLOUD=orcacompute
+export OS_CLOUD=orcacloud
 
 # Verify OpenStack connectivity
 openstack token issue
@@ -359,7 +359,7 @@ kubectl apply -f observability/grafana/provisioning/datasources.yaml
 kubectl apply -f https://github.com/knative/serving/releases/download/knative-v1.13.0/serving-crds.yaml
 kubectl apply -f https://github.com/knative/serving/releases/download/knative-v1.13.0/serving-core.yaml
 
-# Apply OrcaCompute Knative configuration
+# Apply OrcaCloud Knative configuration
 kubectl apply -f serverless/knative/config.yaml
 
 # Deploy your first function
@@ -411,12 +411,12 @@ kubectl apply -f serverless/functions/templates/knative-service.yaml -n your-nam
 
 All security standards are documented in `security/` and `docs/SECURITY_STANDARDS.md`.
 
-Vulnerability disclosure: `security-team@orcacompute.com`
+Vulnerability disclosure: `security-team@orcacloud.com`
 
 ---
 
 ## License
 
-Copyright © 2026 OrcaCompute. All rights reserved.
+Copyright © 2026 OrcaCloud. All rights reserved.
 
-For licensing inquiries: `legal@orcacompute.com`
+For licensing inquiries: `legal@orcacloud.com`

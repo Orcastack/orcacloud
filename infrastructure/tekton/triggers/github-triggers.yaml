@@ -1,8 +1,8 @@
 apiVersion: triggers.tekton.dev/v1beta1
 kind: EventListener
 metadata:
-  name: orcacompute-github-listener
-  namespace: orcacompute-tekton
+  name: orcacloud-github-listener
+  namespace: orcacloud-tekton
   labels:
     app.kubernetes.io/version: "0.1"
   annotations:
@@ -27,7 +27,7 @@ spec:
     bindings:
     - ref: github-push-binding
     template:
-      ref: orcacompute-ci-template
+      ref: orcacloud-ci-template
 
   - name: github-pr-trigger
     interceptors:
@@ -43,7 +43,7 @@ spec:
     bindings:
     - ref: github-pr-binding
     template:
-      ref: orcacompute-pr-template
+      ref: orcacloud-pr-template
 
   - name: github-release-trigger
     interceptors:
@@ -59,14 +59,14 @@ spec:
     bindings:
     - ref: github-release-binding
     template:
-      ref: orcacompute-release-template
+      ref: orcacloud-release-template
 
 ---
 apiVersion: triggers.tekton.dev/v1beta1
 kind: TriggerBinding
 metadata:
   name: github-push-binding
-  namespace: orcacompute-tekton
+  namespace: orcacloud-tekton
 spec:
   params:
   - name: gitrevision
@@ -89,7 +89,7 @@ apiVersion: triggers.tekton.dev/v1beta1
 kind: TriggerBinding
 metadata:
   name: github-pr-binding
-  namespace: orcacompute-tekton
+  namespace: orcacloud-tekton
 spec:
   params:
   - name: gitrevision
@@ -114,7 +114,7 @@ apiVersion: triggers.tekton.dev/v1beta1
 kind: TriggerBinding
 metadata:
   name: github-release-binding
-  namespace: orcacompute-tekton
+  namespace: orcacloud-tekton
 spec:
   params:
   - name: gitrevision
@@ -136,8 +136,8 @@ spec:
 apiVersion: triggers.tekton.dev/v1beta1
 kind: TriggerTemplate
 metadata:
-  name: orcacompute-ci-template
-  namespace: orcacompute-tekton
+  name: orcacloud-ci-template
+  namespace: orcacloud-tekton
 spec:
   params:
   - name: gitrevision
@@ -160,23 +160,23 @@ spec:
   - apiVersion: tekton.dev/v1beta1
     kind: PipelineRun
     metadata:
-      generateName: orcacompute-ci-$(tt.params.gitrepositoryname)-
-      namespace: orcacompute-tekton
+      generateName: orcacloud-ci-$(tt.params.gitrepositoryname)-
+      namespace: orcacloud-tekton
       labels:
-        tekton.dev/pipeline: orcacompute-ci-pipeline
+        tekton.dev/pipeline: orcacloud-ci-pipeline
         git.revision: $(tt.params.gitrevision)
         git.branch: $(tt.params.gitbranch)
         trigger.type: github-push
     spec:
       pipelineRef:
-        name: orcacompute-ci-pipeline
+        name: orcacloud-ci-pipeline
       params:
       - name: repo-url
         value: $(tt.params.gitrepositoryurl)
       - name: revision
         value: $(tt.params.gitrevision)
       - name: image-reference
-        value: "orcacompute:$(tt.params.gitrevision)"
+        value: "orcacloud:$(tt.params.gitrevision)"
       workspaces:
       - name: shared-data
         volumeClaimTemplate:
@@ -194,8 +194,8 @@ spec:
 apiVersion: triggers.tekton.dev/v1beta1
 kind: TriggerTemplate
 metadata:
-  name: orcacompute-pr-template
-  namespace: orcacompute-tekton
+  name: orcacloud-pr-template
+  namespace: orcacloud-tekton
 spec:
   params:
   - name: gitrevision
@@ -218,24 +218,24 @@ spec:
   - apiVersion: tekton.dev/v1beta1
     kind: PipelineRun
     metadata:
-      generateName: orcacompute-pr-$(tt.params.gitrepositoryname)-$(tt.params.prnumber)-
-      namespace: orcacompute-tekton
+      generateName: orcacloud-pr-$(tt.params.gitrepositoryname)-$(tt.params.prnumber)-
+      namespace: orcacloud-tekton
       labels:
-        tekton.dev/pipeline: orcacompute-ci-pipeline
+        tekton.dev/pipeline: orcacloud-ci-pipeline
         git.revision: $(tt.params.gitrevision)
         git.branch: $(tt.params.gitbranch)
         pr.number: $(tt.params.prnumber)
         trigger.type: github-pr
     spec:
       pipelineRef:
-        name: orcacompute-ci-pipeline
+        name: orcacloud-ci-pipeline
       params:
       - name: repo-url
         value: $(tt.params.gitrepositoryurl)
       - name: revision
         value: $(tt.params.gitrevision)
       - name: image-reference
-        value: "orcacompute:pr-$(tt.params.prnumber)"
+        value: "orcacloud:pr-$(tt.params.prnumber)"
       - name: test-type
         value: "all"
       workspaces:
@@ -255,8 +255,8 @@ spec:
 apiVersion: triggers.tekton.dev/v1beta1
 kind: TriggerTemplate
 metadata:
-  name: orcacompute-release-template
-  namespace: orcacompute-tekton
+  name: orcacloud-release-template
+  namespace: orcacloud-tekton
 spec:
   params:
   - name: gitrevision
@@ -277,23 +277,23 @@ spec:
   - apiVersion: tekton.dev/v1beta1
     kind: PipelineRun
     metadata:
-      generateName: orcacompute-release-$(tt.params.releasetag)-
-      namespace: orcacompute-tekton
+      generateName: orcacloud-release-$(tt.params.releasetag)-
+      namespace: orcacloud-tekton
       labels:
-        tekton.dev/pipeline: orcacompute-full-pipeline
+        tekton.dev/pipeline: orcacloud-full-pipeline
         git.revision: $(tt.params.gitrevision)
         release.tag: $(tt.params.releasetag)
         trigger.type: github-release
     spec:
       pipelineRef:
-        name: orcacompute-full-pipeline
+        name: orcacloud-full-pipeline
       params:
       - name: repo-url
         value: $(tt.params.gitrepositoryurl)
       - name: revision
         value: $(tt.params.gitrevision)
       - name: image-reference
-        value: "orcacompute:$(tt.params.releasetag)"
+        value: "orcacloud:$(tt.params.releasetag)"
       - name: skip-production
         value: $(tt.params.releaseprerelease)
       workspaces:

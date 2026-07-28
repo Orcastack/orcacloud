@@ -1,5 +1,5 @@
 """
-AI/ML viewsets for OrcaCompute platform.
+AI/ML viewsets for OrcaCloud platform.
 
 Implements:
   - Anomaly detection   (z-score against rolling InstanceMetric baseline)

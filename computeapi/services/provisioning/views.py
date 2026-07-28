@@ -1,4 +1,4 @@
-# OrcaCompute – Unified Provisioning API
+# OrcaCloud – Unified Provisioning API
 #
 # These endpoints bridge the frontend → backend → OpenStack pipeline.
 # Every request MUST carry workspace_id + environment_id in the body (or query

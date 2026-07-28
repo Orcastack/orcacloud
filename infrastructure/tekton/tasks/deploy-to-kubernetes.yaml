@@ -2,7 +2,7 @@ apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
   name: deploy-to-kubernetes
-  namespace: orcacompute-tekton
+  namespace: orcacloud-tekton
   labels:
     app.kubernetes.io/version: "0.1"
   annotations:
@@ -13,7 +13,7 @@ metadata:
     tekton.dev/platforms: "linux/amd64"
 spec:
   description: |
-    This task deploys the OrcaCompute platform to Kubernetes using Helm charts.
+    This task deploys the OrcaCloud platform to Kubernetes using Helm charts.
     It supports deployment to different environments (dev, staging, production).
   workspaces:
   - name: source
@@ -30,10 +30,10 @@ spec:
     default: dev
   - name: NAMESPACE
     description: Kubernetes namespace to deploy to
-    default: orcacompute-dev
+    default: orcacloud-dev
   - name: HELM_CHART_PATH
     description: Path to Helm chart
-    default: ./helm/orcacompute
+    default: ./helm/orcacloud
   - name: VALUES_FILE
     description: Helm values file for the environment
     default: ""
@@ -86,15 +86,15 @@ spec:
         echo "Creating Helm chart..."
         mkdir -p helm
         cd helm
-        helm create orcacompute
+        helm create orcacloud
         cd ..
       fi
       
       # Update Chart.yaml with current version
       cat > $(params.HELM_CHART_PATH)/Chart.yaml << EOF
       apiVersion: v2
-      name: orcacompute
-      description: OrcaCompute Helm Chart
+      name: orcacloud
+      description: OrcaCloud Helm Chart
       type: application
       version: 0.1.0
       appVersion: "1.0.0"
@@ -104,7 +104,7 @@ spec:
       if [ -n "$(params.VALUES_FILE)" ] && [ ! -f "$(params.VALUES_FILE)" ]; then
         echo "Creating values file for $(params.ENVIRONMENT) environment..."
         cat > $(params.VALUES_FILE) << EOF
-      # OrcaCompute - $(params.ENVIRONMENT) Environment
+      # OrcaCloud - $(params.ENVIRONMENT) Environment
       replicaCount: 1
       
       image:
@@ -122,7 +122,7 @@ spec:
         annotations:
           nginx.ingress.kubernetes.io/rewrite-target: /
         hosts:
-          - host: orcacompute-$(params.ENVIRONMENT).local
+          - host: orcacloud-$(params.ENVIRONMENT).local
             paths:
               - path: /
                 pathType: Prefix
@@ -141,13 +141,13 @@ spec:
         - name: DEBUG
           value: "false"
         - name: DJANGO_SETTINGS_MODULE
-          value: "orcacompute.settings"
+          value: "orcacloud.settings"
       
       postgresql:
         enabled: true
         auth:
-          database: orcacompute
-          username: orcacompute
+          database: orcacloud
+          username: orcacloud
       
       redis:
         enabled: true
@@ -181,7 +181,7 @@ spec:
       
       # Deploy or upgrade the application
       helm upgrade --install \
-        orcacompute-$(params.ENVIRONMENT) \
+        orcacloud-$(params.ENVIRONMENT) \
         $(params.HELM_CHART_PATH) \
         --namespace $(params.NAMESPACE) \
         --set image.repository=$(echo $(params.IMAGE_URL) | cut -d':' -f1) \
@@ -206,21 +206,21 @@ spec:
       
       # Wait for deployment to be ready
       kubectl wait --for=condition=available \
-        deployment/orcacompute-$(params.ENVIRONMENT) \
+        deployment/orcacloud-$(params.ENVIRONMENT) \
         --namespace $(params.NAMESPACE) \
         --timeout=300s
       
       # Check pod status
-      kubectl get pods -n $(params.NAMESPACE) -l app.kubernetes.io/name=orcacompute
+      kubectl get pods -n $(params.NAMESPACE) -l app.kubernetes.io/name=orcacloud
       
       # Check service status
-      kubectl get services -n $(params.NAMESPACE) -l app.kubernetes.io/name=orcacompute
+      kubectl get services -n $(params.NAMESPACE) -l app.kubernetes.io/name=orcacloud
       
       # Check ingress status
-      kubectl get ingress -n $(params.NAMESPACE) -l app.kubernetes.io/name=orcacompute || true
+      kubectl get ingress -n $(params.NAMESPACE) -l app.kubernetes.io/name=orcacloud || true
       
       # Test application health
-      POD_NAME=$(kubectl get pods -n $(params.NAMESPACE) -l app.kubernetes.io/name=orcacompute -o jsonpath='{.items[0].metadata.name}')
+      POD_NAME=$(kubectl get pods -n $(params.NAMESPACE) -l app.kubernetes.io/name=orcacloud -o jsonpath='{.items[0].metadata.name}')
       
       if [ -n "$POD_NAME" ]; then
         echo "Testing application health..."
@@ -242,7 +242,7 @@ spec:
       
       # Create deployment report
       cat > deployment-report.txt << EOF
-      OrcaCompute Deployment Report
+      OrcaCloud Deployment Report
       ====================================
       Date: $(date)
       Environment: $(params.ENVIRONMENT)
@@ -257,21 +257,21 @@ spec:
       
       # Add resource information
       echo "Pods:" >> deployment-report.txt
-      kubectl get pods -n $(params.NAMESPACE) -l app.kubernetes.io/name=orcacompute >> deployment-report.txt
+      kubectl get pods -n $(params.NAMESPACE) -l app.kubernetes.io/name=orcacloud >> deployment-report.txt
       
       echo "" >> deployment-report.txt
       echo "Services:" >> deployment-report.txt
-      kubectl get services -n $(params.NAMESPACE) -l app.kubernetes.io/name=orcacompute >> deployment-report.txt
+      kubectl get services -n $(params.NAMESPACE) -l app.kubernetes.io/name=orcacloud >> deployment-report.txt
       
       echo "" >> deployment-report.txt
       echo "Ingress:" >> deployment-report.txt
-      kubectl get ingress -n $(params.NAMESPACE) -l app.kubernetes.io/name=orcacompute >> deployment-report.txt || echo "No ingress found" >> deployment-report.txt
+      kubectl get ingress -n $(params.NAMESPACE) -l app.kubernetes.io/name=orcacloud >> deployment-report.txt || echo "No ingress found" >> deployment-report.txt
       
       cat >> deployment-report.txt << EOF
       
       Access Information:
       ==================
-      - Internal Service: orcacompute-$(params.ENVIRONMENT).$(params.NAMESPACE).svc.cluster.local:8080
+      - Internal Service: orcacloud-$(params.ENVIRONMENT).$(params.NAMESPACE).svc.cluster.local:8080
       - Health Check: /health/
       - Admin Interface: /admin/
       - API Documentation: /api/docs/

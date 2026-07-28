@@ -1,4 +1,4 @@
-# OrcaCompute Cloud – API Management Service Layer
+# OrcaCloud – API Management Service Layer
 # Business logic for APIM control plane.
 # Falls back to realistic mock data when no live data exists.
 

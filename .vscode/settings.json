@@ -48,6 +48,6 @@
         "unauthorized": true
     },
     "circleci.persistedProjectSelection": [
-        "gh/OrcaCompute/orcacompute"
+        "gh/OrcaCloud/orcacloud"
     ]
 }

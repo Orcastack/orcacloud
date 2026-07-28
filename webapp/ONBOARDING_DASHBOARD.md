@@ -1,6 +1,6 @@
-# OrcaCompute Cloud – Onboarding Dashboard
+# OrcaCloud – Onboarding Dashboard
 
-Enterprise-grade cloud onboarding experience for the OrcaCompute platform.
+Enterprise-grade cloud onboarding experience for the OrcaCloud platform.
 
 ---
 

@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: orcacompute-nginx
-  namespace: orcacompute
+  name: orcacloud-nginx
+  namespace: orcacloud
   labels:
-    app: orcacompute-nginx
+    app: orcacloud-nginx
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: orcacompute-nginx
+      app: orcacloud-nginx
   template:
     metadata:
       labels:
-        app: orcacompute-nginx
+        app: orcacloud-nginx
     spec:
       containers:
         - name: nginx
@@ -28,22 +28,22 @@ spec:
       volumes:
         - name: nginx-config
           configMap:
-            name: orcacompute-nginx-config
+            name: orcacloud-nginx-config
             items:
               - key: default.conf
                 path: default.conf
         - name: app-media
           persistentVolumeClaim:
-            claimName: orcacompute-media-pvc
+            claimName: orcacloud-media-pvc
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: orcacompute-nginx
-  namespace: orcacompute
+  name: orcacloud-nginx
+  namespace: orcacloud
 spec:
   selector:
-    app: orcacompute-nginx
+    app: orcacloud-nginx
   ports:
     - protocol: TCP
       port: 80

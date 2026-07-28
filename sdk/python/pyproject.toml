@@ -3,17 +3,17 @@ requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "orcacompute-sdk"
+name = "orcacloud-sdk"
 version = "0.1.0"
-description = "Official Python SDK and CLI for OrcaCompute"
+description = "Official Python SDK and CLI for OrcaCloud"
 requires-python = ">=3.10"
 dependencies = [
   "requests>=2.31.0",
 ]
 
 [project.scripts]
-atonixctl = "orcacompute_sdk.cli:main"
+atonixctl = "orcacloud_sdk.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["orcacompute_sdk*"]
+include = ["orcacloud_sdk*"]

@@ -1,4 +1,4 @@
-# OrcaCompute Services Module
+# OrcaCloud Services Module
 """
 Cloud services module providing:
 - Compute services (VMs, K8s, Serverless)

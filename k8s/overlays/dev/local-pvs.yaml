@@ -2,14 +2,14 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: postgres-pv
-  namespace: orcacompute
+  namespace: orcacloud
 spec:
   capacity:
     storage: 10Gi
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: /var/lib/orcacompute/postgres
+    path: /var/lib/orcacloud/postgres
   persistentVolumeReclaimPolicy: Retain
   storageClassName: fast-ssd
 ---
@@ -17,14 +17,14 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: redis-pv
-  namespace: orcacompute
+  namespace: orcacloud
 spec:
   capacity:
     storage: 5Gi
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: /var/lib/orcacompute/redis
+    path: /var/lib/orcacloud/redis
   persistentVolumeReclaimPolicy: Retain
   storageClassName: fast-ssd
 ---
@@ -32,13 +32,13 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: media-pv
-  namespace: orcacompute
+  namespace: orcacloud
 spec:
   capacity:
     storage: 20Gi
   accessModes:
     - ReadWriteMany
   hostPath:
-    path: /var/lib/orcacompute/media
+    path: /var/lib/orcacloud/media
   persistentVolumeReclaimPolicy: Retain
   storageClassName: nfs

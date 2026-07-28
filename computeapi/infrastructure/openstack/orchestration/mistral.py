@@ -1,4 +1,4 @@
-# OrcaCompute – OpenStack Workflow Service (Mistral)
+# OrcaCloud – OpenStack Workflow Service (Mistral)
 #
 # Wraps openstack.workflow (Mistral) operations:
 # workflows, executions, tasks, and action executions.

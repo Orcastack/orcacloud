@@ -1,4 +1,4 @@
-# OrcaCompute Cloud – Managed Database Service Models
+# OrcaCloud – Managed Database Service Models
 # Supports: PostgreSQL, MySQL, MariaDB, MongoDB, Redis, ClickHouse, Cassandra
 
 from django.db import models
@@ -56,7 +56,7 @@ STATUS_CHOICES = [
 
 
 class ManagedDatabase(models.Model):
-    """A managed database instance on OrcaCompute Cloud."""
+    """A managed database instance on OrcaCloud."""
 
     id          = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     owner       = models.ForeignKey(User, on_delete=models.CASCADE, related_name='databases')

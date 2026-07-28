@@ -2,10 +2,10 @@ apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
   name: check-crd-readiness
-  namespace: orcacompute-tekton
+  namespace: orcacloud-tekton
   labels:
   app.kubernetes.io/version: "0.1"
-  kas.orcacompute.com/managed: "true"
+  kas.orcacloud.com/managed: "true"
   annotations:
     tekton.dev/categories: Kubernetes
     tekton.dev/tags: crd, readiness, validation
@@ -88,10 +88,10 @@ apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
   name: check-crd-dependencies
-  namespace: orcacompute-tekton
+  namespace: orcacloud-tekton
   labels:
   app.kubernetes.io/version: "0.1"
-  kas.orcacompute.com/managed: "true"
+  kas.orcacloud.com/managed: "true"
   annotations:
     tekton.dev/categories: Kubernetes
     tekton.dev/tags: crd, dependencies, validation
@@ -184,10 +184,10 @@ apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
   name: cleanup-crds
-  namespace: orcacompute-tekton
+  namespace: orcacloud-tekton
   labels:
   app.kubernetes.io/version: "0.1"
-  kas.orcacompute.com/managed: "true"
+  kas.orcacloud.com/managed: "true"
   annotations:
     tekton.dev/categories: Kubernetes
     tekton.dev/tags: crd, cleanup, quantum
@@ -305,10 +305,10 @@ apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
   name: run-quantum-tests
-  namespace: orcacompute-tekton
+  namespace: orcacloud-tekton
   labels:
   app.kubernetes.io/version: "0.1"
-  kas.orcacompute.com/managed: "true"
+  kas.orcacloud.com/managed: "true"
   annotations:
     tekton.dev/categories: Testing
     tekton.dev/tags: quantum, testing, integration

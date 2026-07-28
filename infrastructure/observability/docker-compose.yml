@@ -25,7 +25,7 @@ services:
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.jaeger.rule=Host(`jaeger.orcacompute.local`)"
+      - "traefik.http.routers.jaeger.rule=Host(`jaeger.orcacloud.local`)"
       - "traefik.http.services.jaeger.loadbalancer.server.port=16686"
 
   # Prometheus - Metrics Collection
@@ -53,7 +53,7 @@ services:
       - cadvisor
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.prometheus.rule=Host(`prometheus.orcacompute.local`)"
+      - "traefik.http.routers.prometheus.rule=Host(`prometheus.orcacloud.local`)"
 
   # Grafana - Metrics Visualization
   grafana:
@@ -76,7 +76,7 @@ services:
       - prometheus
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.grafana.rule=Host(`grafana.orcacompute.local`)"
+      - "traefik.http.routers.grafana.rule=Host(`grafana.orcacloud.local`)"
 
   # OpenTelemetry Collector
   otel-collector:
@@ -178,7 +178,7 @@ services:
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.alertmanager.rule=Host(`alertmanager.orcacompute.local`)"
+      - "traefik.http.routers.alertmanager.rule=Host(`alertmanager.orcacloud.local`)"
 
   # Redis for caching and metrics
   redis-observability:
@@ -220,7 +220,7 @@ services:
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.kibana.rule=Host(`kibana.orcacompute.local`)"
+      - "traefik.http.routers.kibana.rule=Host(`kibana.orcacloud.local`)"
 
   # Traefik - Reverse Proxy for easy access
   traefik:

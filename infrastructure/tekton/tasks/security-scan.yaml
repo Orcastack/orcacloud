@@ -2,7 +2,7 @@ apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
   name: security-scan
-  namespace: orcacompute-tekton
+  namespace: orcacloud-tekton
   labels:
     app.kubernetes.io/version: "0.1"
   annotations:
@@ -13,7 +13,7 @@ metadata:
     tekton.dev/platforms: "linux/amd64"
 spec:
   description: |
-    This task performs comprehensive security scanning for the OrcaCompute platform including:
+    This task performs comprehensive security scanning for the OrcaCloud platform including:
     - Container image vulnerability scanning with Trivy
     - Code security analysis with Bandit
     - Dependency vulnerability checking with Safety
@@ -157,7 +157,7 @@ spec:
       
       # Create final security report
       cat > security-reports/security-summary.txt << EOF
-      OrcaCompute Security Scan Report
+      OrcaCloud Security Scan Report
       ========================================
       Date: $(date)
       Scan Type: Comprehensive Security Analysis

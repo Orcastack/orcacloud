@@ -27,10 +27,10 @@ clouds:
   # Production OpenStack cluster
   atonix-prod:
     auth:
-      auth_url: https://openstack.orcacompute.com:5000/v3
+      auth_url: https://openstack.orcacloud.com:5000/v3
       username: admin
       password: CHANGE_ME
-      project_name: orcacompute
+      project_name: orcacloud
       user_domain_name: Default
       project_domain_name: Default
     region_name: RegionOne
@@ -39,7 +39,7 @@ clouds:
     # Optional application credential alternative (preferred for CI/CD):
     # auth_type: v3applicationcredential
     # auth:
-    #   auth_url: https://openstack.orcacompute.com:5000/v3
+    #   auth_url: https://openstack.orcacloud.com:5000/v3
     #   application_credential_id: CREDENTIAL_ID
     #   application_credential_secret: CREDENTIAL_SECRET
 

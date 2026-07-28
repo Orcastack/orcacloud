@@ -1,4 +1,4 @@
-# OrcaCompute – Enterprise Module ViewSets
+# OrcaCloud – Enterprise Module ViewSets
 # All views resolve the Organization from the URL slug and gate on ownership / membership.
 
 import logging

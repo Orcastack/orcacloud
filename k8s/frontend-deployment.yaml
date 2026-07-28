@@ -7,13 +7,13 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: orcacompute-frontend-config
-  namespace: orcacompute
+  name: orcacloud-frontend-config
+  namespace: orcacloud
 data:
-  REACT_APP_API_URL: "https://orcacompute.com/api"
-  REACT_APP_WS_URL: "wss://orcacompute.com/ws"
+  REACT_APP_API_URL: "https://orcacloud.com/api"
+  REACT_APP_WS_URL: "wss://orcacloud.com/ws"
   REACT_APP_ENVIRONMENT: "production"
-  REACT_APP_APP_NAME: "OrcaCompute"
+  REACT_APP_APP_NAME: "OrcaCloud"
   REACT_APP_ENABLE_WEBSOCKETS: "true"
   REACT_APP_ENABLE_MONITORING: "true"
   REACT_APP_ENABLE_BILLING: "true"
@@ -22,16 +22,16 @@ data:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: orcacompute-frontend
-  namespace: orcacompute
+  name: orcacloud-frontend
+  namespace: orcacloud
   labels:
-    app: orcacompute-frontend
+    app: orcacloud-frontend
     ax/component: web
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: orcacompute-frontend
+      app: orcacloud-frontend
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -40,7 +40,7 @@ spec:
   template:
     metadata:
       labels:
-        app: orcacompute-frontend
+        app: orcacloud-frontend
         ax/component: web
     spec:
       securityContext:
@@ -49,7 +49,7 @@ spec:
         fsGroup: 101
       containers:
         - name: frontend
-          image: ghcr.io/orcacompute/orcacompute-frontend:latest
+          image: ghcr.io/orcacloud/orcacloud-frontend:latest
           imagePullPolicy: Always
           ports:
             - name: http
@@ -58,37 +58,37 @@ spec:
             - name: REACT_APP_API_URL
               valueFrom:
                 configMapKeyRef:
-                  name: orcacompute-frontend-config
+                  name: orcacloud-frontend-config
                   key: REACT_APP_API_URL
             - name: REACT_APP_WS_URL
               valueFrom:
                 configMapKeyRef:
-                  name: orcacompute-frontend-config
+                  name: orcacloud-frontend-config
                   key: REACT_APP_WS_URL
             - name: REACT_APP_ENVIRONMENT
               valueFrom:
                 configMapKeyRef:
-                  name: orcacompute-frontend-config
+                  name: orcacloud-frontend-config
                   key: REACT_APP_ENVIRONMENT
             - name: REACT_APP_APP_NAME
               valueFrom:
                 configMapKeyRef:
-                  name: orcacompute-frontend-config
+                  name: orcacloud-frontend-config
                   key: REACT_APP_APP_NAME
             - name: REACT_APP_ENABLE_WEBSOCKETS
               valueFrom:
                 configMapKeyRef:
-                  name: orcacompute-frontend-config
+                  name: orcacloud-frontend-config
                   key: REACT_APP_ENABLE_WEBSOCKETS
             - name: REACT_APP_ENABLE_MONITORING
               valueFrom:
                 configMapKeyRef:
-                  name: orcacompute-frontend-config
+                  name: orcacloud-frontend-config
                   key: REACT_APP_ENABLE_MONITORING
             - name: REACT_APP_ENABLE_BILLING
               valueFrom:
                 configMapKeyRef:
-                  name: orcacompute-frontend-config
+                  name: orcacloud-frontend-config
                   key: REACT_APP_ENABLE_BILLING
           resources:
             requests:
@@ -116,13 +116,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: orcacompute-frontend
-  namespace: orcacompute
+  name: orcacloud-frontend
+  namespace: orcacloud
   labels:
-    app: orcacompute-frontend
+    app: orcacloud-frontend
 spec:
   selector:
-    app: orcacompute-frontend
+    app: orcacloud-frontend
   ports:
     - name: http
       port: 80

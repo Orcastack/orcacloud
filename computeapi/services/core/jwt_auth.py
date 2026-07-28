@@ -57,8 +57,8 @@ def build_payload(user: User, token_type: str, lifetime: int) -> dict[str, Any]:
         'type': token_type,
         'iat': now,
         'exp': now + lifetime,
-        'iss': 'orcacompute',
-        'aud': 'orcacompute-api',
+        'iss': 'orcacloud',
+        'aud': 'orcacloud-api',
     }
 
 

@@ -94,7 +94,7 @@ services:
       retries: 3
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.concourse.rule=Host(`concourse.orcacompute.local`)"
+      - "traefik.http.routers.concourse.rule=Host(`concourse.orcacloud.local`)"
       - "traefik.http.services.concourse.loadbalancer.server.port=8080"
 
   # Concourse Worker
@@ -194,7 +194,7 @@ services:
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.minio.rule=Host(`minio.orcacompute.local`)"
+      - "traefik.http.routers.minio.rule=Host(`minio.orcacloud.local`)"
       - "traefik.http.services.minio.loadbalancer.server.port=9001"
 
   # Redis for caching (shared with platform)

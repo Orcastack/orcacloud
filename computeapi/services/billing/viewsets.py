@@ -1,4 +1,4 @@
-# OrcaCompute Cloud – Billing Viewsets
+# OrcaCloud – Billing Viewsets
 
 from rest_framework import viewsets, serializers, status
 from rest_framework.decorators import action

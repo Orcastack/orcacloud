@@ -1,6 +1,6 @@
 ---
 # RBAC Standards — Kubernetes ClusterRole definitions
-# These are the baseline ClusterRoles for all OrcaCompute Kubernetes clusters.
+# These are the baseline ClusterRoles for all OrcaCloud Kubernetes clusters.
 #
 # Apply: kubectl apply -f identity/rbac/cluster-roles.yaml
 

@@ -1,11 +1,11 @@
 ---
-# OrcaCompute – Ceph Storage Cluster Deployment
+# OrcaCloud – Ceph Storage Cluster Deployment
 #
 # Deploys a Ceph cluster using cephadm (Reef / 18.x):
 #   - Bootstrap MON/MGR on the first monitor node
 #   - Add additional MON/MGR nodes
 #   - Add OSD nodes and auto-deploy OSDs on available block devices
-#   - Create the OrcaCompute pool set (public / private / hybrid)
+#   - Create the OrcaCloud pool set (public / private / hybrid)
 #   - Enable the Ceph Dashboard
 #   - Enable RADOS Gateway for S3-compatible object storage
 #
@@ -19,7 +19,7 @@
 #   ansible-playbook -i inventory/production.ini playbooks/ceph-deploy.yml \
 #     --tags bootstrap   # bootstrap-only
 
-- name: OrcaCompute Ceph Cluster Deployment
+- name: OrcaCloud Ceph Cluster Deployment
   hosts: ceph_all
   become: true
   gather_facts: true
@@ -90,8 +90,8 @@
       command: ceph orch apply osd --all-available-devices
       tags: [osds]
 
-    # ── Create OrcaCompute pools ───────────────────────────────────────────────
-    - name: Create OrcaCompute cloud pools
+    # ── Create OrcaCloud pools ───────────────────────────────────────────────
+    - name: Create OrcaCloud cloud pools
       when: inventory_hostname == groups['ceph_mons'][0]
       command: >
         ceph osd pool create {{ item.name }} {{ item.pg }} {{ item.pg }} replicated

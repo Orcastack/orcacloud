@@ -1,5 +1,5 @@
 """
-Django Signal Handlers for OrcaCompute Services
+Django Signal Handlers for OrcaCloud Services
 
 Signals are fired when Django models are created, updated, or deleted.
 These handlers trigger actions like:

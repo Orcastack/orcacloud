@@ -91,7 +91,7 @@ def _check_authorization(repo_obj, user, is_write):
             return HttpResponse(
                 'Authentication required for push',
                 status=401,
-                headers={'WWW-Authenticate': 'Basic realm="OrcaCompute Git"'},
+                headers={'WWW-Authenticate': 'Basic realm="OrcaCloud Git"'},
             )
         # Must be owner or project member
         if repo_obj.owner and repo_obj.owner == user:
@@ -109,7 +109,7 @@ def _check_authorization(repo_obj, user, is_write):
         return HttpResponse(
             'Authentication required',
             status=401,
-            headers={'WWW-Authenticate': 'Basic realm="OrcaCompute Git"'},
+            headers={'WWW-Authenticate': 'Basic realm="OrcaCloud Git"'},
         )
     if repo_obj.owner and repo_obj.owner == user:
         return None
@@ -126,7 +126,7 @@ def git_http_backend_view(request, repo_path):
     """
     Entry point for all Git smart-HTTP requests.
 
-    URL pattern (in orcacompute/urls.py):
+    URL pattern (in orcacloud/urls.py):
         re_path(r'^repos/(?P<repo_path>.+)$', git_http_backend_view)
 
     Examples:

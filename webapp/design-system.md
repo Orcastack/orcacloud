@@ -1,11 +1,11 @@
-# ORCACOMPUTE CLOUD — DASHBOARD DESIGN SYSTEM
+# ORCACLOUD CLOUD — DASHBOARD DESIGN SYSTEM
 
 Version 1.0 — Founder Specification (Samuel Realm)
 
 Single source of truth for dashboard UI/UX implementation.
 
 ## 1. Introduction
-OrcaCompute Cloud dashboard must deliver a GitHub/GitLab-level experience: clean, predictable, premium, and developer-centric.
+OrcaCloud dashboard must deliver a GitHub/GitLab-level experience: clean, predictable, premium, and developer-centric.
 
 ## 2. Design Principles
 - **Clarity:** every UI element has a purpose.
@@ -55,7 +55,7 @@ Following IBM Carbon Design System for enterprise-grade dark theme:
 
 ### 4.3 Brand Color
 Primary brand color for interactive emphasis:
-- Recommended: `#153d75` (OrcaCompute Blue)
+- Recommended: `#153d75` (OrcaCloud Blue)
 
 Use brand color for:
 - Primary buttons
@@ -209,13 +209,13 @@ Sidebar items:
 ## 17. IBM Carbon Structural Styles
 
 ### 17.1 Overview
-OrcaCompute Cloud implements IBM Carbon Design System structural styles for consistent, enterprise-grade UI components. These styles provide a foundation for cards, panels, tables, navigation, and form elements.
+OrcaCloud implements IBM Carbon Design System structural styles for consistent, enterprise-grade UI components. These styles provide a foundation for cards, panels, tables, navigation, and form elements.
 
 ### 17.2 CSS Implementation
-All structural styles are defined in `src/styles/orcacompute-carbon.css`. Import this file in your component or globally:
+All structural styles are defined in `src/styles/orcacloud-carbon.css`. Import this file in your component or globally:
 
 ```css
-@import './styles/orcacompute-carbon.css';
+@import './styles/orcacloud-carbon.css';
 ```
 
 ### 17.3 Color Tokens

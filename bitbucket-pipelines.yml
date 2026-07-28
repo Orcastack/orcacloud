@@ -1,4 +1,4 @@
-# Bitbucket Pipelines Configuration for OrcaCompute
+# Bitbucket Pipelines Configuration for OrcaCloud
 image: atlassian/default-image:3
 
 definitions:
@@ -78,7 +78,7 @@ definitions:
         script:
           - export IMAGE_TAG=${BITBUCKET_COMMIT:0:8}
 <<<<<<< HEAD
-          - export IMAGE_NAME="$DOCKER_REGISTRY/orcacompute/backend"
+          - export IMAGE_NAME="$DOCKER_REGISTRY/orcacloud/backend"
           # Build and tag image
           - cd backend
           - docker build -t $IMAGE_NAME:$IMAGE_TAG -t $IMAGE_NAME:latest .
@@ -86,7 +86,7 @@ definitions:
           - echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin $DOCKER_REGISTRY
 =======
           - export DOCKER_REGISTRY=${DOCKER_REGISTRY:-ghcr.io}
-          - export IMAGE_NAME="$DOCKER_REGISTRY/atonixdev/orcacompute/backend"
+          - export IMAGE_NAME="$DOCKER_REGISTRY/atonixdev/orcacloud/backend"
           # Build and tag image
           - cd backend
           - docker build -t $IMAGE_NAME:$IMAGE_TAG -t $IMAGE_NAME:latest .
@@ -110,7 +110,7 @@ definitions:
         script:
           - export IMAGE_TAG=${BITBUCKET_COMMIT:0:8}
 <<<<<<< HEAD
-          - export IMAGE_NAME="$DOCKER_REGISTRY/orcacompute/frontend"
+          - export IMAGE_NAME="$DOCKER_REGISTRY/orcacloud/frontend"
           # Build and tag image
           - cd frontend
           - docker build -t $IMAGE_NAME:$IMAGE_TAG -t $IMAGE_NAME:latest .
@@ -118,7 +118,7 @@ definitions:
           - echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin $DOCKER_REGISTRY
 =======
           - export DOCKER_REGISTRY=${DOCKER_REGISTRY:-ghcr.io}
-          - export IMAGE_NAME="$DOCKER_REGISTRY/atonixdev/orcacompute/frontend"
+          - export IMAGE_NAME="$DOCKER_REGISTRY/atonixdev/orcacloud/frontend"
           # Build and tag image
           - cd frontend
           - docker build -t $IMAGE_NAME:$IMAGE_TAG -t $IMAGE_NAME:latest .
@@ -142,11 +142,11 @@ definitions:
           - echo $KUBE_CONFIG | base64 -d > ~/.kube/config
           - export IMAGE_TAG=${BITBUCKET_COMMIT:0:8}
           # Update image tags
-          - sed -i "s|image:.*backend:.*|image: $DOCKER_REGISTRY/orcacompute/backend:$IMAGE_TAG|g" k8s/overlays/$ENVIRONMENT/kustomization.yaml
-          - sed -i "s|image:.*frontend:.*|image: $DOCKER_REGISTRY/orcacompute/frontend:$IMAGE_TAG|g" k8s/overlays/$ENVIRONMENT/kustomization.yaml
+          - sed -i "s|image:.*backend:.*|image: $DOCKER_REGISTRY/orcacloud/backend:$IMAGE_TAG|g" k8s/overlays/$ENVIRONMENT/kustomization.yaml
+          - sed -i "s|image:.*frontend:.*|image: $DOCKER_REGISTRY/orcacloud/frontend:$IMAGE_TAG|g" k8s/overlays/$ENVIRONMENT/kustomization.yaml
           # Ensure project namespace exists and set as default
-          - kubectl create namespace orcacompute || true
-          - kubectl config set-context --current --namespace=orcacompute
+          - kubectl create namespace orcacloud || true
+          - kubectl config set-context --current --namespace=orcacloud
           # Deploy
           - kubectl apply -k k8s/overlays/$ENVIRONMENT/
           # Wait for rollout
@@ -213,8 +213,8 @@ pipelines:
           image: curlimages/curl
           script:
             - sleep 30  # Wait for deployment
-            - curl -f https://api.orcacompute.com/api/health/ || exit 1
-            - curl -f https://orcacompute.com/ || exit 1
+            - curl -f https://api.orcacloud.com/api/health/ || exit 1
+            - curl -f https://orcacloud.com/ || exit 1
             - echo "[OK] Deployment successful and smoke tests passed"
 
   # Infrastructure pipeline (Kubernetes only - no AWS Terraform)

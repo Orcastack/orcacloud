@@ -7,7 +7,7 @@ services:
       - "7077:7077"
       - "8090:8080"
     networks:
-      - orcacompute_atonix-network
+      - orcacloud_atonix-network
     restart: unless-stopped
 
   spark-worker:
@@ -20,7 +20,7 @@ services:
     ports:
       - "8091:8081"
     networks:
-      - orcacompute_atonix-network
+      - orcacloud_atonix-network
     restart: unless-stopped
 
   zookeeper:
@@ -32,7 +32,7 @@ services:
     ports:
       - "2181:2181"
     networks:
-      - orcacompute_atonix-network
+      - orcacloud_atonix-network
     restart: unless-stopped
 
   apache-proxy:
@@ -44,9 +44,9 @@ services:
     ports:
       - "8088:80"
     networks:
-      - orcacompute_atonix-network
+      - orcacloud_atonix-network
     restart: unless-stopped
 
 networks:
-  orcacompute_atonix-network:
+  orcacloud_atonix-network:
     external: true

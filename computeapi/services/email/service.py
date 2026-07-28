@@ -1,4 +1,4 @@
-# OrcaCompute Cloud – Email Provisioning Service
+# OrcaCloud – Email Provisioning Service
 # Manages mailbox lifecycle via Postfix/Dovecot API or SSH.
 # Falls back to a mock response when no mail server is configured.
 
@@ -15,8 +15,8 @@ import uuid
 logger = logging.getLogger(__name__)
 
 # ── Config ────────────────────────────────────────────────────────────────────
-MAIL_HOST        = os.environ.get('MAIL_HOST',        'mail.orcacompute.com')
-MAIL_ADMIN_USER  = os.environ.get('MAIL_ADMIN_USER',  'admin@orcacompute.com')
+MAIL_HOST        = os.environ.get('MAIL_HOST',        'mail.orcacloud.com')
+MAIL_ADMIN_USER  = os.environ.get('MAIL_ADMIN_USER',  'admin@orcacloud.com')
 MAIL_ADMIN_PASS  = os.environ.get('MAIL_ADMIN_PASS',  '')
 MAIL_SMTP_PORT   = int(os.environ.get('MAIL_SMTP_PORT',  '587'))
 MAIL_IMAP_PORT   = int(os.environ.get('MAIL_IMAP_PORT',  '993'))
@@ -25,12 +25,12 @@ MAIL_VIRT_BASE   = os.environ.get('MAIL_VIRT_BASE',   '/var/mail')
 # Dovecot DOVEADM HTTP API (optional, preferred over SSH)
 DOVEADM_URL      = os.environ.get('DOVEADM_URL',      '')
 DOVEADM_API_KEY  = os.environ.get('DOVEADM_API_KEY',  '')
-WEBMAIL_BASE_URL = os.environ.get('WEBMAIL_BASE_URL', 'https://webmail.orcacompute.com')
+WEBMAIL_BASE_URL = os.environ.get('WEBMAIL_BASE_URL', 'https://webmail.orcacloud.com')
 
 
 def _live() -> bool:
     """True when a real mail server is configured."""
-    return bool(MAIL_ADMIN_PASS and (DOVEADM_URL or MAIL_HOST != 'mail.orcacompute.com'))
+    return bool(MAIL_ADMIN_PASS and (DOVEADM_URL or MAIL_HOST != 'mail.orcacloud.com'))
 
 
 def _doveadm_post(cmd: str, params: dict) -> dict:
@@ -279,8 +279,8 @@ def provision_email_dns(zone_id: str, domain_name: str,
     # DMARC
     dmarc_name  = f'_dmarc.{dot_name}'
     dmarc_value = (
-        f'"v=DMARC1; p=quarantine; rua=mailto:dmarc@orcacompute.com; '
-        f'ruf=mailto:dmarc@orcacompute.com; fo=1"'
+        f'"v=DMARC1; p=quarantine; rua=mailto:dmarc@orcacloud.com; '
+        f'ruf=mailto:dmarc@orcacloud.com; fo=1"'
     )
     r = dns_svc.create_record(zone, dmarc_name, 'TXT', [dmarc_value])
     results['dmarc'] = r.get('success', False)

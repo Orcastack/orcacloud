@@ -1,4 +1,4 @@
-# OrcaCompute Cloud – Monitoring ViewSets
+# OrcaCloud – Monitoring ViewSets
 
 import logging
 from rest_framework import viewsets, status, permissions

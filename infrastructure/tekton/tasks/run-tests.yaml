@@ -2,7 +2,7 @@ apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
   name: run-tests
-  namespace: orcacompute-tekton
+  namespace: orcacloud-tekton
   labels:
     app.kubernetes.io/version: "0.1"
   annotations:
@@ -13,7 +13,7 @@ metadata:
     tekton.dev/platforms: "linux/amd64"
 spec:
   description: |
-    This task runs comprehensive tests for the OrcaCompute platform including:
+    This task runs comprehensive tests for the OrcaCloud platform including:
     - Python/Django backend tests
     - React frontend tests
     - Security tests
@@ -63,7 +63,7 @@ spec:
       cd backend
       
       # Set environment variables for testing
-      export DJANGO_SETTINGS_MODULE=orcacompute.settings
+      export DJANGO_SETTINGS_MODULE=orcacloud.settings
       export DATABASE_URL=sqlite:///test_db.sqlite3
       export REDIS_URL=redis://localhost:6379/0
       export SECRET_KEY=test-secret-key
@@ -158,7 +158,7 @@ spec:
       
       # Start services for integration testing
       cd backend
-      export DJANGO_SETTINGS_MODULE=orcacompute.settings
+      export DJANGO_SETTINGS_MODULE=orcacloud.settings
       export DATABASE_URL=sqlite:///integration_test_db.sqlite3
       
       # Run migrations
@@ -183,7 +183,7 @@ spec:
       
       # Create test results summary
       cat > test-results.txt << EOF
-      OrcaCompute Test Results
+      OrcaCloud Test Results
       ================================
       Date: $(date)
       Test Type: $(params.TEST_TYPE)

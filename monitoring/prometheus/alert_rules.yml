@@ -1,6 +1,6 @@
 ---
-# OrcaCompute Alerting Rules
-# File: observability/prometheus/rules/orcacompute-alerts.yaml
+# OrcaCloud Alerting Rules
+# File: observability/prometheus/rules/orcacloud-alerts.yaml
 
 groups:
   - name: infrastructure

@@ -1,11 +1,11 @@
 #!/bin/bash
-# OrcaCompute Backend Startup Script
+# OrcaCloud Backend Startup Script
 set -e
 
 BACKEND_DIR="$(cd "$(dirname "$0")" && pwd)"
 cd "$BACKEND_DIR"
 
-echo "=== OrcaCompute Backend ==="
+echo "=== OrcaCloud Backend ==="
 
 # Check Python
 if ! command -v python3 &>/dev/null; then
@@ -34,7 +34,7 @@ python manage.py migrate --noinput
 python manage.py shell -c "
 from django.contrib.auth.models import User
 if not User.objects.filter(is_superuser=True).exists():
-    User.objects.create_superuser('admin', 'admin@orcacompute.com', 'admin123')
+    User.objects.create_superuser('admin', 'admin@orcacloud.com', 'admin123')
     print('Created superuser: admin / admin123')
 else:
     print('Superuser already exists')
@@ -49,7 +49,7 @@ echo ""
 echo "  Default credentials: admin / admin123"
 echo ""
 
-exec gunicorn orcacompute.wsgi:application \
+exec gunicorn orcacloud.wsgi:application \
   --bind 0.0.0.0:8000 \
   --workers 3 \
   --timeout 120 \
