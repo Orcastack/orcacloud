@@ -2,7 +2,7 @@
 
 **OrcaCloud. Scalable. Enterprise-Grade.**
 
-OrcaCloud is a full-stack cloud platform built on open-source infrastructure components — designed to match the architecture of AWS, Google Cloud, and OVH, but operated as a private, auditable, and self-OrcaCloud system.
+OrcaCloud is a full-stack cloud platform built on open-source infrastructure components 
 
 ---
 
