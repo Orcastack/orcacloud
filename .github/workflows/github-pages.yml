@@ -36,7 +36,7 @@ jobs:
       - name: Build frontend for GitHub Pages
         working-directory: webapp
         run: |
-          CI='false' npm run build
+          PUBLIC_URL='/orcacloud' CI='false' npm run build
           cp build/index.html build/404.html
           touch build/.nojekyll
 
