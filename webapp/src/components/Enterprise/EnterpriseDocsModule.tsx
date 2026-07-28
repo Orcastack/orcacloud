@@ -23,6 +23,7 @@ import StarBorderIcon from '@mui/icons-material/StarBorder';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import FolderIcon from '@mui/icons-material/Folder';
 import ArticleIcon from '@mui/icons-material/Article';
+import DescriptionIcon from '@mui/icons-material/Description';
 import StyleIcon from '@mui/icons-material/Style';
 import SettingsIcon from '@mui/icons-material/Settings';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
