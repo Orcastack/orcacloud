@@ -79,8 +79,8 @@ self.addEventListener('fetch', (event) => {
 self.addEventListener('push', (event) => {
   const options = {
     body: event.data ? event.data.text() : 'New notification from OrcaCompute',
-    icon: '/orcacloud-placeholder.svg',
-    badge: '/orcacloud-placeholder.svg',
+    icon: '/orcacloud-icon.svg',
+    badge: '/orcacloud-icon.svg',
     vibrate: [100, 50, 100],
     data: {
       dateOfArrival: Date.now(),
@@ -90,12 +90,12 @@ self.addEventListener('push', (event) => {
       {
         action: 'explore',
         title: 'View Details',
-        icon: '/orcacloud-placeholder.svg'
+        icon: '/orcacloud-icon.svg'
       },
       {
         action: 'close',
         title: 'Close',
-        icon: '/orcacloud-placeholder.svg'
+        icon: '/orcacloud-icon.svg'
       }
     ]
   };

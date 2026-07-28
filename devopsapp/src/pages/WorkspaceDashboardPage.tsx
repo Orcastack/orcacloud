@@ -162,7 +162,7 @@ function buildFS(): Record<string, string[]> {
   return {
     '/workspace':         ['src/', 'public/', 'package.json', 'README.md', '.env', 'Dockerfile'],
     '/workspace/src':     ['index.ts', 'app.ts', 'routes/', 'models/', 'utils/'],
-    '/workspace/public':  ['index.html', 'orcacloud-placeholder.svg', 'assets/'],
+    '/workspace/public':  ['index.html', 'orcacloud-icon.svg', 'assets/'],
   };
 }
 

@@ -279,17 +279,7 @@ const SidebarContent: React.FC<{ collapsed?: boolean; dashboardMode: DashboardMo
           flexShrink: 0,
         }}
       >
-        <Box
-          sx={{
-            width: 32, height: 32, borderRadius: '2px',
-            background: BLUE,
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontWeight: 800, color: '#fff', fontSize: '.85rem',
-            letterSpacing: '-.02em', flexShrink: 0,
-          }}
-        >
-          A
-        </Box>
+        <Box component="img" src="/orcacloud-icon.svg" alt="OrcaCloud" sx={{ width: 32, height: 32, borderRadius: '2px', flexShrink: 0 }} />
         {!collapsed && (
           <Box>
             <Typography sx={{ fontWeight: 800, fontSize: '1rem', color: '#f4f4f4', lineHeight: 1.15, letterSpacing: '-.02em', fontFamily: FONT }}>

@@ -4,18 +4,18 @@
   "description": "Professional infrastructure and systems engineering platform for teams and projects",
   "icons": [
     {
-      "src": "orcacloud-placeholder.svg",
+      "src": "orcacloud-icon.svg",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     },
     {
-      "src": "orcacloud-placeholder.svg",
+      "src": "orcacloud-icon.svg",
       "type": "image/png",
       "sizes": "192x192",
       "purpose": "any maskable"
     },
     {
-      "src": "orcacloud-placeholder.svg",
+      "src": "orcacloud-icon.svg",
       "type": "image/png",
       "sizes": "512x512",
       "purpose": "any maskable"
@@ -36,21 +36,21 @@
       "short_name": "Dashboard",
       "description": "Access your main dashboard",
       "url": "/dashboard",
-      "icons": [{ "src": "orcacloud-placeholder.svg", "sizes": "64x64" }]
+      "icons": [{ "src": "orcacloud-icon.svg", "sizes": "64x64" }]
     },
     {
       "name": "Projects",
       "short_name": "Projects",
       "description": "View all projects",
       "url": "/projects",
-      "icons": [{ "src": "orcacloud-placeholder.svg", "sizes": "64x64" }]
+      "icons": [{ "src": "orcacloud-icon.svg", "sizes": "64x64" }]
     },
     {
       "name": "Teams",
       "short_name": "Teams",
       "description": "Browse teams",
       "url": "/teams",
-      "icons": [{ "src": "orcacloud-placeholder.svg", "sizes": "64x64" }]
+      "icons": [{ "src": "orcacloud-icon.svg", "sizes": "64x64" }]
     }
   ]
 }
