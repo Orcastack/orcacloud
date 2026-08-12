@@ -44,11 +44,16 @@ services:
     image: postgres:15-alpine
     container_name: orcacloud_db
     environment:
-      POSTGRES_DB: orcacloud
-      POSTGRES_USER: orcacloud_user
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB:-orcacloud}
+      POSTGRES_USER: ${POSTGRES_USER:-orcacloud_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     networks:
       - orcacloud-net
     restart: unless-stopped
@@ -61,6 +66,11 @@ services:
     container_name: orcacloud_redis
     volumes:
       - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     networks:
       - orcacloud-net
     restart: unless-stopped
@@ -133,6 +143,7 @@ services:
   # ───────────────────────────────────────────────
   cloudapi:
     profiles: [prod]
+    image: ${CLOUDAPI_IMAGE:-orcacloud-cloudapi:local}
     build:
       context: ./cloudapi
       dockerfile: Dockerfile
@@ -144,22 +155,25 @@ services:
     environment:
       ENVIRONMENT: production
       DEBUG: "False"
-      POSTGRES_USER: orcacloud_user
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      DATABASE_URL: "postgresql://orcacloud_user:${POSTGRES_PASSWORD}@db:5432/orcacloud"
+      DATABASE_URL: postgresql://${POSTGRES_USER:-orcacloud_user}:${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}@db:5432/${POSTGRES_DB:-orcacloud}
       REDIS_URL: redis://redis:6379/0
-      SECRET_KEY: ${SECRET_KEY:-replace-with-production-secret}
-      ALLOWED_HOSTS: orcacloud.org,api.orcacloud.org,www.orcacloud.org
+      SECRET_KEY: ${SECRET_KEY:?Set SECRET_KEY in .env}
+      ALLOWED_HOSTS: ${ALLOWED_HOSTS:?Set ALLOWED_HOSTS in .env}
+      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:?Set CORS_ALLOWED_ORIGINS in .env}
       RABBITMQ_URL: "amqp://${RABBITMQ_USER:-admin}:${RABBITMQ_PASSWORD}@rabbitmq:5672/"
       KAFKA_BOOTSTRAP_SERVERS: kafka:29092
     volumes:
       - static_volume:/app/staticfiles
       - media_volume:/app/media
     depends_on:
-      - db
-      - redis
-      - rabbitmq
-      - kafka
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_started
+      kafka:
+        condition: service_started
     networks:
       - orcacloud-net
     restart: always
@@ -169,6 +183,7 @@ services:
   # ───────────────────────────────────────────────
   webapp:
     profiles: [prod]
+    image: ${WEBAPP_IMAGE:-orcacloud-webapp:local}
     build:
       context: ./webapp
       dockerfile: Dockerfile
@@ -184,9 +199,7 @@ services:
   # ───────────────────────────────────────────────
   nginx:
     profiles: [prod]
-    build:
-      context: .
-      dockerfile: docker/nginx/Dockerfile
+    image: nginx:stable-alpine
     container_name: orcacloud_nginx
     ports:
       - "80:80"
