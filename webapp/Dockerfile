@@ -1,4 +1,4 @@
-FROM node:20-alpine AS builder
+FROM node:22-alpine AS builder
 
 # Build-time arguments — CRA bakes REACT_APP_* into the JS bundle at build time
 ARG REACT_APP_API_URL=http://localhost:8000/api
@@ -33,9 +33,7 @@ WORKDIR /app
 # Copy package files first to leverage Docker cache
 COPY package*.json ./
 
-# Install dependencies with fallback to npm install if npm ci fails
-# This handles cases where package-lock.json might be out of sync
-RUN npm ci --legacy-peer-deps 2>/dev/null || npm install --legacy-peer-deps || npm install -g npm@12.0.1
+RUN npm ci --legacy-peer-deps
 
 COPY . ./
 RUN CI=false npm run build
