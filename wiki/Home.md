@@ -1,53 +1,35 @@
-# OrcaCloud
+# OrcaCloud Project Overview
 
-OrcaCloud is a cloud platform that combines a Django API and React web application with OpenStack-based infrastructure services. It supports workspace-scoped provisioning, public/private/hybrid cloud tenancy, and an operational deployment path built on Docker Compose and GitHub Container Registry.
+OrcaCloud is a modular cloud-native control plane for building and operating cloud services through a consistent, programmable interface. It combines a Django API, React-based developer experiences, OpenStack integrations, and infrastructure automation assets for public, private, and hybrid cloud environments.
 
-## Start Here
+## The Problem
 
-| Goal | Read |
+Cloud teams often operate compute, networking, storage, identity, and automation as disconnected systems. That creates inconsistent tenant controls, duplicated integration logic, and limited auditability. OrcaCloud provides a workspace-aware orchestration layer so developers and operators can request infrastructure through one API while the platform applies the correct project, region, policy, and quota.
+
+## Who It Is For
+
+| Audience | Value |
 | --- | --- |
-| Understand the system | [[Architecture]] |
-| Run the platform locally | [[Getting Started]] |
-| Deploy the application | [[Production Deployment]] |
-| Understand automated delivery | [[CI and CD]] |
-| Operate or troubleshoot the platform | [[Operations]] |
-| Review identity and security controls | [[Security]] |
-| Find the right repository area | [[Repository Guide]] |
+| Platform engineers | A structured control plane for OpenStack, Kubernetes, networking, and automation assets |
+| Application developers | A consistent API and dashboard for requesting cloud resources |
+| Enterprise operators | Tenant isolation, audit records, runbooks, and region-aware cloud models |
+| DevOps teams | Version-controlled CI/CD, infrastructure automation, and observability integration |
 
-## Platform At A Glance
+## Key Capabilities
 
-| Area | Primary technologies | Responsibility |
-| --- | --- | --- |
-| Application | Django, React, PostgreSQL, Redis | API, UI, background service integration |
-| Cloud control plane | OpenStack, Keystone, Nova, Neutron, Cinder | Tenant-scoped infrastructure provisioning |
-| Delivery | GitHub Actions, GHCR, Docker Compose | Test, build, publish, and deploy application images |
-| Infrastructure automation | Terraform, Ansible, Kubernetes, Helm | Provision and configure platform infrastructure |
-| Observability | Prometheus, Grafana, Alertmanager | Metrics, dashboards, and alerting |
+- Workspace-bound OpenStack provisioning and regional tenancy
+- Compute, network, storage, identity, and automation integration points
+- React dashboard applications and Django REST APIs
+- Terraform, Ansible, Kubernetes, Helm, GitOps, and serverless assets
+- Prometheus, Grafana, Alertmanager, logging, and tracing configuration
+- Multi-architecture CI image publishing and reproducible deployment artifacts
 
-## Deployment Model
+## Read the Wiki
 
-The current application production path is intentionally Docker-host based:
+1. [[System Architecture]] explains the platform structure and boundaries.
+2. [[Modules and Components]] maps repository modules to their responsibilities.
+3. [[Use Cases]] describes the intended developer and operator outcomes.
+4. [[System Workflows]] shows key request and provisioning flows.
+5. [[Development Guide]] explains how to navigate and contribute to the codebase.
 
-1. A push to `main` tests the backend and web application.
-2. GitHub Actions builds immutable multi-architecture images for `linux/amd64` and `linux/arm64`.
-3. Images are published to GitHub Container Registry with `sha-<commit>` tags.
-4. The production job connects to the configured Docker host through SSH.
-5. Docker Compose pulls the exact tags and starts the `prod` profile.
-6. The workflow retries the public API and web health checks.
-
-This is separate from the platform's OpenStack and Kubernetes infrastructure capabilities described in [[Architecture]].
-
-## Wiki Publishing
-
-These pages are maintained in the repository under `wiki/` and published by the **Publish GitHub Wiki** workflow. Enable the repository Wiki in GitHub first, then run that workflow manually or merge a change under `wiki/` into `main`.
-
-For repositories where the default `GITHUB_TOKEN` cannot push to the `.wiki.git` repository, create a `WIKI_SYNC_TOKEN` repository secret with write access to the Wiki repository.
-
-## Source Documentation
-
-The wiki is a curated operating guide. The detailed source material remains in the repository:
-
-- [Architecture guide](https://github.com/Orcastack/orcacloud/blob/main/ARCHITECTURE.md)
-- [Docker production deployment guide](https://github.com/Orcastack/orcacloud/blob/main/docs/DOCKER_PRODUCTION_DEPLOYMENT.md)
-- [Cloud enablement playbook](https://github.com/Orcastack/orcacloud/blob/main/docs/cloud-enablement/IMPLEMENTATION_PLAYBOOK.md)
-- [Operations runbooks](https://github.com/Orcastack/orcacloud/tree/main/docs/runbooks)
+The material here is a conceptual and developer reference. It does not require readers to build containers or run a local environment.
