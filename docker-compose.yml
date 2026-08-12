@@ -258,7 +258,7 @@ services:
   # ───────────────────────────────────────────────
   webapp-dev:
     profiles: [dev]
-    image: node:18-alpine
+    image: node:24-alpine
     container_name: orcacloud_webapp_dev
     working_dir: /app
     volumes:

@@ -1,4 +1,4 @@
-FROM node:22-alpine AS builder
+FROM node:24-alpine AS builder
 
 # Build-time arguments — CRA bakes REACT_APP_* into the JS bundle at build time
 ARG REACT_APP_API_URL=http://localhost:8000/api

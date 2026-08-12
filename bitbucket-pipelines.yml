@@ -50,7 +50,7 @@ definitions:
 
     - step: &test-webapp
         name: Test webapp
-        image: node:18
+        image: node:24
         caches:
           - npm
         script:
