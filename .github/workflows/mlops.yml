@@ -27,14 +27,17 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Define inference image
+        id: inference-image
+        run: echo "tag=ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/orcacloud-ml-inference:${GITHUB_SHA}" >> "$GITHUB_OUTPUT"
       - name: Package inference runtime
-        run: docker build --tag ghcr.io/${{ github.repository_owner }}/orcacloud-ml-inference:${{ github.sha }} --file mlops/Dockerfile .
+        run: docker build --tag "${{ steps.inference-image.outputs.tag }}" --file mlops/Dockerfile .
       - name: Push inference runtime
-        run: docker push ghcr.io/${{ github.repository_owner }}/orcacloud-ml-inference:${{ github.sha }}
+        run: docker push "${{ steps.inference-image.outputs.tag }}"
       - name: Configure OrcaCloud cluster access
         run: printf '%s' '${{ secrets.ORCACLOUD_KUBECONFIG }}' > "$RUNNER_TEMP/kubeconfig"
       - name: Run the single MLOps pipeline
         env:
-          MLOPS_INFERENCE_IMAGE: ghcr.io/${{ github.repository_owner }}/orcacloud-ml-inference:${{ github.sha }}
+          MLOPS_INFERENCE_IMAGE: ${{ steps.inference-image.outputs.tag }}
           KUBECONFIG: ${{ runner.temp }}/kubeconfig
         run: scripts/run-mlops.sh --apply
