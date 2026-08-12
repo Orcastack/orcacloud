@@ -35,7 +35,33 @@ jobs:
       - name: Push inference runtime
         run: docker push "${{ steps.inference-image.outputs.tag }}"
       - name: Configure OrcaCloud cluster access
-        run: printf '%s' '${{ secrets.ORCACLOUD_KUBECONFIG }}' > "$RUNNER_TEMP/kubeconfig"
+        env:
+          ORCACLOUD_KUBECONFIG: ${{ secrets.ORCACLOUD_KUBECONFIG }}
+        run: |
+          set -euo pipefail
+          kubeconfig="$RUNNER_TEMP/kubeconfig"
+
+          if [[ -z "$ORCACLOUD_KUBECONFIG" ]]; then
+            echo "ORCACLOUD_KUBECONFIG is unavailable. Configure it as a production environment secret."
+            exit 1
+          fi
+
+          printf '%s' "$ORCACLOUD_KUBECONFIG" > "$kubeconfig"
+          chmod 600 "$kubeconfig"
+
+          if ! kubectl --kubeconfig "$kubeconfig" config current-context >/dev/null 2>&1; then
+            if ! printf '%s' "$ORCACLOUD_KUBECONFIG" | base64 --decode > "$kubeconfig"; then
+              echo "ORCACLOUD_KUBECONFIG must contain a kubeconfig with a current context, either as raw YAML or base64-encoded YAML."
+              exit 1
+            fi
+          fi
+
+          if ! kubectl --kubeconfig "$kubeconfig" config current-context >/dev/null 2>&1; then
+            echo "ORCACLOUD_KUBECONFIG must contain a kubeconfig with a current context, either as raw YAML or base64-encoded YAML."
+            exit 1
+          fi
+
+          kubectl --kubeconfig "$kubeconfig" cluster-info --request-timeout=10s
       - name: Run the single MLOps pipeline
         env:
           MLOPS_INFERENCE_IMAGE: ${{ steps.inference-image.outputs.tag }}
