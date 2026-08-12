@@ -173,7 +173,7 @@ permissions:
       manage_cluster_templates:{ platform_admin: full,   org_admin: none,   project_admin: none,   developer: none,   viewer: read  }
 
   # ─── Dashboard & API Gateway ──────────────────────────────────────────────
-  atonix_api:
+  orcacloud_api:
     cloud_types: [public, private, hybrid]
     actions:
       admin_panel:             { platform_admin: full,   org_admin: full,   project_admin: none,   developer: none,   viewer: none  }
@@ -203,4 +203,4 @@ enforcement:
     viewer:         reader
 
   openstack_policy_file: "/etc/keystone/policy.yaml"
-  atonix_iam_model:      "services.iam.models.IAMRole"
+  orcacloud_iam_model:      "services.iam.models.IAMRole"

@@ -45,15 +45,15 @@ spec:
       #!/bin/bash
       set -e
       echo "Installing security scanning tools..."
-      
+
       # Update package list and install dependencies
       apt-get update
       apt-get install -y curl git
-      
+
       # Install Python security tools
       pip install --upgrade pip
       pip install bandit safety detect-secrets semgrep
-      
+
       echo "Security tools installed successfully"
 
   - name: code-security-scan
@@ -63,29 +63,29 @@ spec:
       #!/bin/bash
       set -e
       echo "Running code security analysis..."
-      
+
       # Create reports directory
       mkdir -p security-reports
-      
+
       # Run Bandit for Python security issues
       echo "Running Bandit security scan..."
-      bandit -r backend/ -f json -o security-reports/bandit-report.json || true
-      bandit -r backend/ -f txt -o security-reports/bandit-report.txt || true
-      
+      bandit -r cloudapi/ -f json -o security-reports/bandit-report.json || true
+      bandit -r cloudapi/ -f txt -o security-reports/bandit-report.txt || true
+
       # Run dependency vulnerability check
       echo "Checking for vulnerable dependencies..."
-      cd backend
+      cd cloudapi
       safety check --json --output ../security-reports/safety-report.json || true
       cd ..
-      
+
       # Run secret detection
       echo "Scanning for secrets..."
       detect-secrets scan --all-files --baseline security-reports/secrets-baseline.json || true
-      
+
       # Run Semgrep for additional security patterns
       echo "Running Semgrep security analysis..."
       semgrep --config=auto --json --output=security-reports/semgrep-report.json . || true
-      
+
       echo "Code security scan completed"
 
   - name: container-image-scan
@@ -94,27 +94,27 @@ spec:
     script: |
       #!/bin/sh
       set -e
-      
+
       if [ -n "$(params.IMAGE_URL)" ]; then
         echo "Scanning container image: $(params.IMAGE_URL)"
-        
+
         # Create reports directory
         mkdir -p security-reports
-        
+
         # Scan the container image
         trivy image \
           --format json \
           --output security-reports/trivy-image-report.json \
           --severity $(params.SEVERITY) \
           $(params.IMAGE_URL) || true
-        
+
         # Generate human-readable report
         trivy image \
           --format table \
           --output security-reports/trivy-image-report.txt \
           --severity $(params.SEVERITY) \
           $(params.IMAGE_URL) || true
-        
+
         echo "Container image scan completed"
       else
         echo "No image URL provided, skipping container scan"
@@ -127,24 +127,24 @@ spec:
       #!/bin/sh
       set -e
       echo "Scanning filesystem for vulnerabilities..."
-      
+
       # Create reports directory
       mkdir -p security-reports
-      
+
       # Scan the filesystem
       trivy fs \
         --format json \
         --output security-reports/trivy-fs-report.json \
         --severity $(params.SEVERITY) \
         . || true
-      
+
       # Generate human-readable report
       trivy fs \
         --format table \
         --output security-reports/trivy-fs-report.txt \
         --severity $(params.SEVERITY) \
         . || true
-      
+
       echo "Filesystem scan completed"
 
   - name: generate-security-report
@@ -154,7 +154,7 @@ spec:
       #!/bin/bash
       set -e
       echo "Generating comprehensive security report..."
-      
+
       # Create final security report
       cat > security-reports/security-summary.txt << EOF
       OrcaCloud Security Scan Report
@@ -162,7 +162,7 @@ spec:
       Date: $(date)
       Scan Type: Comprehensive Security Analysis
       Minimum Severity: $(params.SEVERITY)
-      
+
       Scans Performed:
       ================
        Code Security Analysis (Bandit)
@@ -171,7 +171,7 @@ spec:
        Security Pattern Analysis (Semgrep)
        Filesystem Vulnerability Scan (Trivy)
       $(if [ -n "$(params.IMAGE_URL)" ]; then echo " Container Image Scan (Trivy)"; else echo "  Container Image Scan (Skipped - No image URL)"; fi)
-      
+
       Report Files Generated:
       ======================
       - bandit-report.json/txt: Python code security issues
@@ -180,9 +180,9 @@ spec:
       - semgrep-report.json: Security pattern analysis
       - trivy-fs-report.json/txt: Filesystem vulnerabilities
       $(if [ -n "$(params.IMAGE_URL)" ]; then echo "- trivy-image-report.json/txt: Container image vulnerabilities"; fi)
-      
+
       Security Status: SCAN COMPLETED
-      
+
       Next Steps:
       ===========
       1. Review individual report files for detailed findings
@@ -190,13 +190,13 @@ spec:
       3. Update dependencies with known vulnerabilities
       4. Remove or secure any detected secrets
       5. Fix identified security code patterns
-      
+
       For detailed analysis, examine the JSON reports in security-reports/ directory.
       EOF
-      
+
       # Output summary to results
       echo "Security scan completed successfully" | tee $(results.scan-results.path)
       echo "Reports generated in security-reports/ directory" | tee -a $(results.scan-results.path)
       cat security-reports/security-summary.txt | tee -a $(results.scan-results.path)
-      
+
       echo "Security scan report generation completed"

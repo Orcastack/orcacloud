@@ -3,16 +3,16 @@
 
 # Core Configuration
 <<<<<<< HEAD
-project_name = "orcacompute-platform"
+project_name = "orcacloud-platform"
 =======
-project_name = "orcacompute"
+project_name = "orcacloud"
 >>>>>>> 12bd998bda7cee255affa733e542706dbab8dcfb
 environment  = "dev"
 app_version  = "1.0.0-dev"
-namespace    = "orcacompute-dev"
+namespace    = "orcacloud-dev"
 
 # Domain and TLS
-domain_name     = "dev.orcacompute.local"
+domain_name     = "dev.orcacloud.local"
 tls_secret_name = ""  # No TLS for local development
 ingress_class   = "nginx"
 
@@ -35,17 +35,17 @@ zookeeper_enable_jmx                    = true
 zookeeper_jmx_port                      = 9999
 
 # Database
-database_name     = "orcacompute_dev"
-database_username = "atonixuser"
+database_name     = "orcacloud_dev"
+database_username = "orcaclouduser"
 
 # Container Images
 image_registry            = "ghcr.io"
-backend_image_repository  = "orcacompute/platform-backend"
+backend_image_repository  = "orcacloud/platform-backend"
 backend_image_tag         = "dev"
 <<<<<<< HEAD
-frontend_image_repository = "orcacompute/platform-frontend"
+frontend_image_repository = "orcacloud/platform-frontend"
 =======
-frontend_image_repository = "orcacompute/orcacompute-frontend"
+frontend_image_repository = "orcacloud/orcacloud-frontend"
 >>>>>>> 12bd998bda7cee255affa733e542706dbab8dcfb
 frontend_image_tag        = "dev"
 
@@ -63,16 +63,16 @@ celery_worker_min_replicas = 1
 celery_worker_max_replicas = 2
 
 # Application Configuration
-allowed_hosts = ["dev.orcacompute.local", "localhost", "127.0.0.1", "*"]
+allowed_hosts = ["dev.orcacloud.local", "localhost", "127.0.0.1", "*"]
 cors_allowed_origins = [
   "http://localhost:3000",
   "http://127.0.0.1:3000",
-  "http://dev.orcacompute.local"
+  "http://dev.orcacloud.local"
 ]
 <<<<<<< HEAD
-api_url = "http://orcacompute-platform-dev-backend:8000"
+api_url = "http://orcacloud-platform-dev-backend:8000"
 =======
-api_url = "http://orcacompute-dev-backend:8000"
+api_url = "http://orcacloud-dev-backend:8000"
 >>>>>>> 12bd998bda7cee255affa733e542706dbab8dcfb
 
 # Feature Toggles

@@ -19,13 +19,13 @@ variable "environment" {
 variable "hostname" {
   description = "Server hostname for email services"
   type        = string
-  default     = "mail.orcacompute.com"
+  default     = "mail.orcacloud.com"
 }
 
 variable "domain" {
   description = "Email domain"
   type        = string
-  default     = "orcacompute.com"
+  default     = "orcacloud.com"
 }
 
 variable "trusted_networks" {

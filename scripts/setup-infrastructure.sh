@@ -63,10 +63,10 @@ EOF
 # Install prerequisites
 install_prerequisites() {
     log "Installing prerequisites..."
-    
+
     # Update package lists
     apt-get update
-    
+
     # Install required packages
     apt-get install -y \
         wget \
@@ -88,34 +88,34 @@ install_prerequisites() {
         iptables \
         bridge-utils \
         net-tools
-    
+
     # Install Puppet
     wget https://apt.puppet.com/puppet7-release-focal.deb
     dpkg -i puppet7-release-focal.deb
     apt-get update
     apt-get install -y puppet-agent
-    
+
     # Add Puppet to PATH
     export PATH="/opt/puppetlabs/bin:$PATH"
     echo 'export PATH="/opt/puppetlabs/bin:$PATH"' >> /etc/environment
-    
+
     log "Prerequisites installed successfully"
 }
 
 # Setup Puppet
 setup_puppet() {
     log "Setting up Puppet configuration management..."
-    
+
     # Create Puppet directory structure
     mkdir -p /etc/puppetlabs/code/environments/production/{manifests,modules,hieradata}
-    
+
     # Copy Puppet manifests and modules
     cp -r "${PUPPET_DIR}/manifests/"* /etc/puppetlabs/code/environments/production/manifests/
     cp -r "${PUPPET_DIR}/modules/"* /etc/puppetlabs/code/environments/production/modules/
-    
+
     # Set proper ownership
     chown -R puppet:puppet /etc/puppetlabs/code/environments/production/
-    
+
     # Create Puppet configuration
     cat > /etc/puppetlabs/puppet/puppet.conf << EOF
 [main]
@@ -136,63 +136,63 @@ setup_puppet() {
     environment = production
     server = localhost
 EOF
-    
+
     # Test Puppet configuration
     /opt/puppetlabs/bin/puppet parser validate /etc/puppetlabs/code/environments/production/manifests/site.pp
-    
+
     log "Puppet setup completed"
 }
 
 # Setup CNI networking
 setup_cni() {
     log "Setting up CNI container networking..."
-    
+
     # Make CNI setup script executable and run it
     chmod +x "${CNI_DIR}/setup-cni.sh"
     "${CNI_DIR}/setup-cni.sh"
-    
+
     log "CNI networking setup completed"
 }
 
 # Setup Gerrit CI/CD
 setup_gerrit() {
     log "Setting up Gerrit CI/CD system..."
-    
+
     # Create Gerrit directory
     mkdir -p /opt/gerrit
-    
+
     # Start Gerrit services using Docker Compose
     cd "${GERRIT_DIR}"
     docker-compose up -d
-    
+
     # Wait for services to start
     info "Waiting for Gerrit services to start..."
     sleep 30
-    
+
     # Check if Gerrit is running
     if curl -f http://localhost:8081 > /dev/null 2>&1; then
         log "Gerrit is running successfully"
     else
         warn "Gerrit may not be fully started yet. Check logs with: docker-compose -f ${GERRIT_DIR}/docker-compose.yml logs"
     fi
-    
+
     log "Gerrit CI/CD setup completed"
 }
 
 # Setup monitoring
 setup_monitoring() {
     log "Setting up monitoring infrastructure..."
-    
+
     # Apply Puppet monitoring module
     /opt/puppetlabs/bin/puppet apply -e "include orcacloud::monitoring"
-    
+
     log "Monitoring setup completed"
 }
 
 # Create management scripts
 create_management_scripts() {
     log "Creating management scripts..."
-    
+
     # Main management script
     cat > /usr/local/bin/orcacloud-infra-manage << 'EOF'
 #!/bin/bash
@@ -255,22 +255,22 @@ esac
 EOF
 
     chmod +x /usr/local/bin/orcacloud-infra-manage
-    
+
     log "Management scripts created"
 }
 
 # Run infrastructure tests
 run_tests() {
     log "Running infrastructure tests..."
-    
+
     # Test Puppet
     info "Testing Puppet configuration..."
     /opt/puppetlabs/bin/puppet parser validate /etc/puppetlabs/code/environments/production/manifests/site.pp
-    
+
     # Test CNI
     info "Testing CNI networking..."
     /usr/local/bin/orcacloud-cni-manage test
-    
+
     # Test Gerrit
     info "Testing Gerrit connectivity..."
     if curl -f http://localhost:8081 > /dev/null 2>&1; then
@@ -278,7 +278,7 @@ run_tests() {
     else
         warn "[ERROR] Gerrit is not accessible"
     fi
-    
+
     # Test monitoring
     info "Testing monitoring services..."
     if systemctl is-active prometheus > /dev/null 2>&1; then
@@ -286,14 +286,14 @@ run_tests() {
     else
         warn "[ERROR] Prometheus is not running"
     fi
-    
+
     log "Infrastructure tests completed"
 }
 
 # Create documentation
 create_documentation() {
     log "Creating infrastructure documentation..."
-    
+
     cat > /opt/orcacloud/INFRASTRUCTURE_GUIDE.md << 'EOF'
 # OrcaCloud Infrastructure Guide
 
@@ -315,11 +315,11 @@ This guide covers the infrastructure components of the OrcaCloud platform:
 - **Web Interface**: http://localhost:8081
 - **SSH Port**: 29418
 - **Configuration**: `/infrastructure/gerrit/config/`
-- **Management**: `docker-compose -f infrastructure/gerrit/docker-compose.yml`
+- **Management**: `orcacloud-infra-manage gerrit-restart`
 
 ### CNI Networking
 - **Configuration**: `/etc/cni/net.d/`
-- **Bridge**: `atonix-br0` (10.100.0.0/16)
+- **Bridge**: `orcacloud-br0` (10.100.0.0/16)
 - **Management**: `orcacloud-cni-manage`
 
 ### Monitoring
@@ -375,7 +375,7 @@ tail -f /var/log/puppetlabs/puppet/puppet.log
 
 ### Gerrit Issues
 ```bash
-docker-compose -f infrastructure/gerrit/docker-compose.yml logs gerrit
+orcacloud-infra-manage logs
 ```
 
 ### CNI Issues
@@ -408,9 +408,9 @@ EOF
 # Main installation function
 main() {
     print_banner
-    
+
     log "Starting OrcaCloud Infrastructure setup..."
-    
+
     check_root
     install_prerequisites
     setup_puppet
@@ -420,9 +420,9 @@ main() {
     create_management_scripts
     run_tests
     create_documentation
-    
+
     log "[COMPLETE] OrcaCloud Infrastructure setup completed successfully!"
-    
+
     echo
     info "Infrastructure Services:"
     info "├── Puppet: Configuration management ready"

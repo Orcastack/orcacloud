@@ -29,7 +29,7 @@ resource "kubernetes_namespace" "service" {
       "environment"                  = var.environment
     }
     annotations = {
-      "orcacompute.com/monitored" = "true"
+      "orcacloud.com/monitored" = "true"
     }
   }
 }

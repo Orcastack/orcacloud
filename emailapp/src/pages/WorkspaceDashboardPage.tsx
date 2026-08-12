@@ -477,7 +477,7 @@ interface RunningPipeline {
   startedAt: string;
 }
 
-const PIPELINE_FILES = ['orcacloud.yml', 'atonix.yml', '.gitlab-ci.yml', 'pipeline.yaml', 'Jenkinsfile', '.github/workflows/ci.yml'];
+const PIPELINE_FILES = ['orcacloud.yml', 'orcacloud.yml', '.gitlab-ci.yml', 'pipeline.yaml', 'Jenkinsfile', '.github/workflows/ci.yml'];
 
 // ── Project selection modal ───────────────────────────────────────────────────
 function ProjectSelectModal({
@@ -824,7 +824,7 @@ const WorkspaceDashboardPage: React.FC = () => {
   // ── Kubernetes create form state ──────────────────────────────────────
   const [k8sView, setK8sView]                     = useState<'list' | 'create'>('list');
   const [k8sName, setK8sName]                     = useState('');
-  const [_k8sProvider, _setK8sProvider]             = useState<'atonix' | 'aws' | 'gcp' | 'azure' | 'bare-metal'>('atonix');
+  const [_k8sProvider, _setK8sProvider]             = useState<'orcacloud' | 'aws' | 'gcp' | 'azure' | 'bare-metal'>('orcacloud');
   const [k8sRegion, setK8sRegion]                 = useState('us-east-1');
   const [k8sVersion, setK8sVersion]               = useState('1.29');
   const [k8sNodeCount, setK8sNodeCount]           = useState('3');
@@ -934,7 +934,7 @@ const WorkspaceDashboardPage: React.FC = () => {
       const list = await listClusters();
       setK8sClusters(list.map(cl => ({
         name: cl.name,
-        provider: (cl as any).metadata?.provider ?? 'atonix',
+        provider: (cl as any).metadata?.provider ?? 'orcacloud',
         region: cl.region,
         nodes: `${cl.node_count_actual ?? cl.node_count}/${cl.node_count}`,
         status: cl.status === 'running' ? 'healthy' : cl.status,

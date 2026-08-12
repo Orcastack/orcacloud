@@ -10,7 +10,7 @@ COPY . ./
 RUN CI=false npm run build
 FROM nginx:alpine
 RUN rm -rf /usr/share/nginx/html/*
-ARG API_UPSTREAM=computeapi:8000
+ARG API_UPSTREAM=cloudapi:8000
 RUN printf 'server { listen 80; root /usr/share/nginx/html; location /api/ { proxy_pass http://%s/api/; proxy_set_header Host $host; proxy_set_header X-Real-IP $remote_addr; proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for; } location / { try_files $uri $uri/ /index.html; } }\n' "$API_UPSTREAM" > /etc/nginx/conf.d/default.conf
 COPY --from=builder /app/build /usr/share/nginx/html
 EXPOSE 80

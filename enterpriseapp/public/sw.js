@@ -8,7 +8,7 @@ const isLocalhost = Boolean(
     )
 );
 
-const CACHE_NAME = 'orcacompute-v2';
+const CACHE_NAME = 'orcacloud-v2';
 
 // Install event - skip waiting so the SW activates immediately
 self.addEventListener('install', (event) => {
@@ -78,7 +78,7 @@ self.addEventListener('fetch', (event) => {
 // Handle push notifications (for future use)
 self.addEventListener('push', (event) => {
   const options = {
-    body: event.data ? event.data.text() : 'New notification from OrcaCompute',
+    body: event.data ? event.data.text() : 'New notification from OrcaCloud',
     icon: '/orcacloud-icon.svg',
     badge: '/orcacloud-icon.svg',
     vibrate: [100, 50, 100],
@@ -101,7 +101,7 @@ self.addEventListener('push', (event) => {
   };
 
   event.waitUntil(
-    self.registration.showNotification('OrcaCompute', options)
+    self.registration.showNotification('OrcaCloud', options)
   );
 });
 

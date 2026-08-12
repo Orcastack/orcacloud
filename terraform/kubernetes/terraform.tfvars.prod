@@ -3,20 +3,20 @@
 
 # Core Configuration
 <<<<<<< HEAD
-project_name = "orcacompute-platform"
+project_name = "orcacloud-platform"
 environment  = "prod"
 app_version  = "1.0.0"
-namespace    = "orcacompute-platform"
+namespace    = "orcacloud-platform"
 =======
-project_name = "orcacompute"
+project_name = "orcacloud"
 environment  = "prod"
 app_version  = "1.0.0"
-namespace    = "orcacompute"
+namespace    = "orcacloud"
 >>>>>>> 12bd998bda7cee255affa733e542706dbab8dcfb
 
 # Domain and TLS
-domain_name     = "orcacompute.org"
-tls_secret_name = "orcacompute-tls"
+domain_name     = "orcacloud.org"
+tls_secret_name = "orcacloud-tls"
 ingress_class   = "nginx"
 
 # Storage
@@ -38,19 +38,19 @@ zookeeper_enable_jmx                    = true
 zookeeper_jmx_port                      = 9999
 
 # Database
-database_name     = "orcacompute_prod"
-database_username = "atonixuser"
+database_name     = "orcacloud_prod"
+database_username = "orcaclouduser"
 
 # Container Images
 image_registry            = "ghcr.io"
-backend_image_repository  = "orcacompute/platform-backend"
+backend_image_repository  = "orcacloud/platform-backend"
 <<<<<<< HEAD
 backend_image_tag         = "latest"
-frontend_image_repository = "orcacompute/platform-frontend"
+frontend_image_repository = "orcacloud/platform-frontend"
 frontend_image_tag        = "latest"
 =======
 backend_image_tag         = "1.0.0"
-frontend_image_repository = "orcacompute/orcacompute-frontend"
+frontend_image_repository = "orcacloud/orcacloud-frontend"
 frontend_image_tag        = "1.0.0"
 >>>>>>> 12bd998bda7cee255affa733e542706dbab8dcfb
 
@@ -68,15 +68,15 @@ celery_worker_min_replicas = 2
 celery_worker_max_replicas = 15
 
 # Application Configuration
-allowed_hosts = ["orcacompute.org", "www.orcacompute.org", "api.orcacompute.org"]
+allowed_hosts = ["orcacloud.org", "www.orcacloud.org", "api.orcacloud.org"]
 cors_allowed_origins = [
-  "https://orcacompute.org",
-  "https://www.orcacompute.org"
+  "https://orcacloud.org",
+  "https://www.orcacloud.org"
 ]
 <<<<<<< HEAD
-api_url = "http://orcacompute-platform-backend:8000"
+api_url = "http://orcacloud-platform-backend:8000"
 =======
-api_url = "http://orcacompute-backend:8000"
+api_url = "http://orcacloud-backend:8000"
 >>>>>>> 12bd998bda7cee255affa733e542706dbab8dcfb
 
 # Feature Toggles

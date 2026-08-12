@@ -15,15 +15,15 @@ django_secret_key = "CHANGE-ME-TO-A-RANDOM-SECRET-KEY"
 
 # Project and environment settings
 <<<<<<< HEAD
-project_name = "orcacompute-platform"
+project_name = "orcacloud-platform"
 environment  = "dev"  # Options: dev, staging, prod
 app_version  = "1.0.0"
-namespace    = "orcacompute-platform"
+namespace    = "orcacloud-platform"
 =======
-project_name = "orcacompute"
+project_name = "orcacloud"
 environment  = "dev"  # Options: dev, staging, prod
 app_version  = "1.0.0"
-namespace    = "orcacompute"
+namespace    = "orcacloud"
 >>>>>>> 12bd998bda7cee255affa733e542706dbab8dcfb
 
 # ==============================================
@@ -31,25 +31,25 @@ namespace    = "orcacompute"
 # ==============================================
 
 # Primary domain for the application
-domain_name = "orcacompute.org"
+domain_name = "orcacloud.org"
 
 # TLS certificate secret name (leave empty for HTTP)
-tls_secret_name = "orcacompute-tls"
+tls_secret_name = "orcacloud-tls"
 
 # Ingress class to use
 ingress_class = "nginx"
 
 # CORS allowed origins
 cors_allowed_origins = [
-  "https://orcacompute.org",
-  "https://www.orcacompute.org"
+  "https://orcacloud.org",
+  "https://www.orcacloud.org"
 ]
 
 # Django allowed hosts
 allowed_hosts = [
-  "orcacompute.org",
-  "www.orcacompute.org",
-  "api.orcacompute.org"
+  "orcacloud.org",
+  "www.orcacloud.org",
+  "api.orcacloud.org"
 ]
 
 # ==============================================
@@ -60,15 +60,15 @@ allowed_hosts = [
 image_registry = "ghcr.io"
 
 # Backend image configuration
-backend_image_repository = "orcacompute/platform-backend"
+backend_image_repository = "orcacloud/platform-backend"
 backend_image_tag        = "latest"
 
 # Frontend image configuration
 <<<<<<< HEAD
-frontend_image_repository = "orcacompute/platform-frontend"
+frontend_image_repository = "orcacloud/platform-frontend"
 frontend_image_tag         = "latest"
 =======
-frontend_image_repository = "orcacompute/orcacompute-frontend"
+frontend_image_repository = "orcacloud/orcacloud-frontend"
 frontend_image_tag         = "1.0.0"
 >>>>>>> 12bd998bda7cee255affa733e542706dbab8dcfb
 
@@ -132,8 +132,8 @@ zookeeper_jmx_port   = 9999
 # ==============================================
 
 # PostgreSQL settings
-database_name     = "orcacompute_db"
-database_username = "atonixuser"
+database_name     = "orcacloud_db"
+database_username = "orcaclouduser"
 
 # ==============================================
 # FEATURE TOGGLES
@@ -216,7 +216,7 @@ kubeconfig_path = "~/.kube/config"
 
 # Internal API URL (usually doesn't need to be changed)
 <<<<<<< HEAD
-api_url = "http://orcacompute-platform-backend:8000"
+api_url = "http://orcacloud-platform-backend:8000"
 =======
-api_url = "http://orcacompute-backend:8000"
+api_url = "http://orcacloud-backend:8000"
 >>>>>>> 12bd998bda7cee255affa733e542706dbab8dcfb

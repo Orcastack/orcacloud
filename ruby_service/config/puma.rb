@@ -1,4 +1,4 @@
-# Puma configuration file for OrcaCompute Ruby Service
+# Puma configuration file for OrcaCloud Ruby Service
 # frozen_string_literal: true
 
 # Environment

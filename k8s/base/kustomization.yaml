@@ -1,15 +1,6 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-<<<<<<< HEAD
-- namespace.yaml
-- postgres.yaml
-- redis.yaml
-- backend.yaml
-- frontend.yaml
-- celery.yaml
-- ingress.yaml
-=======
   - namespace.yaml
   - orcacloud-postgres.yaml
   - fast-ssd-postgres-pv.yaml
@@ -18,4 +9,3 @@ resources:
   - orcacloud-frontend.yaml
   - orcacloud-celery.yaml
   - orcacloud-ingress.yaml
->>>>>>> 12bd998bda7cee255affa733e542706dbab8dcfb

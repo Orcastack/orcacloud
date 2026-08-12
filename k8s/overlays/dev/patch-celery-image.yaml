@@ -8,4 +8,4 @@ spec:
     spec:
       containers:
       - name: celery-worker
-        image: atonixdev/orcacloud-backend:1.0.1
+        image: orcacloud/orcacloud-backend:1.0.1

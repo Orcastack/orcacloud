@@ -10,7 +10,7 @@ echo ""
 # Check if we're in the right directory
 if [ ! -f "package.json" ]; then
     echo " Error: Please run this script from the frontend directory"
-    echo "   Navigate to: cd /home/atonixdev/orcacloud/frontend"
+    echo "   Navigate to: cd /home/orcacloud/orcacloud/frontend"
     exit 1
 fi
 

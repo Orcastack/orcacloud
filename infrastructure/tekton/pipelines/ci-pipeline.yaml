@@ -32,10 +32,10 @@ spec:
   - name: registry-url
     type: string
     description: Container registry URL.
-    default: quay.io/atonixdev
+    default: quay.io/orcacloud
   - name: test-type
     type: string
-    description: Type of tests to run (backend, frontend, security, integration, all).
+    description: Type of tests to run (cloudapi, webapp, security, integration, all).
     default: all
   - name: security-severity
     type: string

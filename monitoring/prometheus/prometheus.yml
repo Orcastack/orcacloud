@@ -83,7 +83,7 @@ scrape_configs:
     static_configs:
       - targets: ['openstack-exporter:9180']
     params:
-      cloud: [atonix]
+      cloud: [orcacloud]
     relabel_configs:
       - source_labels: [__address__]
         target_label: instance
@@ -93,7 +93,7 @@ scrape_configs:
     static_configs:
       - targets: ['openstack-exporter:9180']
     params:
-      cloud:    [atonix]
+      cloud:    [orcacloud]
       prefix:   [openstack_nova]
 
   # OpenStack Neutron metrics
@@ -101,7 +101,7 @@ scrape_configs:
     static_configs:
       - targets: ['openstack-exporter:9180']
     params:
-      cloud:  [atonix]
+      cloud:  [orcacloud]
       prefix: [openstack_neutron]
 
 alerting:

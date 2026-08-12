@@ -25,18 +25,18 @@ interface DNSRecord {
 }
 
 const ZONES: DNSZone[] = [
-  { id: 'z-001', name: 'orcacloud.com', type: 'public', records: 24, status: 'active', nameservers: ['ns1.atonix.cloud', 'ns2.atonix.cloud'], ttl: 300 },
-  { id: 'z-002', name: 'api.orcacloud.com', type: 'public', records: 8, status: 'active', nameservers: ['ns1.atonix.cloud', 'ns2.atonix.cloud'], ttl: 60 },
-  { id: 'z-003', name: 'internal.corp', type: 'private', records: 42, status: 'active', nameservers: ['ns-int-1.atonix.internal'], ttl: 30 },
-  { id: 'z-004', name: 'staging.orcacloud.com', type: 'public', records: 12, status: 'active', nameservers: ['ns1.atonix.cloud', 'ns2.atonix.cloud'], ttl: 60 },
+  { id: 'z-001', name: 'orcacloud.com', type: 'public', records: 24, status: 'active', nameservers: ['ns1.orcacloud.cloud', 'ns2.orcacloud.cloud'], ttl: 300 },
+  { id: 'z-002', name: 'api.orcacloud.com', type: 'public', records: 8, status: 'active', nameservers: ['ns1.orcacloud.cloud', 'ns2.orcacloud.cloud'], ttl: 60 },
+  { id: 'z-003', name: 'internal.corp', type: 'private', records: 42, status: 'active', nameservers: ['ns-int-1.orcacloud.internal'], ttl: 30 },
+  { id: 'z-004', name: 'staging.orcacloud.com', type: 'public', records: 12, status: 'active', nameservers: ['ns1.orcacloud.cloud', 'ns2.orcacloud.cloud'], ttl: 60 },
 ];
 
 const RECORDS: DNSRecord[] = [
   { id: 'rec-01', zone: 'orcacloud.com', name: '@', type: 'A', value: '104.21.45.100', ttl: 300, proxied: true },
   { id: 'rec-02', zone: 'orcacloud.com', name: 'www', type: 'CNAME', value: 'orcacloud.com', ttl: 300, proxied: true },
   { id: 'rec-03', zone: 'orcacloud.com', name: 'api', type: 'A', value: '185.199.110.50', ttl: 60, proxied: false },
-  { id: 'rec-04', zone: 'orcacloud.com', name: 'mail', type: 'MX', value: '10 mx.atonixmail.com', ttl: 3600, proxied: false },
-  { id: 'rec-05', zone: 'orcacloud.com', name: '@', type: 'TXT', value: 'v=spf1 include:spf.atonixmail.com ~all', ttl: 3600, proxied: false },
+  { id: 'rec-04', zone: 'orcacloud.com', name: 'mail', type: 'MX', value: '10 mx.orcacloudmail.com', ttl: 3600, proxied: false },
+  { id: 'rec-05', zone: 'orcacloud.com', name: '@', type: 'TXT', value: 'v=spf1 include:spf.orcacloudmail.com ~all', ttl: 3600, proxied: false },
   { id: 'rec-06', zone: 'orcacloud.com', name: 'cdn', type: 'CNAME', value: 'd1234abcd.cloudfront.net', ttl: 300, proxied: true },
   { id: 'rec-07', zone: 'orcacloud.com', name: 'grafana', type: 'A', value: '10.0.1.50', ttl: 60, proxied: false },
 ];

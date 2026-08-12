@@ -59,7 +59,7 @@ run:
           spec:
             containers:
             - name: platform
-              image: quay.io/atonixdev/orcacloud:$IMAGE_TAG
+              image: quay.io/orcacloud/orcacloud:$IMAGE_TAG
               ports:
               - containerPort: 8080
               env:

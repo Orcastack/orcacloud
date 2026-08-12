@@ -11,13 +11,13 @@ variable "name_prefix" {
 variable "database_name" {
   description = "PostgreSQL database name"
   type        = string
-  default     = "orcacompute_db"
+  default     = "orcacloud_db"
 }
 
 variable "username" {
   description = "PostgreSQL username"
   type        = string
-  default     = "atonixuser"
+  default     = "orcaclouduser"
 }
 
 variable "storage_class" {

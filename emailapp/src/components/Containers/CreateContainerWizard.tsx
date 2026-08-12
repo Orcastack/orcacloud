@@ -204,7 +204,7 @@ const CreateContainerWizard: React.FC<Props> = ({ open, onClose, onCreated }) =>
   name: ${generatedName}
   type: ${containerType}
   image:
-    registry: registry.atonix.io
+    registry: registry.orcacloud.io
     repository: ${selectedProject?.name ?? 'org'}/${generatedName}
     tag: latest
   runtime:
@@ -239,7 +239,7 @@ const CreateContainerWizard: React.FC<Props> = ({ open, onClose, onCreated }) =>
         pipeline:      pipelineMode === 'existing'
           ? (selectedPipeline?.name ?? '')
           : `${selectedTemplate?.label ?? 'custom'}-pipeline`,
-        image: `registry.atonix.io/${selectedProject?.name ?? 'org'}/${generatedName}`,
+        image: `registry.orcacloud.io/${selectedProject?.name ?? 'org'}/${generatedName}`,
         image_tag:     'latest',
         commit_sha:    '',
         cpu,

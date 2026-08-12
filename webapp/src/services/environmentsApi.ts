@@ -172,12 +172,12 @@ export const getEnvServices = (id: string): Promise<EnvService[]> =>
   client.get<EnvService[]>(`${BASE}/${id}/services/`)
     .then(r => r.data)
     .catch(() => mock<EnvService[]>([
-      { id: 's1', name: 'api-gateway',   status: 'running', replicas: 3, desired: 3, image: 'atonix/gateway:1.8.3',    cpu_pct: 22, ram_mb: 380,  endpoints: ['https://api.atonix.io'], last_log: '200 GET /health' },
-      { id: 's2', name: 'auth-service',  status: 'running', replicas: 2, desired: 2, image: 'atonix/auth:1.8.3',      cpu_pct: 11, ram_mb: 210,  endpoints: [],                         last_log: 'Token issued' },
-      { id: 's3', name: 'worker',        status: 'running', replicas: 4, desired: 4, image: 'atonix/worker:1.8.3',    cpu_pct: 41, ram_mb: 512,  endpoints: [],                         last_log: 'Job completed in 1.2s' },
+      { id: 's1', name: 'api-gateway',   status: 'running', replicas: 3, desired: 3, image: 'orcacloud/gateway:1.8.3',    cpu_pct: 22, ram_mb: 380,  endpoints: ['https://api.orcacloud.io'], last_log: '200 GET /health' },
+      { id: 's2', name: 'auth-service',  status: 'running', replicas: 2, desired: 2, image: 'orcacloud/auth:1.8.3',      cpu_pct: 11, ram_mb: 210,  endpoints: [],                         last_log: 'Token issued' },
+      { id: 's3', name: 'worker',        status: 'running', replicas: 4, desired: 4, image: 'orcacloud/worker:1.8.3',    cpu_pct: 41, ram_mb: 512,  endpoints: [],                         last_log: 'Job completed in 1.2s' },
       { id: 's4', name: 'db-proxy',      status: 'running', replicas: 1, desired: 1, image: 'pgbouncer:1.22',         cpu_pct:  6, ram_mb:  64,  endpoints: [],                         last_log: 'idle' },
       { id: 's5', name: 'cache',         status: 'running', replicas: 1, desired: 1, image: 'redis:7.2',              cpu_pct:  3, ram_mb:  48,  endpoints: [],                         last_log: 'PING' },
-      { id: 's6', name: 'notifier',      status: 'stopped', replicas: 0, desired: 1, image: 'atonix/notifier:1.8.2', cpu_pct:  0, ram_mb:   0,  endpoints: [],                         last_log: 'OOMKilled' },
+      { id: 's6', name: 'notifier',      status: 'stopped', replicas: 0, desired: 1, image: 'orcacloud/notifier:1.8.2', cpu_pct:  0, ram_mb:   0,  endpoints: [],                         last_log: 'OOMKilled' },
     ]));
 
 export const restartService = (envId: string, serviceId: string): Promise<void> =>

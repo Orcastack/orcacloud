@@ -1,5 +1,5 @@
 // ============================================================
-//  OrcaCompute – Multibranch CI/CD Pipeline
+//  OrcaCloud – Multibranch CI/CD Pipeline
 //
 //  Branch behaviour:
 //    • Every branch / PR  → Checkout → Install → Build → Test
@@ -21,8 +21,8 @@ pipeline {
 
     // ── Global environment ─────────────────────────────────────────
     environment {
-        APP_NAME          = 'orcacompute'
-        IMAGE_REGISTRY    = 'atonixdev'
+        APP_NAME          = 'orcacloud'
+        IMAGE_REGISTRY    = 'orcacloud'
         IMAGE_TAG         = "${env.GIT_COMMIT?.take(7) ?: 'latest'}"
 
         // Slack
@@ -183,7 +183,7 @@ pipeline {
         // ── 9. Operator (Go) Tests ────────────────────────────────
         stage('Operator: Go Tests') {
             steps {
-                dir('orcacompute-operator') {
+                dir('orcacloud-operator') {
                     sh '''
                         go mod download
                         go test $(go list ./... | grep -v /e2e) \
@@ -219,7 +219,7 @@ pipeline {
                 branch 'main'
             }
             steps {
-                echo "Deploying OrcaCompute to production..."
+                echo "Deploying OrcaCloud to production..."
 
                 // Push versioned + latest image tags
                 sh '''
@@ -245,21 +245,21 @@ pipeline {
                         kubectl apply -f k8s/frontend-service.yaml
                         kubectl apply -f k8s/ingress.yaml
 
-                        kubectl set image deployment/orcacompute-backend \
+                        kubectl set image deployment/orcacloud-backend \
                             backend=${IMAGE_REGISTRY}/${APP_NAME}-backend:${IMAGE_TAG} \
-                            -n orcacompute
-                        kubectl set image deployment/orcacompute-frontend \
+                            -n orcacloud
+                        kubectl set image deployment/orcacloud-frontend \
                             frontend=${IMAGE_REGISTRY}/${APP_NAME}-frontend:${IMAGE_TAG} \
-                            -n orcacompute
+                            -n orcacloud
 
-                        kubectl rollout status deployment/orcacompute-backend \
-                            -n orcacompute --timeout=120s
-                        kubectl rollout status deployment/orcacompute-frontend \
-                            -n orcacompute --timeout=120s
+                        kubectl rollout status deployment/orcacloud-backend \
+                            -n orcacloud --timeout=120s
+                        kubectl rollout status deployment/orcacloud-frontend \
+                            -n orcacloud --timeout=120s
                     '''
                 }
 
-                echo "Deployment complete – platform live at https://orcacompute.com"
+                echo "Deployment complete – platform live at https://orcacloud.com"
             }
         }
 
@@ -292,7 +292,7 @@ pipeline {
                     "passed on `${env.BRANCH_NAME}`\n<${env.BUILD_URL}|View build>")
                 if (env.BRANCH_NAME == 'main') {
                     emailNotify(
-                        subject: "[OrcaCompute CI] Build #${env.BUILD_NUMBER} – ${env.BRANCH_NAME} PASSED",
+                        subject: "[OrcaCloud CI] Build #${env.BUILD_NUMBER} – ${env.BRANCH_NAME} PASSED",
                         body:    "Build <b>#${env.BUILD_NUMBER}</b> on branch <b>${env.BRANCH_NAME}</b> " +
                                  "succeeded and was deployed to production.<br>" +
                                  "<a href='${env.BUILD_URL}'>Open in Jenkins</a>"
@@ -308,7 +308,7 @@ pipeline {
                     ":x: *${APP_NAME}* – Build *#${env.BUILD_NUMBER}* " +
                     "FAILED on `${env.BRANCH_NAME}`\n<${env.BUILD_URL}console|View logs>")
                 emailNotify(
-                    subject: "[OrcaCompute CI] Build #${env.BUILD_NUMBER} – ${env.BRANCH_NAME} FAILED",
+                    subject: "[OrcaCloud CI] Build #${env.BUILD_NUMBER} – ${env.BRANCH_NAME} FAILED",
                     body:    "Build <b>#${env.BUILD_NUMBER}</b> on branch <b>${env.BRANCH_NAME}</b> " +
                              "<b>FAILED</b>.<br>" +
                              "Please review the <a href='${env.BUILD_URL}console'>console output</a>."

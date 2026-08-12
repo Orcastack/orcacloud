@@ -12,7 +12,7 @@ allowVolumeExpansion: true
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: atonix-pv-postgresql
+  name: orcacloud-pv-postgresql
   labels:
     type: local
     app: postgresql
@@ -23,13 +23,13 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/var/lib/atonix-storage/postgresql"
+    path: "/var/lib/orcacloud-storage/postgresql"
   persistentVolumeReclaimPolicy: Delete
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: atonix-pv-redis
+  name: orcacloud-pv-redis
   labels:
     type: local
     app: redis
@@ -40,13 +40,13 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/var/lib/atonix-storage/redis"
+    path: "/var/lib/orcacloud-storage/redis"
   persistentVolumeReclaimPolicy: Delete
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: atonix-pv-zookeeper-data
+  name: orcacloud-pv-zookeeper-data
   labels:
     type: local
     app: zookeeper
@@ -57,13 +57,13 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/var/lib/atonix-storage/zookeeper/data"
+    path: "/var/lib/orcacloud-storage/zookeeper/data"
   persistentVolumeReclaimPolicy: Delete
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: atonix-pv-zookeeper-logs
+  name: orcacloud-pv-zookeeper-logs
   labels:
     type: local
     app: zookeeper
@@ -74,13 +74,13 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/var/lib/atonix-storage/zookeeper/logs"
+    path: "/var/lib/orcacloud-storage/zookeeper/logs"
   persistentVolumeReclaimPolicy: Delete
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: atonix-pv-kafka-data
+  name: orcacloud-pv-kafka-data
   labels:
     type: local
     app: kafka
@@ -91,13 +91,13 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/var/lib/atonix-storage/kafka/data"
+    path: "/var/lib/orcacloud-storage/kafka/data"
   persistentVolumeReclaimPolicy: Delete
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: atonix-pv-kafka-logs
+  name: orcacloud-pv-kafka-logs
   labels:
     type: local
     app: kafka
@@ -108,13 +108,13 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/var/lib/atonix-storage/kafka/logs"
+    path: "/var/lib/orcacloud-storage/kafka/logs"
   persistentVolumeReclaimPolicy: Delete
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: atonix-pv-media
+  name: orcacloud-pv-media
   labels:
     type: local
     app: backend
@@ -125,5 +125,5 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/var/lib/atonix-storage/media"
+    path: "/var/lib/orcacloud-storage/media"
   persistentVolumeReclaimPolicy: Delete

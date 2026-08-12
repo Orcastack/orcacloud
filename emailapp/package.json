@@ -2,7 +2,7 @@
   "name": "emailapp",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://orcastack.github.io/OrcaCloud",
+  "homepage": "https://orcacloud.github.io/OrcaCloud",
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",

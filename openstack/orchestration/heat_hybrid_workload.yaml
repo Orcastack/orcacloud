@@ -64,7 +64,7 @@ resources:
   hybrid_network:
     type: OS::Neutron::Net
     properties:
-      name: { str_replace: { template: "atonix-hybrid-net-%wsid%", params: { "%wsid%": { get_param: "OS::stack_name" } } } }
+      name: { str_replace: { template: "orcacloud-hybrid-net-%wsid%", params: { "%wsid%": { get_param: "OS::stack_name" } } } }
 
   hybrid_subnet:
     type: OS::Neutron::Subnet
@@ -90,7 +90,7 @@ resources:
   ike_policy:
     type: OS::Neutron::IKEPolicy
     properties:
-      name:               atonix-hybrid-ike
+      name:               orcacloud-hybrid-ike
       auth_algorithm:     sha256
       encryption_algorithm: aes-256
       pfs:                group14
@@ -103,7 +103,7 @@ resources:
   ipsec_policy:
     type: OS::Neutron::IPsecPolicy
     properties:
-      name:               atonix-hybrid-ipsec
+      name:               orcacloud-hybrid-ipsec
       auth_algorithm:     sha256
       encryption_algorithm: aes-256
       pfs:                group14
@@ -117,7 +117,7 @@ resources:
   vpn_service:
     type: OS::Neutron::VPNService
     properties:
-      name:       atonix-hybrid-vpn
+      name:       orcacloud-hybrid-vpn
       router_id:  { get_resource: router }
       subnet_id:  { get_resource: hybrid_subnet }
       admin_state_up: true
@@ -126,7 +126,7 @@ resources:
   ipsec_site_connection:
     type: OS::Neutron::IPsecSiteConnection
     properties:
-      name:            atonix-hybrid-s2s
+      name:            orcacloud-hybrid-s2s
       vpnservice_id:   { get_resource: vpn_service }
       ikepolicy_id:    { get_resource: ike_policy }
       ipsecpolicy_id:  { get_resource: ipsec_policy }
@@ -144,7 +144,7 @@ resources:
   tls_secret:
     type: OS::Barbican::Secret
     properties:
-      name:         atonix-hybrid-tls-secret
+      name:         orcacloud-hybrid-tls-secret
       secret_type:  opaque
       payload_content_type: text/plain
       payload:      placeholder-replace-with-cert-pem
@@ -153,15 +153,15 @@ resources:
   data_volume:
     type: OS::Cinder::Volume
     properties:
-      name:        { str_replace: { template: "atonix-hybrid-vol-%wsid%", params: { "%wsid%": { get_param: "OS::stack_name" } } } }
+      name:        { str_replace: { template: "orcacloud-hybrid-vol-%wsid%", params: { "%wsid%": { get_param: "OS::stack_name" } } } }
       size:        { get_param: volume_size_gb }
-      volume_type: atonix-hybrid-cinder   # stretch-replicated Ceph pool
+      volume_type: orcacloud-hybrid-cinder   # stretch-replicated Ceph pool
 
   # ── Security Group ───────────────────────────────────────────────────────────
   security_group:
     type: OS::Neutron::SecurityGroup
     properties:
-      name: atonix-hybrid-sg
+      name: orcacloud-hybrid-sg
       rules:
         - protocol: tcp
           port_range_min: 22
@@ -188,7 +188,7 @@ resources:
   server:
     type: OS::Nova::Server
     properties:
-      name:     { str_replace: { template: "atonix-hybrid-vm-%wsid%", params: { "%wsid%": { get_param: "OS::stack_name" } } } }
+      name:     { str_replace: { template: "orcacloud-hybrid-vm-%wsid%", params: { "%wsid%": { get_param: "OS::stack_name" } } } }
       image:    { get_param: image }
       flavor:   { get_param: flavor }
       key_name: { get_param: key_name }
@@ -228,7 +228,7 @@ resources:
   cpu_alarm:
     type: OS::Aodh::GnocchiAggregationByResourcesAlarm
     properties:
-      name:            atonix-hybrid-cpu-alarm
+      name:            orcacloud-hybrid-cpu-alarm
       description:     "Alert when hybrid VM CPU exceeds threshold"
       metric:          cpu_util
       aggregation_method: mean

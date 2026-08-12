@@ -7,7 +7,7 @@ echo "[BUILD] OrcaCloud - Unified Container Builder"
 echo "=================================================="
 
 # Configuration
-REGISTRY="quay.io/atonixdev"
+REGISTRY="quay.io/orcacloud"
 IMAGE_NAME="orcacloud"
 LOCAL_TAG="orcacloud:latest"
 VERSION="${VERSION:-latest}"
@@ -32,7 +32,7 @@ show_usage() {
     echo ""
     echo "Environment Variables:"
     echo "  VERSION    - Image version tag (default: latest)"
-    echo "  REGISTRY   - Container registry (default: quay.io/atonixdev)"
+    echo "  REGISTRY   - Container registry (default: quay.io/orcacloud)"
     echo ""
     echo "Examples:"
     echo "  $0 build                    # Build latest"

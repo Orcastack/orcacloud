@@ -40,7 +40,7 @@ spec:
   - name: registry-url
     type: string
     description: Container registry URL.
-    default: quay.io/atonixdev
+    default: quay.io/orcacloud
   - name: auto-approve
     type: string
     description: Auto-approve deployment (true/false).

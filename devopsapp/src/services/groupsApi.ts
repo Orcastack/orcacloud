@@ -22,7 +22,7 @@ export type GroupRole =
   | 'finance'
   | 'viewer'
 export type InviteStatus = 'pending' | 'accepted' | 'declined' | 'expired'
-export type ImportSource = 'github' | 'gitlab' | 'bitbucket' | 'atonix'
+export type ImportSource = 'github' | 'gitlab' | 'bitbucket' | 'orcacloud'
 
 // Permission keys mirror the backend PERMISSION_MATRIX
 export type GroupPermissionKey =

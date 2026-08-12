@@ -6,7 +6,7 @@
 set -e
 
 ENVIRONMENT=${1:-production}
-PROJECT_DIR="/home/atonixdev/orcacloud"
+PROJECT_DIR="/home/orcacloud/orcacloud"
 
 echo "[DEPLOY] Deploying OrcaCloud to $ENVIRONMENT environment..."
 

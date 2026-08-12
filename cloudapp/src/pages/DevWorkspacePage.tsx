@@ -57,12 +57,12 @@ const t = dashboardTokens.colors;
 // ── Options ───────────────────────────────────────────────────────────────────
 
 const IMAGES = [
-  { value: 'atonix/devbox:22.04-lts',   label: 'Ubuntu 22.04 LTS (default)' },
-  { value: 'atonix/devbox:24.04-lts',   label: 'Ubuntu 24.04 LTS' },
-  { value: 'atonix/devbox:node20',       label: 'Node.js 20' },
-  { value: 'atonix/devbox:python312',    label: 'Python 3.12' },
-  { value: 'atonix/devbox:golang123',    label: 'Go 1.23' },
-  { value: 'atonix/devbox:rust',         label: 'Rust (stable)' },
+  { value: 'orcacloud/devbox:22.04-lts',   label: 'Ubuntu 22.04 LTS (default)' },
+  { value: 'orcacloud/devbox:24.04-lts',   label: 'Ubuntu 24.04 LTS' },
+  { value: 'orcacloud/devbox:node20',       label: 'Node.js 20' },
+  { value: 'orcacloud/devbox:python312',    label: 'Python 3.12' },
+  { value: 'orcacloud/devbox:golang123',    label: 'Go 1.23' },
+  { value: 'orcacloud/devbox:rust',         label: 'Rust (stable)' },
 ];
 
 const IDES = [
@@ -127,7 +127,7 @@ function CreateDialog({ open, onClose, onCreated }: CreateDialogProps) {
   const [err,  setErr]  = useState<string | null>(null);
   const [form, setForm] = useState<CreateDevWorkspacePayload>({
     workspace_id: '', display_name: '',
-    region: 'us-east-1', image: 'atonix/devbox:22.04-lts', ide: 'VS Code',
+    region: 'us-east-1', image: 'orcacloud/devbox:22.04-lts', ide: 'VS Code',
   });
 
   const slugify = (v: string) => v.toLowerCase().replace(/[^a-z0-9-]/g, '-').replace(/-+/g, '-');

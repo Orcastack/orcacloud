@@ -52,7 +52,7 @@ resources:
   private_network:
     type: OS::Neutron::Net
     properties:
-      name: { str_replace: { template: "atonix-public-net-%wsid%", params: { "%wsid%": { get_param: "OS::stack_name" } } } }
+      name: { str_replace: { template: "orcacloud-public-net-%wsid%", params: { "%wsid%": { get_param: "OS::stack_name" } } } }
 
   private_subnet:
     type: OS::Neutron::Subnet
@@ -78,7 +78,7 @@ resources:
   security_group:
     type: OS::Neutron::SecurityGroup
     properties:
-      name: { str_replace: { template: "atonix-public-sg-%wsid%", params: { "%wsid%": { get_param: "OS::stack_name" } } } }
+      name: { str_replace: { template: "orcacloud-public-sg-%wsid%", params: { "%wsid%": { get_param: "OS::stack_name" } } } }
       rules:
         - protocol: tcp
           port_range_min: 22
@@ -95,15 +95,15 @@ resources:
   data_volume:
     type: OS::Cinder::Volume
     properties:
-      name: { str_replace: { template: "atonix-public-vol-%wsid%", params: { "%wsid%": { get_param: "OS::stack_name" } } } }
+      name: { str_replace: { template: "orcacloud-public-vol-%wsid%", params: { "%wsid%": { get_param: "OS::stack_name" } } } }
       size: { get_param: volume_size_gb }
-      volume_type: atonix-public-cinder   # maps to atonix-public-cinder Ceph pool
+      volume_type: orcacloud-public-cinder   # maps to orcacloud-public-cinder Ceph pool
 
   # ── Server ───────────────────────────────────────────────────────────────────
   server:
     type: OS::Nova::Server
     properties:
-      name: { str_replace: { template: "atonix-public-vm-%wsid%", params: { "%wsid%": { get_param: "OS::stack_name" } } } }
+      name: { str_replace: { template: "orcacloud-public-vm-%wsid%", params: { "%wsid%": { get_param: "OS::stack_name" } } } }
       image:  { get_param: image }
       flavor: { get_param: flavor }
       key_name: { get_param: key_name }

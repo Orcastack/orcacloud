@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: orcacloud-mlops-
+  namespace: argo
+  labels:
+    app.kubernetes.io/part-of: orcacloud-mlops
+spec:
+  entrypoint: mlops
+  serviceAccountName: mlops-pipeline
+  arguments:
+    parameters:
+      - name: image
+        value: ghcr.io/orcacloud/ml-inference:0.1.0
+  templates:
+    - name: mlops
+      container:
+        image: ghcr.io/orcacloud/ml-inference:0.1.0
+        command: [python, /app/pipeline.py]
+        args: [--config, /app/pipeline-config.json, --apply]
+        env:
+          - name: MLOPS_INFERENCE_IMAGE
+            value: "{{workflow.parameters.image}}"
+          - name: MLOPS_STATE_ROOT
+            value: /state
+        volumeMounts:
+          - name: mlops-state
+            mountPath: /state
+  volumes:
+    - name: mlops-state
+      persistentVolumeClaim:
+        claimName: mlops-state

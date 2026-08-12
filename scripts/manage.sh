@@ -5,7 +5,7 @@
 
 set -e
 
-PROJECT_DIR="/home/atonixdev/orcacloud"
+PROJECT_DIR="/home/orcacloud/orcacloud"
 cd $PROJECT_DIR
 
 # Colors for output

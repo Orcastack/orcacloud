@@ -32,9 +32,9 @@ variable "project_name" {
   description = "Name of the project"
   type        = string
 <<<<<<< HEAD
-  default     = "orcacompute"
+  default     = "orcacloud"
 =======
-  default     = "orcacompute"
+  default     = "orcacloud"
 >>>>>>> 12bd998bda7cee255affa733e542706dbab8dcfb
 }
 
@@ -63,9 +63,9 @@ variable "namespace" {
   description = "Kubernetes namespace"
   type        = string
 <<<<<<< HEAD
-  default     = "orcacompute"
+  default     = "orcacloud"
 =======
-  default     = "orcacompute"
+  default     = "orcacloud"
 >>>>>>> 12bd998bda7cee255affa733e542706dbab8dcfb
 }
 
@@ -168,13 +168,13 @@ variable "zookeeper_jmx_port" {
 variable "database_name" {
   description = "PostgreSQL database name"
   type        = string
-  default     = "orcacompute_db"
+  default     = "orcacloud_db"
 }
 
 variable "database_username" {
   description = "PostgreSQL username"
   type        = string
-  default     = "atonixuser"
+  default     = "orcaclouduser"
 }
 
 # ==========================
@@ -190,7 +190,7 @@ variable "image_registry" {
 variable "backend_image_repository" {
   description = "Backend image repository"
   type        = string
-  default     = "orcacompute/platform-backend"
+  default     = "orcacloud/platform-backend"
 }
 
 variable "backend_image_tag" {
@@ -203,9 +203,9 @@ variable "frontend_image_repository" {
   description = "Frontend image repository"
   type        = string
 <<<<<<< HEAD
-  default     = "orcacompute/platform-frontend"
+  default     = "orcacloud/platform-frontend"
 =======
-  default     = "orcacompute/orcacompute-frontend"
+  default     = "orcacloud/orcacloud-frontend"
 >>>>>>> 12bd998bda7cee255affa733e542706dbab8dcfb
 }
 
@@ -292,7 +292,7 @@ variable "allowed_hosts" {
 variable "cors_allowed_origins" {
   description = "CORS allowed origins"
   type        = list(string)
-  default     = ["http://localhost:3000", "https://orcacompute.com"]
+  default     = ["http://localhost:3000", "https://orcacloud.com"]
 }
 
 variable "api_url" {
@@ -308,13 +308,13 @@ variable "api_url" {
 variable "domain_name" {
   description = "Domain name for ingress"
   type        = string
-  default     = "orcacompute.com"
+  default     = "orcacloud.com"
 }
 
 variable "tls_secret_name" {
   description = "Name of the TLS secret for HTTPS"
   type        = string
-  default     = "orcacompute-tls"
+  default     = "orcacloud-tls"
 }
 
 variable "ingress_class" {
@@ -560,7 +560,7 @@ variable "kafka_external_node_port" {
 variable "ruby_image_repository" {
   description = "Docker repository for the Ruby service image"
   type        = string
-  default     = "orcacompute/orcacompute-ruby-service"
+  default     = "orcacloud/orcacloud-ruby-service"
 }
 
 variable "ruby_image_tag" {

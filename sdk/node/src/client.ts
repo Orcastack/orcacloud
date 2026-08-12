@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from 'axios';
 
-export class AtonixClient {
+export class OrcaCloudClient {
   private readonly http: AxiosInstance;
 
   constructor(baseURL: string, token: string, timeout = 30000) {

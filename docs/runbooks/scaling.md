@@ -41,7 +41,7 @@ compute-04 ansible_host=10.0.1.24 ansible_user=ubuntu
 ### 3. Run the compute playbook
 
 ```bash
-cd /home/atonixdev/orcacloud
+cd /home/orcacloud/orcacloud
 ansible-playbook -i ansible/inventory/production.ini \
   ansible/playbooks/openstack-compute.yml \
   --limit compute-04 \
@@ -198,25 +198,25 @@ openstack quota show <os-project-name>
 ```bash
 # 1. Check current pool exhaustion
 openstack floating ip list | wc -l
-openstack network show atonix-public-external-subnet | grep allocation
+openstack network show orcacloud-public-external-subnet | grep allocation
 
 # 2. Add an additional allocation range to the external subnet
 openstack subnet set \
   --allocation-pool start=203.0.113.100,end=203.0.113.199 \
-  atonix-public-external-subnet
+  orcacloud-public-external-subnet
 
 # 3. Verify new pool
-openstack subnet show atonix-public-external-subnet | grep allocation_pools
+openstack subnet show orcacloud-public-external-subnet | grep allocation_pools
 
 # 4. If the external IP block is exhausted — coordinate with networking team
 #    to assign a new /24 and create a new external subnet:
 openstack subnet create \
-  --network atonix-public-external \
+  --network orcacloud-public-external \
   --subnet-range 203.0.114.0/24 \
   --no-dhcp \
   --gateway 203.0.114.1 \
   --allocation-pool start=203.0.114.10,end=203.0.114.254 \
-  atonix-public-external-subnet-2
+  orcacloud-public-external-subnet-2
 ```
 
 ---
@@ -229,7 +229,7 @@ openstack subnet create \
 
 ```bash
 # Using the OrcaCloud management command
-cd /home/atonixdev/orcacloud/backend
+cd /home/orcacloud/orcacloud/backend
 python manage.py seed_service_catalog
 
 # Or add a single entry via API (platform_admin role required)

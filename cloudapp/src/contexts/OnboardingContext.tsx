@@ -185,7 +185,7 @@ interface OnboardingProviderProps {
 
 export const OnboardingProvider: React.FC<OnboardingProviderProps> = ({ children }) => {
   const ONBOARDING_STATE_KEY = 'orcacloud-onboarding-state';
-  const LEGACY_ONBOARDING_STATE_KEY = 'atonix-onboarding-state';
+  const LEGACY_ONBOARDING_STATE_KEY = 'orcacloud-onboarding-state';
 
   // Initialise state synchronously from localStorage to avoid redirect flicker
   const [state, dispatch] = useReducer(onboardingReducer, initialState, (init) => {

@@ -49,7 +49,7 @@ import FileBrowserPanel from '../components/FileBrowserPanel';
 const FONT = dashboardTokens.typography.fontFamily;
 const t = dashboardTokens.colors;
 const PROJECT_LIST_KEY = 'orcacloud:projects:list:v1';
-const LEGACY_PROJECT_LIST_KEY = 'atonix:projects:list:v1';
+const LEGACY_PROJECT_LIST_KEY = 'orcacloud:projects:list:v1';
 
 function readProjectListCache<T = any>(): T[] {
   const raw = localStorage.getItem(PROJECT_LIST_KEY) || localStorage.getItem(LEGACY_PROJECT_LIST_KEY) || '[]';
@@ -575,7 +575,7 @@ const ProjectDashboardPage: React.FC = () => {
                   </Typography>
                 </Stack>
                 <Stack direction="row" alignItems="center" spacing={0.4}>
-                  {repo?.provider && repo.provider !== 'atonix' && (
+                  {repo?.provider && repo.provider !== 'orcacloud' && (
                     <Chip label={repo.provider} size="small"
                       sx={{ height: 16, fontSize: '.58rem', fontWeight: 700, bgcolor: t.surfaceSubtle, color: t.textSecondary, border: `1px solid ${t.border}`, '& .MuiChip-label': { px: 0.6 } }}
                     />

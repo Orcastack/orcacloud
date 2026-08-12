@@ -99,7 +99,7 @@ const RepoSetupPage: React.FC = () => {
     try {
       await postRepo({
         project:        projectId,
-        provider:       'atonix',
+        provider:       'orcacloud',
         repo_name:      slugify(repoName),
         default_branch: 'main',
         init_readme:    String(initReadme),

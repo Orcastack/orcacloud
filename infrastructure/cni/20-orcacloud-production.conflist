@@ -1,0 +1,91 @@
+# CNI Configuration for Production Environment
+# High-performance networking with security and monitoring
+
+{
+  "cniVersion": "1.0.0",
+  "name": "orcacloud-production",
+  "plugins": [
+    {
+      "type": "bridge",
+      "bridge": "orcacloud-prod-br0",
+      "isGateway": true,
+      "isDefaultGateway": true,
+      "ipMasq": true,
+      "hairpinMode": false,
+      "ipam": {
+        "type": "host-local",
+        "subnet": "192.168.100.0/24",
+        "rangeStart": "192.168.100.10",
+        "rangeEnd": "192.168.100.250",
+        "gateway": "192.168.100.1",
+        "routes": [
+          {
+            "dst": "0.0.0.0/0",
+            "gw": "192.168.100.1"
+          }
+        ],
+        "dataDir": "/var/lib/cni/networks/orcacloud-production"
+      }
+    },
+    {
+      "type": "vlan",
+      "masterInterface": "eth0",
+      "vlanId": 100
+    },
+    {
+      "type": "portmap",
+      "capabilities": {
+        "portMappings": true
+      },
+      "externalSetMarkChain": "ORCACLOUD-PORTMAP"
+    },
+    {
+      "type": "firewall",
+      "backend": "iptables",
+      "iptablesAdminChainName": "ORCACLOUD-ADMIN",
+      "runtimeConfig": {
+        "firewallRules": [
+          {
+            "protocol": "tcp",
+            "port": 22,
+            "action": "ACCEPT",
+            "comment": "Allow SSH"
+          },
+          {
+            "protocol": "tcp",
+            "port": 80,
+            "action": "ACCEPT",
+            "comment": "Allow HTTP"
+          },
+          {
+            "protocol": "tcp",
+            "port": 443,
+            "action": "ACCEPT",
+            "comment": "Allow HTTPS"
+          },
+          {
+            "protocol": "tcp",
+            "port": 8080,
+            "action": "ACCEPT",
+            "comment": "Allow OrcaCloud Platform"
+          }
+        ]
+      }
+    },
+    {
+      "type": "bandwidth",
+      "ingressRate": 1000000000,
+      "ingressBurst": 100000000,
+      "egressRate": 1000000000,
+      "egressBurst": 100000000
+    },
+    {
+      "type": "tuning",
+      "sysctl": {
+        "net.core.somaxconn": "65535",
+        "net.ipv4.tcp_max_syn_backlog": "65535",
+        "net.ipv4.ip_local_port_range": "1024 65535"
+      }
+    }
+  ]
+}

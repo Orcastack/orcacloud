@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: atonix-pv-postgresql
+  name: orcacloud-pv-postgresql
   labels:
     type: local
 spec:
@@ -12,12 +12,12 @@ spec:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Delete
   hostPath:
-    path: /var/lib/atonix-storage/postgresql
+    path: /var/lib/orcacloud-storage/postgresql
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: atonix-pv-redis
+  name: orcacloud-pv-redis
   labels:
     type: local
 spec:
@@ -28,12 +28,12 @@ spec:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Delete
   hostPath:
-    path: /var/lib/atonix-storage/redis
+    path: /var/lib/orcacloud-storage/redis
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: atonix-pv-zookeeper-data
+  name: orcacloud-pv-zookeeper-data
   labels:
     type: local
 spec:
@@ -44,12 +44,12 @@ spec:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Delete
   hostPath:
-    path: /var/lib/atonix-storage/zookeeper-data
+    path: /var/lib/orcacloud-storage/zookeeper-data
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: atonix-pv-zookeeper-logs
+  name: orcacloud-pv-zookeeper-logs
   labels:
     type: local
 spec:
@@ -60,12 +60,12 @@ spec:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Delete
   hostPath:
-    path: /var/lib/atonix-storage/zookeeper-logs
+    path: /var/lib/orcacloud-storage/zookeeper-logs
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: atonix-pv-kafka-data
+  name: orcacloud-pv-kafka-data
   labels:
     type: local
 spec:
@@ -76,12 +76,12 @@ spec:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Delete
   hostPath:
-    path: /var/lib/atonix-storage/kafka-data
+    path: /var/lib/orcacloud-storage/kafka-data
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: atonix-pv-kafka-logs
+  name: orcacloud-pv-kafka-logs
   labels:
     type: local
 spec:
@@ -92,4 +92,4 @@ spec:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Delete
   hostPath:
-    path: /var/lib/atonix-storage/kafka-logs
+    path: /var/lib/orcacloud-storage/kafka-logs

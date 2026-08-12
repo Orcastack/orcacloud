@@ -3,7 +3,7 @@ import type { User } from '../types/auth';
 const AUTH_TOKEN_KEY = 'authToken';
 const AUTH_USER_KEY = 'orcacloud-auth-user';
 const ONBOARDING_STATE_KEY = 'orcacloud-onboarding-state';
-const LEGACY_ONBOARDING_STATE_KEY = 'atonix-onboarding-state';
+const LEGACY_ONBOARDING_STATE_KEY = 'orcacloud-onboarding-state';
 const TRANSFER_TOKEN_PARAM = 'portalToken';
 const TRANSFER_USER_PARAM = 'portalUser';
 const TRANSFER_ONBOARDING_PARAM = 'portalOnboarding';

@@ -70,19 +70,19 @@ setup_namespaces() {
     sysctl -p /etc/sysctl.d/99-cni-forwarding.conf
     
     # Create bridge for container networking
-    if ! ip link show atonix-br0 &>/dev/null; then
-        ip link add name atonix-br0 type bridge
-        ip addr add 10.100.0.1/16 dev atonix-br0
-        ip link set atonix-br0 up
-        log "Created bridge atonix-br0"
+    if ! ip link show orcacloud-br0 &>/dev/null; then
+        ip link add name orcacloud-br0 type bridge
+        ip addr add 10.100.0.1/16 dev orcacloud-br0
+        ip link set orcacloud-br0 up
+        log "Created bridge orcacloud-br0"
     else
-        warn "Bridge atonix-br0 already exists"
+        warn "Bridge orcacloud-br0 already exists"
     fi
     
     # Setup iptables rules for NAT
-    iptables -t nat -A POSTROUTING -s 10.100.0.0/16 ! -o atonix-br0 -j MASQUERADE
-    iptables -A FORWARD -i atonix-br0 -j ACCEPT
-    iptables -A FORWARD -o atonix-br0 -j ACCEPT
+    iptables -t nat -A POSTROUTING -s 10.100.0.0/16 ! -o orcacloud-br0 -j MASQUERADE
+    iptables -A FORWARD -i orcacloud-br0 -j ACCEPT
+    iptables -A FORWARD -o orcacloud-br0 -j ACCEPT
     
     log "Network namespaces configured"
 }
@@ -171,8 +171,8 @@ Before=containerd.service docker.service
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-ExecStart=/bin/bash -c 'ip link add name atonix-br0 type bridge 2>/dev/null || true; ip addr add 10.100.0.1/16 dev atonix-br0 2>/dev/null || true; ip link set atonix-br0 up'
-ExecStop=/bin/bash -c 'ip link del atonix-br0 2>/dev/null || true'
+ExecStart=/bin/bash -c 'ip link add name orcacloud-br0 type bridge 2>/dev/null || true; ip addr add 10.100.0.1/16 dev orcacloud-br0 2>/dev/null || true; ip link set orcacloud-br0 up'
+ExecStop=/bin/bash -c 'ip link del orcacloud-br0 2>/dev/null || true'
 
 [Install]
 WantedBy=multi-user.target
@@ -200,8 +200,8 @@ validate_installation() {
     fi
     
     # Check bridge
-    if ! ip link show atonix-br0 &>/dev/null; then
-        error "CNI bridge atonix-br0 not found"
+    if ! ip link show orcacloud-br0 &>/dev/null; then
+        error "CNI bridge orcacloud-br0 not found"
     fi
     
     log "CNI installation validated successfully"

@@ -92,7 +92,7 @@ const severityColor = (severity: 'Low' | 'Medium' | 'High' | 'Critical') => {
 };
 
 const NEW_DEPLOY_KEY = 'ORCACLOUD_NEW_DEPLOY';
-const LEGACY_NEW_DEPLOY_KEY = 'ATONIX_NEW_DEPLOY';
+const LEGACY_NEW_DEPLOY_KEY = 'ORCACLOUD_NEW_DEPLOY';
 
 const DevDeploymentsPage: React.FC = () => {
   const navigate = useNavigate();

@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: CronWorkflow
+metadata:
+  name: orcacloud-mlops-monitor
+  namespace: argo
+spec:
+  schedule: "*/15 * * * *"
+  concurrencyPolicy: Forbid
+  workflowSpec:
+    entrypoint: monitor
+    serviceAccountName: mlops-pipeline
+    templates:
+      - name: monitor
+        container:
+          image: ghcr.io/orcacloud/ml-inference:0.1.0
+          command: [python, /app/pipeline.py]
+          args: [--config, /app/pipeline-config.json, --monitor-only, --retrain-if-needed, --apply]
+          env:
+            - name: MLOPS_STATE_ROOT
+              value: /state
+          volumeMounts:
+            - name: mlops-state
+              mountPath: /state
+    volumes:
+      - name: mlops-state
+        persistentVolumeClaim:
+          claimName: mlops-state

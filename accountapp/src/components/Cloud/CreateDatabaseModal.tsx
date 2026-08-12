@@ -143,7 +143,7 @@ const CreateDatabaseModal: React.FC<Props> = ({ open, onClose, onSuccess }) => {
   const [selTenancy, setSelTenancy] = useState<DBTenancy>('shared');
   const [selRegion, setSelRegion] = useState<DBRegion>('af-south-1');
   const [name, setName]           = useState('');
-  const [dbName, setDbName]       = useState('atonix');
+  const [dbName, setDbName]       = useState('orcacloud');
   const [sslEnabled, setSsl]      = useState(true);
   const [publicAccess, setPublic] = useState(false);
   const [backupEnabled, setBackup] = useState(true);
@@ -157,7 +157,7 @@ const CreateDatabaseModal: React.FC<Props> = ({ open, onClose, onSuccess }) => {
 
   const handleReset = () => {
     setStep(0); setSelEngine(null); setSelVersion(''); setSelPlan(null);
-    setName(''); setDbName('atonix'); setError('');
+    setName(''); setDbName('orcacloud'); setError('');
     setSelTenancy('shared'); setSelRegion('af-south-1');
   };
 
@@ -184,7 +184,7 @@ const CreateDatabaseModal: React.FC<Props> = ({ open, onClose, onSuccess }) => {
         storage_gb:            selPlan.storage_gb,
         read_replicas:         0,
         region:                selRegion,
-        database_name:         dbName || 'atonix',
+        database_name:         dbName || 'orcacloud',
         ssl_enabled:           sslEnabled,
         publicly_accessible:   publicAccess,
         backup_enabled:        backupEnabled,

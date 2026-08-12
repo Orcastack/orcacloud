@@ -61,7 +61,7 @@ Control plane guidance:
 
 Repository implementation points:
 
-- Region profile examples in `backend/clouds.yaml.example`
+- Region profile examples in `cloudapi/clouds.yaml.example`
 - Runtime routing through `WorkspaceService.get_connection(binding)`
 
 ### 3.2 Identity and Access
@@ -360,7 +360,7 @@ Recommended ownership split:
 
 ## 14) Immediate Next Steps in This Repo
 
-1. Use `backend/clouds.yaml.example` new RegionA/B/C profiles as baseline.
+1. Use `cloudapi/clouds.yaml.example` new RegionA/B/C profiles as baseline.
 2. Execute `docs/cloud-enablement/ROLLOUT_CHECKLIST.yaml` and track evidence.
 3. Update Terraform and Ansible assets per region and service matrix.
 4. Add API-level service catalog payloads for dashboard rendering.

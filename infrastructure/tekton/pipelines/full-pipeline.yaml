@@ -35,7 +35,7 @@ spec:
   - name: registry-url
     type: string
     description: Container registry URL.
-    default: quay.io/atonixdev
+    default: quay.io/orcacloud
   - name: staging-namespace
     type: string
     description: Kubernetes namespace for staging deployment.
@@ -80,9 +80,9 @@ spec:
       workspace: shared-data
     params:
     - name: TEST_TYPE
-      value: "backend"
+      value: "cloudapi"
 
-  - name: run-frontend-tests
+  - name: run-webapp-tests
     taskRef:
       name: run-tests
     runAfter: ["fetch-source"]
@@ -91,7 +91,7 @@ spec:
       workspace: shared-data
     params:
     - name: TEST_TYPE
-      value: "frontend"
+      value: "webapp"
 
   - name: security-code-scan
     taskRef:
@@ -107,7 +107,7 @@ spec:
   - name: build-push-image
     taskRef:
       name: build-docker-image
-    runAfter: ["run-unit-tests", "run-frontend-tests", "security-code-scan"]
+    runAfter: ["run-unit-tests", "run-webapp-tests", "security-code-scan"]
     workspaces:
     - name: source
       workspace: shared-data

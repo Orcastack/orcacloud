@@ -16,41 +16,41 @@ run:
     - -c
     - |
       set -e
-      
+
       echo "Running code linting and static analysis..."
       cd orcacloud-source
-      
-      # Backend linting
-      echo "Linting backend code..."
-      cd backend
-      
+
+      # cloudapi linting
+      echo "Linting cloudapi code..."
+      cd cloudapi
+
       # Install linting tools
       pip install flake8 black isort bandit mypy
-      
+
       # Run Python linting
       echo "Running flake8..."
       flake8 . --max-line-length=88 --extend-ignore=E203,W503
-      
+
       echo "Running black (check only)..."
       black --check --diff .
-      
+
       echo "Running isort (check only)..."
       isort --check-only --diff .
-      
+
       echo "Running bandit security linter..."
       bandit -r . -f json -o bandit-report.json || true
-      
+
       echo "Running mypy type checking..."
       mypy . --ignore-missing-imports || true
-      
-      # Frontend linting
-      echo "Linting frontend code..."
-      cd ../frontend
-      
+
+      # webapp linting
+      echo "Linting webapp code..."
+      cd ../webapp
+
       echo "Running ESLint..."
       npm run lint
-      
+
       echo "Running TypeScript compiler check..."
       npx tsc --noEmit
-      
+
       echo "Code linting completed successfully"

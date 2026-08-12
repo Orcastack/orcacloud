@@ -31,7 +31,7 @@ import { createProject as createProjectApi } from '../services/projectsApi';
 const FONT = '"IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif';
 const t = dashboardTokens.colors;
 const STORAGE_KEY = 'orcacloud:project-create:v2';
-const LEGACY_STORAGE_KEY = 'atonix:project-create:v2';
+const LEGACY_STORAGE_KEY = 'orcacloud:project-create:v2';
 
 type Visibility = 'private' | 'team' | 'public';
 type WorkspaceMode = 'skip' | 'existing' | 'new';
@@ -261,7 +261,7 @@ const ProjectCreateWizardPage: React.FC = () => {
       };
       try {
         const newPipelineKey = `orcacloud:pipeline-config:${derived.projectId}`;
-        const legacyPipelineKey = `atonix:pipeline-config:${derived.projectId}`;
+        const legacyPipelineKey = `orcacloud:pipeline-config:${derived.projectId}`;
         const serialized = JSON.stringify(pipelineConfig);
         localStorage.setItem(newPipelineKey, serialized);
         localStorage.setItem(legacyPipelineKey, serialized);
@@ -568,7 +568,7 @@ const ProjectCreateWizardPage: React.FC = () => {
 
               <Divider sx={{ borderColor: t.border }} />
               <Alert severity="info" sx={{ bgcolor: 'rgba(21,61,117,0.08)', border: `1px solid ${dashboardTokens.colors.brandPrimary}33` }}>
-                On creation the system will initialize/clone repository, auto-detect language, generate <strong>.orcacloud/pipeline.yaml</strong> (legacy <strong>.atonix/pipeline.yaml</strong> is still recognized), initialize CI/CD, and connect repository to workspace when a workspace exists.
+                On creation the system will initialize/clone repository, auto-detect language, generate <strong>.orcacloud/pipeline.yaml</strong> (legacy <strong>.orcacloud/pipeline.yaml</strong> is still recognized), initialize CI/CD, and connect repository to workspace when a workspace exists.
               </Alert>
             </Stack>
           )}
@@ -798,7 +798,7 @@ const ProjectCreateWizardPage: React.FC = () => {
 
                   <Divider sx={{ borderColor: t.border }} />
                   <Alert severity="success" sx={{ bgcolor: 'rgba(34,197,94,.1)', border: '1px solid rgba(34,197,94,.3)' }}>
-                    <strong>Pipeline Ready:</strong> System will generate <code>.orcacloud/pipeline.yaml</code> (legacy <code>.atonix/pipeline.yaml</code> supported) with {state.pipelineTemplate} template, configure {state.pipelineTriggers.join(', ')} triggers, and set up {state.deploymentStrategy} deployment strategy.
+                    <strong>Pipeline Ready:</strong> System will generate <code>.orcacloud/pipeline.yaml</code> (legacy <code>.orcacloud/pipeline.yaml</code> supported) with {state.pipelineTemplate} template, configure {state.pipelineTriggers.join(', ')} triggers, and set up {state.deploymentStrategy} deployment strategy.
                   </Alert>
                 </Stack>
               )}

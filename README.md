@@ -2,7 +2,7 @@
 
 **OrcaCloud. Scalable. Enterprise-Grade.**
 
-OrcaCloud is a full-stack cloud platform built on open-source infrastructure components 
+OrcaCloud is a full-stack cloud platform built on open-source infrastructure components
 
 ---
 
@@ -104,7 +104,7 @@ Execution-ready implementation assets for the multi-region OpenStack + Ceph stra
 
 - `docs/cloud-enablement/IMPLEMENTATION_PLAYBOOK.md`
 - `docs/cloud-enablement/ROLLOUT_CHECKLIST.yaml`
-- `backend/clouds.yaml.example` (RegionA/RegionB/RegionC profiles)
+- `cloudapi/clouds.yaml.example` (RegionA/RegionB/RegionC profiles)
 
 Use these artifacts to drive rollout phases, evidence-based go-live checks, and service-catalog alignment.
 
@@ -309,7 +309,7 @@ gunzip argo-linux-amd64.gz && chmod +x argo-linux-amd64 && sudo mv argo-linux-am
 
 ```bash
 # Copy and fill in your OpenStack credentials
-cp backend/clouds.yaml.example backend/clouds.yaml
+cp cloudapi/clouds.yaml.example cloudapi/clouds.yaml
 
 # Set active cloud
 export OS_CLOUD=orcacloud
@@ -337,8 +337,11 @@ terraform init && terraform apply \
 cd ../../..
 ansible-playbook -i ansible/inventory/openstack.yml ansible/playbooks/k8s-nodes.yml
 
-# 4. Apply Kubernetes manifests
-kubectl apply -k k8s/overlays/production
+# 4. Apply the production Kubernetes baseline
+kubectl apply -k k8s/base
+
+# For local development, use the development overlay instead
+kubectl apply -k k8s/overlays/dev
 ```
 
 ### Deploy Observability Stack

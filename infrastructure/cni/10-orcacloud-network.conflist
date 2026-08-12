@@ -1,0 +1,49 @@
+# CNI Configuration for OrcaCloud Platform
+# Container Network Interface setup for advanced networking
+
+{
+  "cniVersion": "1.0.0",
+  "name": "orcacloud-network",
+  "plugins": [
+    {
+      "type": "bridge",
+      "bridge": "orcacloud-br0",
+      "isGateway": true,
+      "isDefaultGateway": true,
+      "ipMasq": true,
+      "hairpinMode": true,
+      "ipam": {
+        "type": "host-local",
+        "subnet": "10.100.0.0/16",
+        "rangeStart": "10.100.1.10",
+        "rangeEnd": "10.100.254.254",
+        "gateway": "10.100.0.1",
+        "routes": [
+          {
+            "dst": "0.0.0.0/0",
+            "gw": "10.100.0.1"
+          }
+        ],
+        "dataDir": "/var/lib/cni/networks/orcacloud-network"
+      }
+    },
+    {
+      "type": "portmap",
+      "capabilities": {
+        "portMappings": true
+      }
+    },
+    {
+      "type": "firewall",
+      "backend": "iptables",
+      "iptablesAdminChainName": "ORCACLOUD-ADMIN"
+    },
+    {
+      "type": "bandwidth",
+      "ingressRate": 100000000,
+      "ingressBurst": 10000000,
+      "egressRate": 100000000,
+      "egressBurst": 10000000
+    }
+  ]
+}

@@ -58,7 +58,7 @@ const PROVIDER_ICON: Record<string, React.ReactNode> = {
   github:    <GitHubIcon sx={{ fontSize: '1rem', color: t.textPrimary }} />,
   gitlab:    <Box component="span" sx={{ fontWeight: 900, fontSize: '.72rem', color: '#fc6d26', fontFamily: FONT }}>GL</Box>,
   bitbucket: <Box component="span" sx={{ fontWeight: 900, fontSize: '.72rem', color: '#0052cc', fontFamily: FONT }}>BB</Box>,
-  atonix:    <AccountTreeIcon sx={{ fontSize: '1rem', color: t.brandPrimary }} />,
+  orcacloud:    <AccountTreeIcon sx={{ fontSize: '1rem', color: t.brandPrimary }} />,
 };
 
 function repoUrl(repo: BackendRepository): string {

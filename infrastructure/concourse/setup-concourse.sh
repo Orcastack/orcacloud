@@ -18,7 +18,7 @@ FLY_CLI_VERSION="7.11.2"
 CONCOURSE_URL="http://localhost:8080"
 TEAM="main"
 USERNAME="admin"
-PASSWORD="atonix2024!"
+PASSWORD="orcacloud2024!"
 
 # Logging functions
 log_info() {
@@ -48,7 +48,7 @@ Options:
     -u, --url URL                   Concourse URL (default: http://localhost:8080)
     -t, --team TEAM                 Concourse team (default: main)
     --username USERNAME             Admin username (default: admin)
-    --password PASSWORD             Admin password (default: atonix2024!)
+    --password PASSWORD             Admin password (default: orcacloud2024!)
     -h, --help                      Show this help message
 
 Examples:

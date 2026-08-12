@@ -1,7 +1,7 @@
 # GitLab CI pipeline for building, testing, pushing images and optional k8s deploy
 # IMPORTANT: Do NOT commit secrets. Set CI/CD variables in GitLab project settings:
 # - DOCKER_REGISTRY (e.g. docker.io)
-# - DOCKER_USERNAME (e.g. atonixdev)
+# - DOCKER_USERNAME (e.g. orcacloud)
 # - DOCKER_PASSWORD (token or password)
 # - KUBE_CONFIG (base64-encoded kubeconfig) [optional for deploy]
 # - K8S_NAMESPACE (defaults to orcacloud)
@@ -13,32 +13,32 @@ stages:
   - deploy
 
 variables:
-  IMAGE_REPO_FRONTEND: "atonixdev/orcacloud-frontend"
-  IMAGE_REPO_BACKEND: "atonixdev/orcacloud-backend"
+  IMAGE_REPO_WEBAPP: "orcacloud/orcacloud-webapp"
+  IMAGE_REPO_CLOUDAPI: "orcacloud/orcacloud-cloudapi"
   TAG: "${CI_COMMIT_SHORT_SHA}"
   K8S_NAMESPACE: "${K8S_NAMESPACE:-orcacloud}"
 
 # Test backend using Python image
-test-backend:
+test-cloudapi:
   stage: test
   image: python:3.11-slim
   script:
     - pip install --upgrade pip
-    - pip install -r backend/requirements.txt || true
-    - pushd backend
+    - pip install -r cloudapi/requirements.txt
+    - pushd cloudapi
     - python manage.py test --verbosity=1 || true
     - popd
   artifacts:
     when: always
     paths:
-      - backend/test-reports/ || []
+      - cloudapi/test-reports/ || []
 
 # Test frontend using Node
-test-frontend:
+test-webapp:
   stage: test
   image: node:18
   script:
-    - pushd frontend
+    - pushd webapp
     - npm ci --legacy-peer-deps
     - npm run test -- --watchAll=false || true
     - popd
@@ -55,8 +55,8 @@ build-images:
     - echo "Logging into registry $DOCKER_REGISTRY"
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin $DOCKER_REGISTRY
   script:
-    - docker build -t ${DOCKER_REGISTRY}/${IMAGE_REPO_FRONTEND}:${TAG} -f frontend/Dockerfile frontend
-    - docker build -t ${DOCKER_REGISTRY}/${IMAGE_REPO_BACKEND}:${TAG} -f backend/Dockerfile backend
+    - docker build -t ${DOCKER_REGISTRY}/${IMAGE_REPO_WEBAPP}:${TAG} -f webapp/Dockerfile webapp
+    - docker build -t ${DOCKER_REGISTRY}/${IMAGE_REPO_CLOUDAPI}:${TAG} -f cloudapi/Dockerfile cloudapi
   artifacts:
     expire_in: 1 hour
     paths:
@@ -71,12 +71,12 @@ push-images:
   before_script:
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin $DOCKER_REGISTRY
   script:
-    - docker push ${DOCKER_REGISTRY}/${IMAGE_REPO_FRONTEND}:${TAG}
-    - docker tag ${DOCKER_REGISTRY}/${IMAGE_REPO_FRONTEND}:${TAG} ${DOCKER_REGISTRY}/${IMAGE_REPO_FRONTEND}:latest || true
-    - docker push ${DOCKER_REGISTRY}/${IMAGE_REPO_FRONTEND}:latest || true
-    - docker push ${DOCKER_REGISTRY}/${IMAGE_REPO_BACKEND}:${TAG}
-    - docker tag ${DOCKER_REGISTRY}/${IMAGE_REPO_BACKEND}:${TAG} ${DOCKER_REGISTRY}/${IMAGE_REPO_BACKEND}:latest || true
-    - docker push ${DOCKER_REGISTRY}/${IMAGE_REPO_BACKEND}:latest || true
+    - docker push ${DOCKER_REGISTRY}/${IMAGE_REPO_WEBAPP}:${TAG}
+    - docker tag ${DOCKER_REGISTRY}/${IMAGE_REPO_WEBAPP}:${TAG} ${DOCKER_REGISTRY}/${IMAGE_REPO_WEBAPP}:latest
+    - docker push ${DOCKER_REGISTRY}/${IMAGE_REPO_WEBAPP}:latest
+    - docker push ${DOCKER_REGISTRY}/${IMAGE_REPO_CLOUDAPI}:${TAG}
+    - docker tag ${DOCKER_REGISTRY}/${IMAGE_REPO_CLOUDAPI}:${TAG} ${DOCKER_REGISTRY}/${IMAGE_REPO_CLOUDAPI}:latest
+    - docker push ${DOCKER_REGISTRY}/${IMAGE_REPO_CLOUDAPI}:latest
 
 # Optional deploy job: requires KUBE_CONFIG (base64) set as CI variable
 deploy-to-k8s:

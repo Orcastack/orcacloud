@@ -437,20 +437,20 @@ export default function WorkspaceCreationWizard({ open, onClose, onCreated, ente
 
       // Map container template → base image
       const tplToImage: Record<string, string> = {
-        node:    'atonix/devbox:node20',
-        python:  'atonix/devbox:python312',
-        go:      'atonix/devbox:golang123',
-        php:     'atonix/devbox:php83',
-        java:    'atonix/devbox:java21',
-        rust:    'atonix/devbox:rust',
-        ubuntu:  'atonix/devbox:22.04-lts',
+        node:    'orcacloud/devbox:node20',
+        python:  'orcacloud/devbox:python312',
+        go:      'orcacloud/devbox:golang123',
+        php:     'orcacloud/devbox:php83',
+        java:    'orcacloud/devbox:java21',
+        rust:    'orcacloud/devbox:rust',
+        ubuntu:  'orcacloud/devbox:22.04-lts',
         debian:  'debian:bookworm',
-        lxc:     'atonix/devbox:lxc-ubuntu22',
-        nerdctl: 'atonix/devbox:nerdctl-latest',
+        lxc:     'orcacloud/devbox:lxc-ubuntu22',
+        nerdctl: 'orcacloud/devbox:nerdctl-latest',
       }
       payload.image = state.containerTemplate === 'custom'
-        ? (state.customImageUrl.trim() || 'atonix/devbox:22.04-lts')
-        : (tplToImage[state.containerTemplate] ?? 'atonix/devbox:22.04-lts')
+        ? (state.customImageUrl.trim() || 'orcacloud/devbox:22.04-lts')
+        : (tplToImage[state.containerTemplate] ?? 'orcacloud/devbox:22.04-lts')
       payload.pull_image = true
       if (state.containerTemplate === 'custom' && state.customImageUrl.trim()) {
         payload.custom_image_url = state.customImageUrl.trim()
@@ -568,16 +568,16 @@ export default function WorkspaceCreationWizard({ open, onClose, onCreated, ente
     { id: 'kubernetes', label: 'Kubernetes Pod' },
   ]
   const containerTemplates = catalog?.container_templates ?? [
-    { id: 'node',    label: 'Node.js',    image: 'atonix/devbox:node20' },
-    { id: 'python',  label: 'Python',     image: 'atonix/devbox:python312' },
-    { id: 'go',      label: 'Go',         image: 'atonix/devbox:golang123' },
-    { id: 'php',     label: 'PHP',        image: 'atonix/devbox:php83' },
-    { id: 'java',    label: 'Java',       image: 'atonix/devbox:java21' },
-    { id: 'rust',    label: 'Rust',       image: 'atonix/devbox:rust' },
-    { id: 'ubuntu',  label: 'Ubuntu LTS', image: 'atonix/devbox:22.04-lts' },
+    { id: 'node',    label: 'Node.js',    image: 'orcacloud/devbox:node20' },
+    { id: 'python',  label: 'Python',     image: 'orcacloud/devbox:python312' },
+    { id: 'go',      label: 'Go',         image: 'orcacloud/devbox:golang123' },
+    { id: 'php',     label: 'PHP',        image: 'orcacloud/devbox:php83' },
+    { id: 'java',    label: 'Java',       image: 'orcacloud/devbox:java21' },
+    { id: 'rust',    label: 'Rust',       image: 'orcacloud/devbox:rust' },
+    { id: 'ubuntu',  label: 'Ubuntu LTS', image: 'orcacloud/devbox:22.04-lts' },
     { id: 'debian',  label: 'Debian',     image: 'debian:bookworm' },
-    { id: 'lxc',     label: 'LXC',        image: 'atonix/devbox:lxc-ubuntu22' },
-    { id: 'nerdctl', label: 'Nerdctl',    image: 'atonix/devbox:nerdctl-latest' },
+    { id: 'lxc',     label: 'LXC',        image: 'orcacloud/devbox:lxc-ubuntu22' },
+    { id: 'nerdctl', label: 'Nerdctl',    image: 'orcacloud/devbox:nerdctl-latest' },
     { id: 'custom',  label: 'Custom',     image: '' },
   ]
 

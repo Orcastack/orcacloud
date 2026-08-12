@@ -1,9 +1,0 @@
-apiVersion: cache.orcacloud.com/v1alpha1
-kind: OrcaCloud
-metadata:
-  labels:
-    app.kubernetes.io/name: orcacloud-operator
-    app.kubernetes.io/managed-by: kustomize
-  name: orcacloud-sample
-spec:
-  # TODO(user): Add fields here

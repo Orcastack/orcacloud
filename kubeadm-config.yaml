@@ -1,0 +1,23 @@
+apiVersion: kubeadm.k8s.io/v1beta4
+kind: InitConfiguration
+localAPIEndpoint:
+  # Replace with the control-plane node IP on this machine.
+  advertiseAddress: 172.31.139.113
+  bindPort: 6443
+nodeRegistration:
+  criSocket: unix:///run/containerd/containerd.sock
+---
+apiVersion: kubeadm.k8s.io/v1beta4
+kind: ClusterConfiguration
+clusterName: orcacloud
+kubernetesVersion: v1.34.10
+# Optional for HA or a stable DNS/LB endpoint:
+# controlPlaneEndpoint: k8s-api.orcacloud.local:6443
+networking:
+  serviceSubnet: 10.96.0.0/12
+  podSubnet: 192.168.0.0/16
+  dnsDomain: cluster.local
+---
+apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
+cgroupDriver: systemd

@@ -122,7 +122,7 @@ resource "kubernetes_config_map" "prometheus_config" {
         
         # Application services
         {
-          job_name = "orcacompute-backend"
+          job_name = "orcacloud-backend"
           kubernetes_sd_configs = [{
             role = "service"
             namespaces = {
@@ -139,7 +139,7 @@ resource "kubernetes_config_map" "prometheus_config" {
         },
         
         {
-          job_name = "orcacompute-frontend"
+          job_name = "orcacloud-frontend"
           kubernetes_sd_configs = [{
             role = "service"
             namespaces = {
@@ -156,7 +156,7 @@ resource "kubernetes_config_map" "prometheus_config" {
         },
         
         {
-          job_name = "orcacompute-postgresql"
+          job_name = "orcacloud-postgresql"
           kubernetes_sd_configs = [{
             role = "service"
             namespaces = {
@@ -173,7 +173,7 @@ resource "kubernetes_config_map" "prometheus_config" {
         },
         
         {
-          job_name = "orcacompute-redis"
+          job_name = "orcacloud-redis"
           kubernetes_sd_configs = [{
             role = "service"
             namespaces = {
@@ -190,7 +190,7 @@ resource "kubernetes_config_map" "prometheus_config" {
         },
         
         {
-          job_name = "orcacompute-celery"
+          job_name = "orcacloud-celery"
           kubernetes_sd_configs = [{
             role = "service"
             namespaces = {
@@ -207,7 +207,7 @@ resource "kubernetes_config_map" "prometheus_config" {
         },
         
         {
-          job_name = "orcacompute-zookeeper"
+          job_name = "orcacloud-zookeeper"
           kubernetes_sd_configs = [{
             role = "service"
             namespaces = {
@@ -244,9 +244,9 @@ resource "kubernetes_config_map" "prometheus_rules" {
       groups = [
         {
 <<<<<<< HEAD
-          name = "orcacompute"
+          name = "orcacloud"
 =======
-          name = "orcacompute"
+          name = "orcacloud"
 >>>>>>> 12bd998bda7cee255affa733e542706dbab8dcfb
           rules = [
             {
@@ -275,7 +275,7 @@ resource "kubernetes_config_map" "prometheus_rules" {
             },
             {
               alert = "DatabaseDown"
-              expr = "up{job=\"orcacompute-postgresql\"} == 0"
+              expr = "up{job=\"orcacloud-postgresql\"} == 0"
               for = "1m"
               labels = {
                 severity = "critical"
@@ -287,7 +287,7 @@ resource "kubernetes_config_map" "prometheus_rules" {
             },
             {
               alert = "RedisDown"
-              expr = "up{job=\"orcacompute-redis\"} == 0"
+              expr = "up{job=\"orcacloud-redis\"} == 0"
               for = "1m"
               labels = {
                 severity = "warning"
@@ -299,7 +299,7 @@ resource "kubernetes_config_map" "prometheus_rules" {
             },
             {
               alert = "ZookeeperDown"
-              expr = "up{job=\"orcacompute-zookeeper\"} == 0"
+              expr = "up{job=\"orcacloud-zookeeper\"} == 0"
               for = "1m"
               labels = {
                 severity = "critical"

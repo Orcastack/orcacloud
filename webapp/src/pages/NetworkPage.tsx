@@ -95,8 +95,8 @@ const NetworkPage: React.FC = () => {
   });
 
   const [dnsForm, setDnsForm] = useState({
-    zone_id: 'internal.atonix.local',
-    name: 'api.internal.atonix.local',
+    zone_id: 'internal.orcacloud.local',
+    name: 'api.internal.orcacloud.local',
     record_type: 'A',
     ttl: 300,
     values: '10.0.1.10',

@@ -28,7 +28,7 @@ SemanticLogger.default_level = ENV.fetch('LOG_LEVEL', 'info').to_sym
 SemanticLogger.add_appender(file_name: 'log/app.log', formatter: :json)
 
 # Main Application Class
-class OrcaComputeRubyService < Sinatra::Base
+class OrcaCloudRubyService < Sinatra::Base
   # Ensure sinatra-namespace is registered so `namespace` is available
   register Sinatra::Namespace
   use Rack::Protection
@@ -44,7 +44,7 @@ class OrcaComputeRubyService < Sinatra::Base
 
     # Register service with Zookeeper
     begin
-      OrcaCompute::Zookeeper.register_service(
+      OrcaCloud::Zookeeper.register_service(
         'ruby-service',
         ENV.fetch('BIND', '0.0.0.0'),
         ENV.fetch('PORT', 3000).to_i,
@@ -63,7 +63,7 @@ class OrcaComputeRubyService < Sinatra::Base
       if defined?(SemanticLogger) && SemanticLogger.respond_to?(:const_defined?) &&
          SemanticLogger.const_defined?(:Rack) && SemanticLogger::Rack.const_defined?(:Logger)
         use SemanticLogger::Rack::Logger,
-            application: 'orcacompute-ruby-service',
+            application: 'orcacloud-ruby-service',
             log_headers: true
       else
         # Fallback: use Rack's CommonLogger writing to STDOUT so requests are logged
@@ -85,7 +85,7 @@ class OrcaComputeRubyService < Sinatra::Base
         version: ENV.fetch('APP_VERSION', '1.0.0'),
         environment: ENV.fetch('RACK_ENV', 'development'),
         redis_connected: redis_connected?,
-        zookeeper_connected: OrcaCompute::Zookeeper.connected?
+        zookeeper_connected: OrcaCloud::Zookeeper.connected?
       }.to_json
     end
 
@@ -103,7 +103,7 @@ class OrcaComputeRubyService < Sinatra::Base
     get '/info' do
       content_type :json
       {
-        service: 'orcacompute-ruby-service',
+        service: 'orcacloud-ruby-service',
         version: ENV.fetch('APP_VERSION', '1.0.0'),
         uptime: Process.clock_gettime(Process::CLOCK_MONOTONIC),
         ruby_version: RUBY_VERSION,
@@ -152,5 +152,5 @@ if __FILE__ == $PROGRAM_NAME
     Sidekiq::Scheduler.enabled = true
   end
 
-  OrcaComputeRubyService.run!
+  OrcaCloudRubyService.run!
 end

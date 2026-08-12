@@ -51,7 +51,7 @@ resources:
   private_network:
     type: OS::Neutron::Net
     properties:
-      name: { str_replace: { template: "atonix-private-net-%wsid%", params: { "%wsid%": { get_param: "OS::stack_name" } } } }
+      name: { str_replace: { template: "orcacloud-private-net-%wsid%", params: { "%wsid%": { get_param: "OS::stack_name" } } } }
       # provider:network_type vlan is configured by the admin via provider extension
       admin_state_up: true
 
@@ -69,7 +69,7 @@ resources:
   security_group:
     type: OS::Neutron::SecurityGroup
     properties:
-      name: { str_replace: { template: "atonix-private-sg-%wsid%", params: { "%wsid%": { get_param: "OS::stack_name" } } } }
+      name: { str_replace: { template: "orcacloud-private-sg-%wsid%", params: { "%wsid%": { get_param: "OS::stack_name" } } } }
       rules:
         - protocol: tcp
           port_range_min: 22
@@ -79,21 +79,21 @@ resources:
           remote_ip_prefix: { get_param: internal_cidr }
 
   # ── Encrypted Volume ─────────────────────────────────────────────────────────
-  # Cinder volume_type 'atonix-private-cinder-enc' is a Cinder type with
+  # Cinder volume_type 'orcacloud-private-cinder-enc' is a Cinder type with
   # encryption provider 'nova.volume.encryptors.luks.LuksEncryptor' and
   # cipher 'aes-xts-plain64' key_size 512, backed by Barbican.
   data_volume:
     type: OS::Cinder::Volume
     properties:
-      name: { str_replace: { template: "atonix-private-enc-vol-%wsid%", params: { "%wsid%": { get_param: "OS::stack_name" } } } }
+      name: { str_replace: { template: "orcacloud-private-enc-vol-%wsid%", params: { "%wsid%": { get_param: "OS::stack_name" } } } }
       size:        { get_param: volume_size_gb }
-      volume_type: atonix-private-cinder   # encrypted via Barbican + LUKS
+      volume_type: orcacloud-private-cinder   # encrypted via Barbican + LUKS
 
   # ── Server ───────────────────────────────────────────────────────────────────
   server:
     type: OS::Nova::Server
     properties:
-      name: { str_replace: { template: "atonix-private-vm-%wsid%", params: { "%wsid%": { get_param: "OS::stack_name" } } } }
+      name: { str_replace: { template: "orcacloud-private-vm-%wsid%", params: { "%wsid%": { get_param: "OS::stack_name" } } } }
       image:    { get_param: image }
       flavor:   { get_param: flavor }
       key_name: { get_param: key_name }

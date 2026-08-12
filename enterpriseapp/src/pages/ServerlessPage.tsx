@@ -51,7 +51,7 @@ const ServerlessPage: React.FC = () => {
     description: '',
     runtime: 'nodejs20',
     handler: 'index.handler',
-    code_uri: 'ghcr.io/atonix/functions/hello:latest',
+    code_uri: 'ghcr.io/orcacloud/functions/hello:latest',
     memory_mb: 256,
     timeout_seconds: 30,
     environment_variables: {},

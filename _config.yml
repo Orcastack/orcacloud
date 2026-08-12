@@ -23,8 +23,8 @@ exclude:
   - docker-compose*.yml
   - Dockerfile*
   - requirements*.txt
-  - backend/
-  - frontend/
+  - cloudapi/
+  - webapp/
   - scripts/
   - terraform/
   - k8s/
@@ -36,7 +36,7 @@ exclude:
   - infrastructure/
   - nginx/
   - rabbitmq/
-  - atonix/
+  - orcacloud/
   - dev/
   - vscode/
   - __pycache__/

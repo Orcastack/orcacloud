@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group = 'com.orcacompute'
+group = 'com.orcacloud'
 version = '0.1.0'
 
 java {

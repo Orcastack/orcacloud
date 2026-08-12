@@ -8,4 +8,4 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: atonixdev/orcacloud-frontend:1.0.0
+        image: orcacloud/orcacloud-frontend:1.0.0

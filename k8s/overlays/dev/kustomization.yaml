@@ -4,15 +4,15 @@ resources:
   - ../../base
   - local-pvs.yaml
 
-patchesStrategicMerge:
-  - patch-backend-image.yaml
-  - patch-backend-init-image.yaml
-  - patch-frontend-image.yaml
-  - patch-celery-image.yaml
-  - ingress-patch.yaml
-  - toleration-backend.yaml
-  - toleration-frontend.yaml
-  - toleration-postgres.yaml
-  - toleration-redis.yaml
-  - toleration-celery.yaml
-  - toleration-flower.yaml
+patches:
+  - path: patch-backend-image.yaml
+  - path: patch-backend-init-image.yaml
+  - path: patch-frontend-image.yaml
+  - path: patch-celery-image.yaml
+  - path: ingress-patch.yaml
+  - path: toleration-backend.yaml
+  - path: toleration-frontend.yaml
+  - path: toleration-postgres.yaml
+  - path: toleration-redis.yaml
+  - path: toleration-celery.yaml
+  - path: toleration-flower.yaml

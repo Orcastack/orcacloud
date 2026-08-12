@@ -1,4 +1,4 @@
-# Puppet site manifest for OrcaCompute Platform
+# Puppet site manifest for OrcaCloud Platform
 # Main entry point for Puppet configuration
 
 # Global defaults
@@ -8,19 +8,19 @@ Exec {
 
 # Node classifications
 node default {
-  include orcacompute::platform
-  include orcacompute::security
-  include orcacompute::monitoring
+  include orcacloud::platform
+  include orcacloud::security
+  include orcacloud::monitoring
 }
 
 # Development environment nodes
 node /^dev-.*/ {
   $environment = 'development'
-  include orcacompute::platform
-  include orcacompute::security
+  include orcacloud::platform
+  include orcacloud::security
   
   # Development-specific configurations
-  class { 'orcacompute::platform':
+  class { 'orcacloud::platform':
     debug_mode => true,
     log_level  => 'debug',
   }
@@ -29,12 +29,12 @@ node /^dev-.*/ {
 # Production environment nodes
 node /^prod-.*/ {
   $environment = 'production'
-  include orcacompute::platform
-  include orcacompute::security
-  include orcacompute::monitoring
+  include orcacloud::platform
+  include orcacloud::security
+  include orcacloud::monitoring
   
   # Production-specific configurations
-  class { 'orcacompute::platform':
+  class { 'orcacloud::platform':
     debug_mode       => false,
     log_level        => 'warning',
     enable_ssl       => true,
@@ -45,10 +45,10 @@ node /^prod-.*/ {
 # Staging environment nodes
 node /^staging-.*/ {
   $environment = 'staging'
-  include orcacompute::platform
-  include orcacompute::security
+  include orcacloud::platform
+  include orcacloud::security
   
-  class { 'orcacompute::platform':
+  class { 'orcacloud::platform':
     debug_mode => false,
     log_level  => 'info',
     enable_ssl => true,

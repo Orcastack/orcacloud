@@ -19,7 +19,7 @@ All base images must include:
 - `cloud-init` (for Nova user-data)
 - `qemu-guest-agent`
 - `node_exporter` (Prometheus metrics — port 9100)
-- `atonix-cloud-agent` (custom, for lifecycle hooks)
+- `orcacloud-cloud-agent` (custom, for lifecycle hooks)
 
 ## Image Lifecycle
 

@@ -9,7 +9,7 @@ export interface EnterpriseRecord {
 }
 
 const ____STORAGE_KEY = 'orcacloud_enterprises_v1';
-const ____LEGACY_STORAGE_KEY = 'atonix_enterprises_v1';
+const ____LEGACY_STORAGE_KEY = 'orcacloud_enterprises_v1';
 
 function readAll(): EnterpriseRecord[] {
   try {

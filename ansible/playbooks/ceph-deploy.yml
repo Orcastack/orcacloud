@@ -96,17 +96,17 @@
       command: >
         ceph osd pool create {{ item.name }} {{ item.pg }} {{ item.pg }} replicated
       loop:
-        - { name: atonix-public-cinder,  pg: 128 }
-        - { name: atonix-public-glance,  pg: 64  }
-        - { name: atonix-public-nova,    pg: 128 }
-        - { name: atonix-public-rgw,     pg: 64  }
-        - { name: atonix-private-cinder, pg: 128 }
-        - { name: atonix-private-glance, pg: 64  }
-        - { name: atonix-private-nova,   pg: 128 }
-        - { name: atonix-hybrid-cinder,  pg: 128 }
-        - { name: atonix-hybrid-glance,  pg: 64  }
-        - { name: atonix-hybrid-nova,    pg: 128 }
-        - { name: atonix-hybrid-rgw,     pg: 64  }
+        - { name: orcacloud-public-cinder,  pg: 128 }
+        - { name: orcacloud-public-glance,  pg: 64  }
+        - { name: orcacloud-public-nova,    pg: 128 }
+        - { name: orcacloud-public-rgw,     pg: 64  }
+        - { name: orcacloud-private-cinder, pg: 128 }
+        - { name: orcacloud-private-glance, pg: 64  }
+        - { name: orcacloud-private-nova,   pg: 128 }
+        - { name: orcacloud-hybrid-cinder,  pg: 128 }
+        - { name: orcacloud-hybrid-glance,  pg: 64  }
+        - { name: orcacloud-hybrid-nova,    pg: 128 }
+        - { name: orcacloud-hybrid-rgw,     pg: 64  }
       ignore_errors: true
       tags: [pools]
 
@@ -115,15 +115,15 @@
       command: >
         ceph osd pool application enable {{ item }} rbd
       loop:
-        - atonix-public-cinder
-        - atonix-public-nova
-        - atonix-public-glance
-        - atonix-private-cinder
-        - atonix-private-nova
-        - atonix-private-glance
-        - atonix-hybrid-cinder
-        - atonix-hybrid-nova
-        - atonix-hybrid-glance
+        - orcacloud-public-cinder
+        - orcacloud-public-nova
+        - orcacloud-public-glance
+        - orcacloud-private-cinder
+        - orcacloud-private-nova
+        - orcacloud-private-glance
+        - orcacloud-hybrid-cinder
+        - orcacloud-hybrid-nova
+        - orcacloud-hybrid-glance
       ignore_errors: true
       tags: [pools]
 
@@ -132,15 +132,15 @@
       command: >
         ceph osd pool application enable {{ item }} rgw
       loop:
-        - atonix-public-rgw
-        - atonix-hybrid-rgw
+        - orcacloud-public-rgw
+        - orcacloud-hybrid-rgw
       ignore_errors: true
       tags: [pools]
 
     # ── Enable RADOS Gateway ──────────────────────────────────────────────────
     - name: Deploy RADOS Gateway
       when: inventory_hostname == groups['ceph_mons'][0]
-      command: ceph orch apply rgw atonix --placement="{{ groups['ceph_rgw'] | join(' ') }}"
+      command: ceph orch apply rgw orcacloud --placement="{{ groups['ceph_rgw'] | join(' ') }}"
       ignore_errors: true
       tags: [rgw]
 

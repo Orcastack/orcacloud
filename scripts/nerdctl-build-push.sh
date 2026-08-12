@@ -14,7 +14,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.." || exit 1
 
 REGISTRY=${REGISTRY:-}
-NAMESPACE=${NAMESPACE:-atonix}
+NAMESPACE=${NAMESPACE:-orcacloud}
 PROJECT=${PROJECT:-orcacloud}
 TAG=${TAG:-}
 START=${START:-0}

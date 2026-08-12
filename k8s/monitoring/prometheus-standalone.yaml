@@ -12,12 +12,6 @@ data:
   prometheus.yml: |
     global:
       scrape_interval: 15s
-<<<<<<< HEAD
-    scrape_configs:
-      - job_name: 'kubernetes'
-        static_configs:
-          - targets: ['localhost:9090']
-=======
       evaluation_interval: 15s
 
     rule_files:
@@ -43,7 +37,6 @@ data:
         - static_configs:
             - targets:
               - alertmanager:9093
->>>>>>> 12bd998bda7cee255affa733e542706dbab8dcfb
 ---
 # Prometheus single Deployment (not production)
 apiVersion: apps/v1

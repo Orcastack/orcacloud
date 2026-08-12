@@ -8,7 +8,7 @@ variable "service_name" {
 variable "namespace" {
   description = "Kubernetes namespace"
   type        = string
-  default     = "orcacompute"
+  default     = "orcacloud"
 }
 
 variable "environment" {
@@ -26,7 +26,7 @@ variable "service_version" {
 variable "image_registry" {
   description = "Container image registry"
   type        = string
-  default     = "atonixdev"
+  default     = "orcacloud"
 }
 
 variable "replicas" {

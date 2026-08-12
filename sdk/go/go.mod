@@ -1,3 +1,3 @@
-module github.com/orcacompute/sdk-go
+module github.com/orcacloud/sdk-go
 
 go 1.22

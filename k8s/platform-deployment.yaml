@@ -19,7 +19,7 @@ spec:
         - name: ghcr-regcred
       containers:
         - name: platform
-          image: ghcr.io/atonixdev/orcacloud:1.0.0
+          image: ghcr.io/orcacloud/orcacloud:1.0.0
           imagePullPolicy: Always
           ports:
             - containerPort: 8000

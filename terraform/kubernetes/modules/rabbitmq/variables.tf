@@ -48,7 +48,7 @@ variable "erlang_cookie" {
 variable "default_vhost" {
   description = "Default virtual host"
   type        = string
-  default     = "orcacompute"
+  default     = "orcacloud"
 }
 
 variable "memory_high_watermark" {

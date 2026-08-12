@@ -1,11 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backend
+  name: orcacloud-backend
   namespace: orcacloud
 spec:
   template:
     spec:
       containers:
-      - name: backend
-        image: atonixdev/orcacloud-backend:1.0.1
+      - name: orcacloud-backend
+        image: orcacloud/orcacloud-backend:1.0.1

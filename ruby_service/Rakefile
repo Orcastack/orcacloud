@@ -8,13 +8,13 @@ require_relative 'config/database'
 namespace :db do
   desc 'Create the database'
   task :create do
-    db_name = ENV.fetch('DATABASE_URL', 'postgres://localhost/orcacompute_ruby').split('/').last
+    db_name = ENV.fetch('DATABASE_URL', 'postgres://localhost/orcacloud_ruby').split('/').last
     system("createdb #{db_name}")
   end
 
   desc 'Drop the database'
   task :drop do
-    db_name = ENV.fetch('DATABASE_URL', 'postgres://localhost/orcacompute_ruby').split('/').last
+    db_name = ENV.fetch('DATABASE_URL', 'postgres://localhost/orcacloud_ruby').split('/').last
     system("dropdb #{db_name}")
   end
 

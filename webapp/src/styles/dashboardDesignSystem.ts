@@ -181,7 +181,7 @@ export const carbonTextTokens = {
   },
 } as const;
 
-export const atonixBrandTokens = {
+export const orcacloudBrandTokens = {
   colorPrimary: '#262626', // Carbon Gray 90 - Primary background
   colorPrimaryContrast: '#f4f4f4', // Carbon Gray 10 - Text on dark
   colorAccent: '#153d75',

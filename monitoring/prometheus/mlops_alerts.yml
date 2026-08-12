@@ -1,0 +1,30 @@
+groups:
+  - name: orcacloud-mlops
+    rules:
+      - alert: MLOpsModelAccuracyDegraded
+        expr: orcacloud_ml_model_accuracy < 0.75
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: Model accuracy has fallen below its promotion threshold.
+      - alert: MLOpsInferenceLatencyHigh
+        expr: histogram_quantile(0.95, sum(rate(orcacloud_ml_inference_latency_ms_bucket[5m])) by (le, model)) > 500
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: MLOps inference p95 latency is above 500ms.
+      - alert: MLOpsFeatureDriftDetected
+        expr: orcacloud_ml_feature_drift_zscore > 3
+        for: 30m
+        labels:
+          severity: warning
+        annotations:
+          summary: Feature distribution drift requires a retraining evaluation.
+      - alert: MLOpsInferenceFailuresHigh
+        expr: increase(orcacloud_ml_inference_failures_total[15m]) > 3
+        labels:
+          severity: critical
+        annotations:
+          summary: Inference failure count is above the configured limit.

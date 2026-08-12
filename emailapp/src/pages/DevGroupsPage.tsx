@@ -91,7 +91,7 @@ const IMPORT_SOURCES = [
   { id: 'github',    label: 'GitHub Organizations',    icon: <GitHubIcon sx={{ fontSize: '1rem' }} /> },
   { id: 'gitlab',    label: 'GitLab Groups',           icon: <GroupsIcon sx={{ fontSize: '1rem' }} /> },
   { id: 'bitbucket', label: 'Bitbucket Workspaces',    icon: <GroupsIcon sx={{ fontSize: '1rem' }} /> },
-  { id: 'atonix',    label: 'OrcaCloud',        icon: <CloudDownloadOutlinedIcon sx={{ fontSize: '1rem' }} /> },
+  { id: 'orcacloud',    label: 'OrcaCloud',        icon: <CloudDownloadOutlinedIcon sx={{ fontSize: '1rem' }} /> },
 ];
 
 // ─── Component ────────────────────────────────────────────────────────────────

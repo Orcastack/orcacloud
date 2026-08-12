@@ -2,7 +2,7 @@
 
 **Scope:** Responding to infrastructure incidents on the OrcaCloud cloud platform.
 **Severity levels:** P1 (critical) / P2 (major) / P3 (moderate) / P4 (minor)
-**On-call rotation:** ops@orcacloud.com / PagerDuty policy `atonix-cloud-ops`
+**On-call rotation:** ops@orcacloud.com / PagerDuty policy `orcacloud-cloud-ops`
 
 ---
 
@@ -269,7 +269,7 @@ openstack volume list --all-projects --status error
 journalctl -u cinder-volume -n 100 --no-pager | grep -i error
 
 # 3. Check Ceph RBD connectivity (most common cause)
-rbd ls atonix-public-cinder
+rbd ls orcacloud-public-cinder
 ceph osd stat
 
 # 4. Reset stuck volume to available

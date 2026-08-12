@@ -11,5 +11,5 @@ map '/api/v1' do
 end
 
 map '/' do
-	run OrcaComputeRubyService.new
+	run OrcaCloudRubyService.new
 end

@@ -17,15 +17,15 @@ export ORCACLOUD_TOKEN=<your-token>
 Legacy env vars are still supported:
 
 ```bash
-export ATONIX_BASE_URL=http://localhost:8000
-export ATONIX_TOKEN=<your-token>
+export ORCACLOUD_BASE_URL=http://localhost:8000
+export ORCACLOUD_TOKEN=<your-token>
 ```
 
 Examples:
 
 ```bash
-atonixctl instances
-atonixctl compliance-controls --framework soc2
-atonixctl collect-evidence --framework iso27001
-atonixctl graphql --query '{ instances { name status } }'
+orcacloudctl instances
+orcacloudctl compliance-controls --framework soc2
+orcacloudctl collect-evidence --framework iso27001
+orcacloudctl graphql --query '{ instances { name status } }'
 ```

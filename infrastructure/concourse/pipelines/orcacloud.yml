@@ -1,0 +1,329 @@
+---
+resources:
+  # Source code resource
+  - name: orcacloud-source
+    type: git
+    source:
+      uri: https://github.com/orcastack/orcacloud.git
+      branch: main
+      private_key: ((git-private-key))
+    webhook_token: ((webhook-token))
+
+  # Docker image resource for backend
+  - name: orcacloud-backend-image
+    type: docker-image
+    source:
+      repository: quay.io/orcacloud/orcacloud
+      username: ((docker-registry-username))
+      password: ((docker-registry-password))
+      tag: latest
+
+  # Version resource for semantic versioning
+  - name: version
+    type: semver
+    source:
+      driver: git
+      uri: https://github.com/orcastack/orcacloud.git
+      branch: version
+      file: version
+      private_key: ((git-private-key))
+      initial_version: 1.0.0
+
+  # Slack notification resource
+  - name: slack-notification
+    type: slack-notification
+    source:
+      url: ((slack-webhook-url))
+
+  # Time resource for nightly builds
+  - name: nightly-trigger
+    type: time
+    source:
+      start: 2:00 AM
+      stop: 3:00 AM
+      location: America/New_York
+
+resource_types:
+  # Slack notification resource type
+  - name: slack-notification
+    type: docker-image
+    source:
+      repository: cfcommunity/slack-notification-resource
+      tag: latest
+
+  # Semver resource type
+  - name: semver
+    type: docker-image
+    source:
+      repository: concourse/semver-resource
+      tag: latest
+
+jobs:
+  # Continuous Integration Job
+  - name: ci-pipeline
+    serial: true
+    public: true
+    plan:
+      - get: orcacloud-source
+        trigger: true
+
+      - task: install-dependencies
+        file: orcacloud-source/infrastructure/concourse/tasks/install-dependencies.yml
+
+      - task: lint-code
+        file: orcacloud-source/infrastructure/concourse/tasks/lint-code.yml
+
+      - task: run-backend-tests
+        file: orcacloud-source/infrastructure/concourse/tasks/run-backend-tests.yml
+
+      - task: run-frontend-tests
+        file: orcacloud-source/infrastructure/concourse/tasks/run-frontend-tests.yml
+
+      - task: security-scan
+        file: orcacloud-source/infrastructure/concourse/tasks/security-scan.yml
+
+      - task: build-application
+        file: orcacloud-source/infrastructure/concourse/tasks/build-application.yml
+
+      - put: slack-notification
+        params:
+          channel: '#orcacloud-ci'
+          text: |
+             CI Pipeline completed successfully for commit $BUILD_NAME
+            Branch: main
+            View build: $ATC_EXTERNAL_URL/teams/main/pipelines/orcacloud/jobs/ci-pipeline/builds/$BUILD_NAME
+
+    on_failure:
+      put: slack-notification
+      params:
+        channel: '#orcacloud-ci'
+        text: |
+           CI Pipeline failed for commit $BUILD_NAME
+          Branch: main
+          View build: $ATC_EXTERNAL_URL/teams/main/pipelines/orcacloud/jobs/ci-pipeline/builds/$BUILD_NAME
+
+  # Build and Push Docker Image Job
+  - name: build-and-push-image
+    serial: true
+    public: true
+    plan:
+      - get: orcacloud-source
+        passed: [ci-pipeline]
+        trigger: true
+
+      - get: version
+        params: {bump: patch}
+
+      - task: build-docker-image
+        file: orcacloud-source/infrastructure/concourse/tasks/build-docker-image.yml
+        vars:
+          image_tag: ((.:version))
+
+      - put: orcacloud-backend-image
+        params:
+          build: orcacloud-source
+          dockerfile: orcacloud-source/Dockerfile.fullstack
+          tag_file: version/version
+          tag_as_latest: true
+
+      - put: version
+        params: {file: version/version}
+
+      - put: slack-notification
+        params:
+          channel: '#orcacloud-ci'
+          text: |
+             Docker image built and pushed successfully
+            Version: $(cat version/version)
+            Image: quay.io/orcacloud/orcacloud:$(cat version/version)
+
+  # Deploy to Development Environment
+  - name: deploy-to-dev
+    serial: true
+    public: true
+    plan:
+      - get: orcacloud-source
+        passed: [build-and-push-image]
+        trigger: true
+
+      - get: orcacloud-backend-image
+        passed: [build-and-push-image]
+        trigger: true
+
+      - get: version
+        passed: [build-and-push-image]
+
+      - task: deploy-to-kubernetes
+        file: orcacloud-source/infrastructure/concourse/tasks/deploy-to-kubernetes.yml
+        vars:
+          environment: development
+          namespace: orcacloud-dev
+          image_tag: ((.:version))
+
+      - task: run-smoke-tests
+        file: orcacloud-source/infrastructure/concourse/tasks/run-smoke-tests.yml
+        vars:
+          environment: development
+          base_url: http://orcacloud-dev.orcacloud.local
+
+      - put: slack-notification
+        params:
+          channel: '#orcacloud-deployments'
+          text: |
+             Successfully deployed to Development environment
+            Version: $(cat version/version)
+            Environment: orcacloud-dev
+            URL: http://orcacloud-dev.orcacloud.local
+
+  # Deploy to Staging Environment (Manual Trigger)
+  - name: deploy-to-staging
+    serial: true
+    public: true
+    plan:
+      - get: orcacloud-source
+        passed: [deploy-to-dev]
+
+      - get: orcacloud-backend-image
+        passed: [deploy-to-dev]
+
+      - get: version
+        passed: [deploy-to-dev]
+
+      - task: deploy-to-kubernetes
+        file: orcacloud-source/infrastructure/concourse/tasks/deploy-to-kubernetes.yml
+        vars:
+          environment: staging
+          namespace: orcacloud-staging
+          image_tag: ((.:version))
+
+      - task: run-integration-tests
+        file: orcacloud-source/infrastructure/concourse/tasks/run-integration-tests.yml
+        vars:
+          environment: staging
+          base_url: http://orcacloud-staging.orcacloud.local
+
+      - task: run-performance-tests
+        file: orcacloud-source/infrastructure/concourse/tasks/run-performance-tests.yml
+        vars:
+          environment: staging
+          base_url: http://orcacloud-staging.orcacloud.local
+
+      - put: slack-notification
+        params:
+          channel: '#orcacloud-deployments'
+          text: |
+             Successfully deployed to Staging environment
+            Version: $(cat version/version)
+            Environment: orcacloud-staging
+            URL: http://orcacloud-staging.orcacloud.local
+
+  # Deploy to Production Environment (Manual Trigger with Approval)
+  - name: deploy-to-production
+    serial: true
+    public: true
+    plan:
+      - get: orcacloud-source
+        passed: [deploy-to-staging]
+
+      - get: orcacloud-backend-image
+        passed: [deploy-to-staging]
+
+      - get: version
+        passed: [deploy-to-staging]
+
+      - task: production-readiness-check
+        file: orcacloud-source/infrastructure/concourse/tasks/production-readiness-check.yml
+
+      - task: backup-production
+        file: orcacloud-source/infrastructure/concourse/tasks/backup-production.yml
+
+      - task: deploy-to-kubernetes
+        file: orcacloud-source/infrastructure/concourse/tasks/deploy-to-kubernetes.yml
+        vars:
+          environment: production
+          namespace: orcacloud-production
+          image_tag: ((.:version))
+
+      - task: verify-production-deployment
+        file: orcacloud-source/infrastructure/concourse/tasks/verify-production-deployment.yml
+        vars:
+          environment: production
+          base_url: https://orcacloud.com
+
+      - put: slack-notification
+        params:
+          channel: '#orcacloud-deployments'
+          text: |
+             Successfully deployed to Production environment
+            Version: $(cat version/version)
+            Environment: orcacloud-production
+            URL: https://orcacloud.com
+
+    on_failure:
+      task: rollback-production
+      file: orcacloud-source/infrastructure/concourse/tasks/rollback-production.yml
+
+  # Nightly Security Scan Job
+  - name: nightly-security-scan
+    serial: true
+    public: true
+    plan:
+      - get: nightly-trigger
+        trigger: true
+
+      - get: orcacloud-source
+
+      - task: comprehensive-security-scan
+        file: orcacloud-source/infrastructure/concourse/tasks/comprehensive-security-scan.yml
+
+      - task: dependency-vulnerability-scan
+        file: orcacloud-source/infrastructure/concourse/tasks/dependency-vulnerability-scan.yml
+
+      - task: docker-image-security-scan
+        file: orcacloud-source/infrastructure/concourse/tasks/docker-image-security-scan.yml
+
+      - put: slack-notification
+        params:
+          channel: '#orcacloud-security'
+          text: |
+             Nightly security scan completed
+            Date: $(date)
+            Check detailed results in the build logs
+
+  # Database Migration Job
+  - name: run-migrations
+    serial: true
+    public: true
+    plan:
+      - get: orcacloud-source
+        trigger: false  # Manual trigger only
+
+      - task: run-database-migrations
+        file: orcacloud-source/infrastructure/concourse/tasks/run-database-migrations.yml
+        vars:
+          environment: ((target-environment))
+
+      - put: slack-notification
+        params:
+          channel: '#orcacloud-ops'
+          text: |
+             Database migrations completed successfully
+            Environment: ((target-environment))
+            Build: $BUILD_NAME
+
+groups:
+  - name: ci-cd
+    jobs:
+      - ci-pipeline
+      - build-and-push-image
+      - deploy-to-dev
+      - deploy-to-staging
+      - deploy-to-production
+
+  - name: security
+    jobs:
+      - nightly-security-scan
+
+  - name: operations
+    jobs:
+      - run-migrations

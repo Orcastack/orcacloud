@@ -47,7 +47,7 @@ export interface ApiGateway {
   id: string
   name: string
   description?: string
-  engine: 'kong' | 'envoy' | 'nginx' | 'tyk' | 'atonix' | 'aws_agw'
+  engine: 'kong' | 'envoy' | 'nginx' | 'tyk' | 'orcacloud' | 'aws_agw'
   environment: 'development' | 'staging' | 'production'
   region: string
   endpoint: string

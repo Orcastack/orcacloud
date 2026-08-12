@@ -58,9 +58,9 @@ curl -X POST https://api.orcacloud.com/api/services/workspaces/<workspace_id>/bi
 **Cloud type → Region mapping:**
 | cloud_type | OpenStack Region | clouds.yaml profile     |
 |------------|-----------------|-------------------------|
-| public     | RegionA         | `atonix-region-a-public` |
-| private    | RegionB         | `atonix-region-b-private` |
-| hybrid     | RegionC         | `atonix-region-c-hybrid` |
+| public     | RegionA         | `orcacloud-region-a-public` |
+| private    | RegionB         | `orcacloud-region-b-private` |
+| hybrid     | RegionC         | `orcacloud-region-c-hybrid` |
 
 ---
 
@@ -110,7 +110,7 @@ For **Public cloud** tenants:
 openstack router create --project <os-project-name> <tenant>-router
 
 # Set external gateway
-openstack router set --external-gateway atonix-public-external <tenant>-router
+openstack router set --external-gateway orcacloud-public-external <tenant>-router
 
 # Create tenant network and subnet
 openstack network create --project <os-project-name> <tenant>-net

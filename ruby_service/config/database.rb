@@ -5,7 +5,7 @@ require 'sequel'
 require 'pg'
 
 # Database connection
-database_url = ENV.fetch('DATABASE_URL', 'postgres://localhost/orcacompute_ruby')
+database_url = ENV.fetch('DATABASE_URL', 'postgres://localhost/orcacloud_ruby')
 
 DB = Sequel.connect(database_url, logger: SemanticLogger['database'])
 

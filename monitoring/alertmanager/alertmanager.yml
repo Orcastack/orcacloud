@@ -29,14 +29,14 @@ route:
 receivers:
   - name: slack-default
     slack_configs:
-      - channel: '#atonix-alerts'
+      - channel: '#orcacloud-alerts'
         title: '{{ template "slack.title" . }}'
         text: '{{ template "slack.text" . }}'
         send_resolved: true
 
   - name: slack-warnings
     slack_configs:
-      - channel: '#atonix-warnings'
+      - channel: '#orcacloud-warnings'
         title: '[WARNING] {{ .CommonLabels.alertname }}'
         text: '{{ range .Alerts }}{{ .Annotations.description }}\n{{ end }}'
         send_resolved: true

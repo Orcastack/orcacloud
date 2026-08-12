@@ -242,7 +242,7 @@ REACT_APP_API_URL=https://api.orcacloud.com
 
 When `OS_AUTH_URL`, `OS_USERNAME`, `OS_PASSWORD` are **all set**, the service
 opens a direct authenticated session.
-Otherwise it uses **clouds.yaml** (`OS_CLOUD` or `"atonix"`).
+Otherwise it uses **clouds.yaml** (`OS_CLOUD` or `"orcacloud"`).
 
 ### Infrastructure modules
 
@@ -448,12 +448,12 @@ console.log(inventory.resources);
 ```bash
 # OpenStack credentials
 OS_AUTH_URL=https://keystone.example.com:5000/v3
-OS_USERNAME=atonix-service
+OS_USERNAME=orcacloud-service
 OS_PASSWORD=<secret>
 OS_USER_DOMAIN_NAME=Default
 OS_PROJECT_DOMAIN_NAME=Default
 OS_REGION_NAME=RegionOne
-OS_CLOUD=atonix          # used when above are not set
+OS_CLOUD=orcacloud          # used when above are not set
 
 # Django
 SECRET_KEY=<secret>

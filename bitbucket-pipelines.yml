@@ -17,8 +17,8 @@ definitions:
     npm: ~/.npm
 
   steps:
-    - step: &test-backend
-        name: Test Backend
+    - step: &test-cloudapi
+        name: Test cloudapi
         image: python:3.11
         services:
           - postgres
@@ -26,7 +26,7 @@ definitions:
         caches:
           - pip
         script:
-          - cd backend
+          - cd cloudapi
           - pip install --upgrade pip
           - pip install -r requirements.txt
           - pip install pytest pytest-django pytest-cov flake8 black isort bandit safety
@@ -45,22 +45,22 @@ definitions:
           - python manage.py collectstatic --noinput
           - pytest --cov=. --cov-report=xml --cov-report=html
         artifacts:
-          - backend/coverage.xml
-          - backend/htmlcov/**
+          - cloudapi/coverage.xml
+          - cloudapi/htmlcov/**
 
-    - step: &test-frontend
-        name: Test Frontend
+    - step: &test-webapp
+        name: Test webapp
         image: node:18
         caches:
           - npm
         script:
-          - cd frontend
+          - cd webapp
           - npm ci
           - npm run lint
           - npm run type-check
           - npm run test:coverage
         artifacts:
-          - frontend/coverage/**
+          - webapp/coverage/**
 
     - step: &security-scan
         name: Security Scan
@@ -70,25 +70,17 @@ definitions:
         artifacts:
           - trivy-results.sarif
 
-    - step: &build-backend
-        name: Build Backend Image
+    - step: &build-cloudapi
+        name: Build cloudapi Image
         image: docker:latest
         services:
           - docker
         script:
           - export IMAGE_TAG=${BITBUCKET_COMMIT:0:8}
-<<<<<<< HEAD
-          - export IMAGE_NAME="$DOCKER_REGISTRY/orcacloud/backend"
-          # Build and tag image
-          - cd backend
-          - docker build -t $IMAGE_NAME:$IMAGE_TAG -t $IMAGE_NAME:latest .
-          # Login to registry
-          - echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin $DOCKER_REGISTRY
-=======
           - export DOCKER_REGISTRY=${DOCKER_REGISTRY:-ghcr.io}
-          - export IMAGE_NAME="$DOCKER_REGISTRY/atonixdev/orcacloud/backend"
+          - export IMAGE_NAME="$DOCKER_REGISTRY/orcacloud/orcacloud/cloudapi"
           # Build and tag image
-          - cd backend
+          - cd cloudapi
           - docker build -t $IMAGE_NAME:$IMAGE_TAG -t $IMAGE_NAME:latest .
           # Login to registry: prefer GHCR token if provided, fall back to DOCKER_USERNAME/DOCKER_PASSWORD
           - |
@@ -97,30 +89,21 @@ definitions:
             else
               echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin $DOCKER_REGISTRY
             fi
->>>>>>> 12bd998bda7cee255affa733e542706dbab8dcfb
           # Push image
           - docker push $IMAGE_NAME:$IMAGE_TAG
           - docker push $IMAGE_NAME:latest
 
-    - step: &build-frontend
-        name: Build Frontend Image
+    - step: &build-webapp
+        name: Build webapp Image
         image: docker:latest
         services:
           - docker
         script:
           - export IMAGE_TAG=${BITBUCKET_COMMIT:0:8}
-<<<<<<< HEAD
-          - export IMAGE_NAME="$DOCKER_REGISTRY/orcacloud/frontend"
-          # Build and tag image
-          - cd frontend
-          - docker build -t $IMAGE_NAME:$IMAGE_TAG -t $IMAGE_NAME:latest .
-          # Login to registry
-          - echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin $DOCKER_REGISTRY
-=======
           - export DOCKER_REGISTRY=${DOCKER_REGISTRY:-ghcr.io}
-          - export IMAGE_NAME="$DOCKER_REGISTRY/atonixdev/orcacloud/frontend"
+          - export IMAGE_NAME="$DOCKER_REGISTRY/orcacloud/orcacloud/webapp"
           # Build and tag image
-          - cd frontend
+          - cd webapp
           - docker build -t $IMAGE_NAME:$IMAGE_TAG -t $IMAGE_NAME:latest .
           # Login to registry: prefer GHCR token if provided, fall back to DOCKER_USERNAME/DOCKER_PASSWORD
           - |
@@ -129,7 +112,6 @@ definitions:
             else
               echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin $DOCKER_REGISTRY
             fi
->>>>>>> 12bd998bda7cee255affa733e542706dbab8dcfb
           # Push image
           - docker push $IMAGE_NAME:$IMAGE_TAG
           - docker push $IMAGE_NAME:latest
@@ -142,15 +124,15 @@ definitions:
           - echo $KUBE_CONFIG | base64 -d > ~/.kube/config
           - export IMAGE_TAG=${BITBUCKET_COMMIT:0:8}
           # Update image tags
-          - sed -i "s|image:.*backend:.*|image: $DOCKER_REGISTRY/orcacloud/backend:$IMAGE_TAG|g" k8s/overlays/$ENVIRONMENT/kustomization.yaml
-          - sed -i "s|image:.*frontend:.*|image: $DOCKER_REGISTRY/orcacloud/frontend:$IMAGE_TAG|g" k8s/overlays/$ENVIRONMENT/kustomization.yaml
+          - sed -i "s|image:.*cloudapi:.*|image: $DOCKER_REGISTRY/orcacloud/orcacloud/cloudapi:$IMAGE_TAG|g" k8s/overlays/$ENVIRONMENT/kustomization.yaml
+          - sed -i "s|image:.*webapp:.*|image: $DOCKER_REGISTRY/orcacloud/orcacloud/webapp:$IMAGE_TAG|g" k8s/overlays/$ENVIRONMENT/kustomization.yaml
           # Ensure project namespace exists and set as default
           - kubectl create namespace orcacloud || true
           - kubectl config set-context --current --namespace=orcacloud
           # Deploy
           - kubectl apply -k k8s/overlays/$ENVIRONMENT/
           # Wait for rollout
-          - kubectl rollout status deployment/backend
+          - kubectl rollout status deployment/orcacloud-backend
           - kubectl rollout status deployment/frontend
 
     # Removed AWS Terraform steps - no longer using AWS infrastructure
@@ -160,24 +142,23 @@ pipelines:
   branches:
     feature/*:
       - parallel:
-          - step: *test-backend
-          - step: *test-frontend
+          - step: *test-cloudapi
+          - step: *test-webapp
           - step: *security-scan
 
-  # Development branch pipeline
-  branches:
+    # Development branch pipeline
     develop:
       - parallel:
-          - step: *test-backend
-          - step: *test-frontend
+          - step: *test-cloudapi
+          - step: *test-webapp
           - step: *security-scan
       - parallel:
           - step:
-              <<: *build-backend
-              name: Build Backend for Dev
+              <<: *build-cloudapi
+              name: Build cloudapi for Dev
           - step:
-              <<: *build-frontend
-              name: Build Frontend for Dev
+              <<: *build-webapp
+              name: Build webapp for Dev
       - step:
           <<: *deploy-to-k8s
           name: Deploy to Development
@@ -186,20 +167,19 @@ pipelines:
             ENVIRONMENT: development
             NAMESPACE_SUFFIX: -dev
 
-  # Main branch pipeline
-  branches:
+    # Main branch pipeline
     main:
       - parallel:
-          - step: *test-backend
-          - step: *test-frontend
+          - step: *test-cloudapi
+          - step: *test-webapp
           - step: *security-scan
       - parallel:
           - step:
-              <<: *build-backend
-              name: Build Backend for Prod
+              <<: *build-cloudapi
+              name: Build cloudapi for Prod
           - step:
-              <<: *build-frontend
-              name: Build Frontend for Prod
+              <<: *build-webapp
+              name: Build webapp for Prod
       - step:
           <<: *deploy-to-k8s
           name: Deploy to Production
@@ -217,8 +197,7 @@ pipelines:
             - curl -f https://orcacloud.com/ || exit 1
             - echo "[OK] Deployment successful and smoke tests passed"
 
-  # Infrastructure pipeline (Kubernetes only - no AWS Terraform)
-  branches:
+    # Infrastructure pipeline (Kubernetes only - no AWS Terraform)
     infrastructure/*:
       # Use Kubernetes manifests instead of Terraform for infrastructure
       - step:
@@ -229,15 +208,15 @@ pipelines:
   custom:
     deploy-staging:
       - parallel:
-          - step: *test-backend
-          - step: *test-frontend
+          - step: *test-cloudapi
+          - step: *test-webapp
       - parallel:
           - step:
-              <<: *build-backend
-              name: Build Backend for Staging
+              <<: *build-cloudapi
+              name: Build cloudapi for Staging
           - step:
-              <<: *build-frontend
-              name: Build Frontend for Staging
+              <<: *build-webapp
+              name: Build webapp for Staging
       - step:
           <<: *deploy-to-k8s
           name: Deploy to Staging
@@ -253,24 +232,24 @@ pipelines:
   pull-requests:
     '**':
       - parallel:
-          - step: *test-backend
-          - step: *test-frontend
+          - step: *test-cloudapi
+          - step: *test-webapp
           - step: *security-scan
 
   # Tag pipeline for releases
   tags:
     'v*':
       - parallel:
-          - step: *test-backend
-          - step: *test-frontend
+          - step: *test-cloudapi
+          - step: *test-webapp
           - step: *security-scan
       - parallel:
           - step:
-              <<: *build-backend
-              name: Build Backend Release
+              <<: *build-cloudapi
+              name: Build cloudapi Release
           - step:
-              <<: *build-frontend
-              name: Build Frontend Release
+              <<: *build-webapp
+              name: Build webapp Release
       - step:
           name: Create GitHub Release
           image: atlassian/pipelines-awscli

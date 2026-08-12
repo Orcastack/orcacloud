@@ -66,7 +66,7 @@
         --provider-physical-network external
         --external
         --share
-        atonix-public-external
+        orcacloud-public-external
       environment:
         OS_CLOUD: "{{ openstack_admin_cloud }}"
       register: net_create
@@ -81,12 +81,12 @@
     - name: Create public external subnet
       command: >
         openstack subnet create
-        --network atonix-public-external
+        --network orcacloud-public-external
         --subnet-range {{ public_floating_cidr }}
         --no-dhcp
         --gateway {{ public_gateway }}
         --allocation-pool start={{ float_pool_start }},end={{ float_pool_end }}
-        atonix-public-external-subnet
+        orcacloud-public-external-subnet
       environment:
         OS_CLOUD: "{{ openstack_admin_cloud }}"
       register: subnet_create
@@ -105,7 +105,7 @@
         --provider-physical-network provider
         --provider-segment {{ private_vlan_id }}
         --share
-        atonix-private-provider
+        orcacloud-private-provider
       environment:
         OS_CLOUD: "{{ openstack_admin_cloud }}"
       register: priv_net

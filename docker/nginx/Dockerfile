@@ -1,7 +1,7 @@
 FROM nginx:stable-alpine
 
-# Copy custom nginx configuration
-COPY default.conf /etc/nginx/conf.d/default.conf
+# Copy the canonical root NGINX configuration.
+COPY nginx/default.conf /etc/nginx/conf.d/default.conf
 
 # Create directory for ACME webroot
 RUN mkdir -p /var/www/letsencrypt && chown -R nginx:nginx /var/www/letsencrypt

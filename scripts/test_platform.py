@@ -10,7 +10,7 @@ import requests
 from datetime import datetime
 
 # Add the backend directory to Python path
-sys.path.insert(0, '/home/atonixdev/orcacloud/backend')
+sys.path.insert(0, '/home/orcacloud/orcacloud/backend')
 
 # Set up Django environment
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'orcacloud.settings')
@@ -84,15 +84,15 @@ def test_django_setup():
     results = []
     
     # Test Django system check
-    cmd = "cd /home/atonixdevmaster/orcacloud/backend && /home/atonixdevmaster/orcacloud/.venv/bin/python manage.py check"
+    cmd = "cd /home/orcacloudmaster/orcacloud/backend && /home/orcacloudmaster/orcacloud/.venv/bin/python manage.py check"
     results.append(run_command(cmd, "Django system check"))
     
     # Test database migration status
-    cmd = "cd /home/atonixdevmaster/orcacloud/backend && /home/atonixdevmaster/orcacloud/.venv/bin/python manage.py showmigrations"
+    cmd = "cd /home/orcacloudmaster/orcacloud/backend && /home/orcacloudmaster/orcacloud/.venv/bin/python manage.py showmigrations"
     results.append(run_command(cmd, "Database migration status"))
     
     # Test static files collection (dry run)
-    cmd = "cd /home/atonixdevmaster/orcacloud/backend && /home/atonixdevmaster/orcacloud/.venv/bin/python manage.py collectstatic --dry-run"
+    cmd = "cd /home/orcacloudmaster/orcacloud/backend && /home/orcacloudmaster/orcacloud/.venv/bin/python manage.py collectstatic --dry-run"
     results.append(run_command(cmd, "Static files collection (dry run)"))
     
     return all(results)
@@ -149,19 +149,19 @@ def test_management_commands():
     results = []
     
     # Test Zookeeper command help
-    cmd = "cd /home/atonixdevmaster/orcacloud/backend && /home/atonixdevmaster/orcacloud/.venv/bin/python manage.py zookeeper --help"
+    cmd = "cd /home/orcacloudmaster/orcacloud/backend && /home/orcacloudmaster/orcacloud/.venv/bin/python manage.py zookeeper --help"
     results.append(run_command(cmd, "Zookeeper command help"))
     
     # Test Kafka command help
-    cmd = "cd /home/atonixdevmaster/orcacloud/backend && /home/atonixdevmaster/orcacloud/.venv/bin/python manage.py kafka --help"
+    cmd = "cd /home/orcacloudmaster/orcacloud/backend && /home/orcacloudmaster/orcacloud/.venv/bin/python manage.py kafka --help"
     results.append(run_command(cmd, "Kafka command help"))
     
     # Test Zookeeper status (expected to fail without server)
-    cmd = "cd /home/atonixdevmaster/orcacloud/backend && timeout 10 /home/atonixdevmaster/orcacloud/.venv/bin/python manage.py zookeeper status"
+    cmd = "cd /home/orcacloudmaster/orcacloud/backend && timeout 10 /home/orcacloudmaster/orcacloud/.venv/bin/python manage.py zookeeper status"
     run_command(cmd, "Zookeeper status (expected to fail)", expect_error=True)
     
     # Test Kafka status (expected to fail without server)  
-    cmd = "cd /home/atonixdevmaster/orcacloud/backend && timeout 10 /home/atonixdevmaster/orcacloud/.venv/bin/python manage.py kafka status"
+    cmd = "cd /home/orcacloudmaster/orcacloud/backend && timeout 10 /home/orcacloudmaster/orcacloud/.venv/bin/python manage.py kafka status"
     run_command(cmd, "Kafka status (expected to fail)", expect_error=True)
     
     return all(results)
@@ -173,11 +173,11 @@ def test_docker_compose_config():
     results = []
     
     # Test nerdctl compose config validation
-    cmd = "cd /home/atonixdevmaster/orcacloud && nerdctl compose config -q"
+    cmd = "cd /home/orcacloudmaster/orcacloud && nerdctl compose config -q"
     results.append(run_command(cmd, "nerdctl Compose config validation"))
     
     # List all services
-    cmd = "cd /home/atonixdevmaster/orcacloud && nerdctl compose config --services"
+    cmd = "cd /home/orcacloudmaster/orcacloud && nerdctl compose config --services"
     results.append(run_command(cmd, "List nerdctl Compose services"))
     
     return all(results)
@@ -228,7 +228,7 @@ def test_urls_configuration():
     results = []
     
     # Test URL patterns
-    cmd = "cd /home/atonixdevmaster/orcacloud/backend && /home/atonixdevmaster/orcacloud/.venv/bin/python manage.py show_urls"
+    cmd = "cd /home/orcacloudmaster/orcacloud/backend && /home/orcacloudmaster/orcacloud/.venv/bin/python manage.py show_urls"
     results.append(run_command(cmd, "Show URL patterns"))
     
     return all(results)

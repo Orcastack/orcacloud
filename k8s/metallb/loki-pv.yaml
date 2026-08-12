@@ -11,6 +11,6 @@ spec:
     - ReadWriteOnce
   storageClassName: standard
   hostPath:
-    path: /var/lib/atonix-storage/loki
+    path: /var/lib/orcacloud-storage/loki
     type: DirectoryOrCreate
   persistentVolumeReclaimPolicy: Delete

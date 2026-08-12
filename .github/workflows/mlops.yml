@@ -1,0 +1,40 @@
+name: OrcaCloud MLOps
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'mlops/**'
+      - 'scripts/run-mlops.sh'
+      - '.github/workflows/mlops.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  train-register-deploy:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Package inference runtime
+        run: docker build --tag ghcr.io/${{ github.repository_owner }}/orcacloud-ml-inference:${{ github.sha }} --file mlops/Dockerfile .
+      - name: Push inference runtime
+        run: docker push ghcr.io/${{ github.repository_owner }}/orcacloud-ml-inference:${{ github.sha }}
+      - name: Configure OrcaCloud cluster access
+        run: printf '%s' '${{ secrets.ORCACLOUD_KUBECONFIG }}' > "$RUNNER_TEMP/kubeconfig"
+      - name: Run the single MLOps pipeline
+        env:
+          MLOPS_INFERENCE_IMAGE: ghcr.io/${{ github.repository_owner }}/orcacloud-ml-inference:${{ github.sha }}
+          KUBECONFIG: ${{ runner.temp }}/kubeconfig
+        run: scripts/run-mlops.sh --apply

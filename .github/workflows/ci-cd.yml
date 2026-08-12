@@ -10,14 +10,14 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME_BACKEND: ${{ github.repository }}/computeapi
+  IMAGE_NAME_BACKEND: ${{ github.repository }}/cloudapi
   IMAGE_NAME_FRONTEND: ${{ github.repository }}/webapp
 
 jobs:
 
   # ── Test Backend ────────────────────────────────────────────────────────────
   test-backend:
-    name: Test computeapi
+    name: Test cloudapi
     runs-on: ubuntu-latest
 
     services:
@@ -57,20 +57,20 @@ jobs:
         uses: actions/cache@6f8efc29b200d32929f49075959781ed54ec270c # v3
         with:
           path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('computeapi/requirements.txt') }}
+          key: ${{ runner.os }}-pip-${{ hashFiles('cloudapi/requirements.txt') }}
           restore-keys: |
             ${{ runner.os }}-pip-
 
       - name: Install dependencies
         run: |
-          cd computeapi
+          cd cloudapi
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install pytest pytest-django pytest-cov
 
       - name: Run linting
         run: |
-          cd computeapi
+          cd cloudapi
           pip install flake8 black isort
           flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics || true
           black --check . || true
@@ -78,7 +78,7 @@ jobs:
 
       - name: Run security checks
         run: |
-          cd computeapi
+          cd cloudapi
           pip install bandit safety
           bandit -r . -x tests || true
           safety check || true
@@ -91,7 +91,7 @@ jobs:
           DEBUG: 'True'
           DJANGO_SETTINGS_MODULE: orcacloud.settings
         run: |
-          cd computeapi
+          cd cloudapi
           python manage.py migrate --noinput
           python manage.py collectstatic --noinput
           pytest --cov=. --cov-report=xml --cov-report=html
@@ -100,9 +100,9 @@ jobs:
         if: always()
         uses: codecov/codecov-action@ab904c41d6ece82784817410c45d8b8c02684457
         with:
-          files: ./computeapi/coverage.xml
-          flags: computeapi
-          name: computeapi-coverage
+          files: ./cloudapi/coverage.xml
+          flags: cloudapi
+          name: cloudapi-coverage
 
   # ── Test Frontend ───────────────────────────────────────────────────────────
   test-frontend:
@@ -118,11 +118,11 @@ jobs:
         with:
           node-version: '18'
           cache: 'npm'
-          cache-dependency-path: frontend/package-lock.json
+          cache-dependency-path: webapp/package-lock.json
 
       - name: Install dependencies
         run: |
-          cd frontend
+          cd webapp
           npm ci --legacy-peer-deps
 
       - name: Run linting
@@ -179,14 +179,14 @@ jobs:
   build-and-push:
     name: Build and Push Docker Images
     runs-on: ubuntu-latest
-    needs: [test-computeapi, test-webapp]
+    needs: [test-backend, test-frontend]
     if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop')
     permissions:
       contents: read
       packages: write
     strategy:
       matrix:
-        component: [computeapi, webapp]
+        component: [cloudapi, webapp]
 
     steps:
       - name: Checkout code
@@ -247,11 +247,16 @@ jobs:
 
       - name: Deploy to Kubernetes
         run: |
-          sed -i "s|image: orcastack/computeapi:.*|image: ${{ env.REGISTRY }}/${{ github.repository }}/backend:develop-${{ github.sha }}|g" k8s/overlays/development/kustomization.yaml || true
-          sed -i "s|image: orcastack/webapp:.*|image: ${{ env.REGISTRY }}/${{ github.repository }}/frontend:develop-${{ github.sha }}|g" k8s/overlays/development/kustomization.yaml || true
-          kubectl apply -k k8s/overlays/development/
-          kubectl rollout status deployment/computeapi -n orcacloud-dev
-          kubectl rollout status deployment/webapp -n orcacloud-dev
+          kubectl apply -k k8s/overlays/dev/
+          kubectl set image deployment/orcacloud-backend \
+            orcacloud-backend=${{ env.REGISTRY }}/${{ github.repository }}/cloudapi:develop-${{ github.sha }} \
+            migrate=${{ env.REGISTRY }}/${{ github.repository }}/cloudapi:develop-${{ github.sha }} \
+            --namespace orcacloud
+          kubectl set image deployment/frontend \
+            frontend=${{ env.REGISTRY }}/${{ github.repository }}/webapp:develop-${{ github.sha }} \
+            --namespace orcacloud
+          kubectl rollout status deployment/orcacloud-backend -n orcacloud
+          kubectl rollout status deployment/frontend -n orcacloud
 
   # ── Deploy to Production ────────────────────────────────────────────────────
   deploy-prod:
@@ -277,17 +282,22 @@ jobs:
 
       - name: Deploy to Kubernetes
         run: |
-          sed -i "s|image: orcastack/computeapi:.*|image: ${{ env.REGISTRY }}/${{ github.repository }}/backend:main-${{ github.sha }}|g" k8s/overlays/production/kustomization.yaml || true
-          sed -i "s|image: orcastack/webapp:.*|image: ${{ env.REGISTRY }}/${{ github.repository }}/frontend:main-${{ github.sha }}|g" k8s/overlays/production/kustomization.yaml || true
-          kubectl apply -k k8s/overlays/production/
-          kubectl rollout status deployment/computeapi -n OrcaStack
-          kubectl rollout status deployment/webapp -n OrcaStack
+          kubectl apply -k k8s/base/
+          kubectl set image deployment/orcacloud-backend \
+            orcacloud-backend=${{ env.REGISTRY }}/${{ github.repository }}/cloudapi:main-${{ github.sha }} \
+            migrate=${{ env.REGISTRY }}/${{ github.repository }}/cloudapi:main-${{ github.sha }} \
+            --namespace orcacloud
+          kubectl set image deployment/frontend \
+            frontend=${{ env.REGISTRY }}/${{ github.repository }}/webapp:main-${{ github.sha }} \
+            --namespace orcacloud
+          kubectl rollout status deployment/orcacloud-backend -n orcacloud
+          kubectl rollout status deployment/frontend -n orcacloud
 
       - name: Run smoke tests
         run: |
           sleep 30
-          curl -f https://api.orcastack.org/api/health/ || exit 1
-          curl -f https://orcastack.org/ || exit 1
+          curl -f https://api.orcacloud.org/api/health/ || exit 1
+          curl -f https://orcacloud.org/ || exit 1
           echo "Deployment successful and smoke tests passed"
 
   # ── Notify ──────────────────────────────────────────────────────────────────

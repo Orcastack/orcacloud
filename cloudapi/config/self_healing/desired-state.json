@@ -1,0 +1,13 @@
+{
+  "services": [
+    {
+      "id": "platform-api",
+      "instances": 2,
+      "enabled": true,
+      "restart_unhealthy": true,
+      "metadata": {
+        "tier": "control-plane"
+      }
+    }
+  ]
+}

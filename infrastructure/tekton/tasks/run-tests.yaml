@@ -14,8 +14,8 @@ metadata:
 spec:
   description: |
     This task runs comprehensive tests for the OrcaCloud platform including:
-    - Python/Django backend tests
-    - React frontend tests
+    - Python/Django cloudapi tests
+    - React webapp tests
     - Security tests
     - Integration tests
   workspaces:
@@ -23,45 +23,45 @@ spec:
     description: Workspace containing the source code.
   params:
   - name: PYTHON_IMAGE
-    description: Python image to use for backend tests
+    description: Python image to use for cloudapi tests
     default: python:3.11-slim
   - name: NODE_IMAGE
-    description: Node image to use for frontend tests
+    description: Node image to use for webapp tests
     default: node:18-alpine
   - name: TEST_TYPE
-    description: Type of tests to run (backend, frontend, security, integration, all)
+    description: Type of tests to run (cloudapi, webapp, security, integration, all)
     default: all
   results:
   - name: test-results
     description: Test results summary
   steps:
-  - name: install-backend-deps
+  - name: install-cloudapi-deps
     image: $(params.PYTHON_IMAGE)
     workingDir: $(workspaces.source.path)
     script: |
       #!/bin/bash
       set -e
-      echo "Installing backend dependencies..."
-      cd backend
+      echo "Installing cloudapi dependencies..."
+      cd cloudapi
       pip install --upgrade pip
       pip install -r requirements.txt
       pip install -r security/requirements-security.txt
       pip install pytest pytest-django pytest-cov
-      echo "Backend dependencies installed successfully"
+      echo "cloudapi dependencies installed successfully"
     when:
     - input: "$(params.TEST_TYPE)"
       operator: in
-      values: ["backend", "all", "security", "integration"]
+      values: ["cloudapi", "all", "security", "integration"]
 
-  - name: run-backend-tests
+  - name: run-cloudapi-tests
     image: $(params.PYTHON_IMAGE)
     workingDir: $(workspaces.source.path)
     script: |
       #!/bin/bash
       set -e
-      echo "Running backend tests..."
-      cd backend
-      
+      echo "Running cloudapi tests..."
+      cd cloudapi
+
       # Set environment variables for testing
       export DJANGO_SETTINGS_MODULE=orcacloud.settings
       export DATABASE_URL=sqlite:///test_db.sqlite3
@@ -69,57 +69,57 @@ spec:
       export SECRET_KEY=test-secret-key
       export DEBUG=True
       export ENVIRONMENT=testing
-      
+
       # Run Django tests
       python manage.py test --verbosity=2
-      
+
       # Run pytest tests
       pytest -v --cov=. --cov-report=term-missing
-      
-      echo "Backend tests completed successfully"
+
+      echo "cloudapi tests completed successfully"
     when:
     - input: "$(params.TEST_TYPE)"
       operator: in
-      values: ["backend", "all", "integration"]
+      values: ["cloudapi", "all", "integration"]
 
-  - name: install-frontend-deps
+  - name: install-webapp-deps
     image: $(params.NODE_IMAGE)
     workingDir: $(workspaces.source.path)
     script: |
       #!/bin/sh
       set -e
-      echo "Installing frontend dependencies..."
-      cd frontend
+      echo "Installing webapp dependencies..."
+      cd webapp
       npm ci
-      echo "Frontend dependencies installed successfully"
+      echo "webapp dependencies installed successfully"
     when:
     - input: "$(params.TEST_TYPE)"
       operator: in
-      values: ["frontend", "all", "integration"]
+      values: ["webapp", "all", "integration"]
 
-  - name: run-frontend-tests
+  - name: run-webapp-tests
     image: $(params.NODE_IMAGE)
     workingDir: $(workspaces.source.path)
     script: |
       #!/bin/sh
       set -e
-      echo "Running frontend tests..."
-      cd frontend
-      
+      echo "Running webapp tests..."
+      cd webapp
+
       # Run lint checks
       npm run lint
-      
+
       # Run unit tests
       npm run test -- --coverage --watchAll=false
-      
+
       # Run build test
       npm run build
-      
-      echo "Frontend tests completed successfully"
+
+      echo "webapp tests completed successfully"
     when:
     - input: "$(params.TEST_TYPE)"
       operator: in
-      values: ["frontend", "all", "integration"]
+      values: ["webapp", "all", "integration"]
 
   - name: run-security-tests
     image: $(params.PYTHON_IMAGE)
@@ -128,20 +128,20 @@ spec:
       #!/bin/bash
       set -e
       echo "Running security tests..."
-      cd backend
-      
+      cd cloudapi
+
       # Install security testing tools
       pip install bandit safety
-      
+
       # Run security linting
       bandit -r . -f json -o security-report.json || true
-      
+
       # Check for known vulnerabilities
       safety check --json --output safety-report.json || true
-      
+
       # Run custom security tests
       python -m pytest security/tests/ -v
-      
+
       echo "Security tests completed"
     when:
     - input: "$(params.TEST_TYPE)"
@@ -155,18 +155,18 @@ spec:
       #!/bin/bash
       set -e
       echo "Running integration tests..."
-      
+
       # Start services for integration testing
-      cd backend
+      cd cloudapi
       export DJANGO_SETTINGS_MODULE=orcacloud.settings
       export DATABASE_URL=sqlite:///integration_test_db.sqlite3
-      
+
       # Run migrations
       python manage.py migrate
-      
+
       # Run integration tests
       python manage.py test tests.integration --verbosity=2
-      
+
       echo "Integration tests completed"
     when:
     - input: "$(params.TEST_TYPE)"
@@ -180,24 +180,24 @@ spec:
       #!/bin/bash
       set -e
       echo "Generating test report..."
-      
+
       # Create test results summary
       cat > test-results.txt << EOF
       OrcaCloud Test Results
       ================================
       Date: $(date)
       Test Type: $(params.TEST_TYPE)
-      
+
       Test execution completed successfully.
       All test suites passed.
-      
-      Backend Tests:  PASSED
-      Frontend Tests:  PASSED
+
+      cloudapi Tests: PASSED
+      webapp Tests:   PASSED
       Security Tests:  PASSED
       Integration Tests:  PASSED
-      
+
       For detailed results, check individual test logs.
       EOF
-      
+
       echo "Test results:" | tee $(results.test-results.path)
       cat test-results.txt | tee -a $(results.test-results.path)

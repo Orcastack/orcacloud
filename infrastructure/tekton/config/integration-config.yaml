@@ -86,7 +86,7 @@ data:
       docker:
         registry:
           url: "quay.io"
-          namespace: "atonixdev"
+          namespace: "orcacloud"
           credentials_secret: "docker-registry-secret"
           
         image_config:
