@@ -19,11 +19,12 @@ from rest_framework import status
 
 pytestmark = pytest.mark.skip(reason='Legacy auth test suite targets pre-refactor contracts; pending rewrite for current backend models/services.')
 
-from ..authentication import APIKeyAuthentication, BearerTokenAuthentication
-from ..permissions import (
-    IsResourceOwner, HasAPIKey, HasValidScope, IsAdmin, CanManageUsers,
+from ..core.authentication import APIKeyAuthentication, BearerTokenAuthentication
+from ..core.auth import IsResourceOwner
+from ..core.permissions import (
+    HasAPIKey, HasValidScope, IsAdmin, CanManageUsers,
 )
-from ..core.models import UserAPIKey, UserProfile
+from ..core.base_models import UserAPIKey, UserProfile
 
 User = get_user_model()
 
